@@ -64,6 +64,12 @@
     <ClCompile Include="LIS.ME22.3.002.01.002 %28Зажим%29.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.005 %28Опора Цилиндра%29.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.004 %28Стойка%29.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">

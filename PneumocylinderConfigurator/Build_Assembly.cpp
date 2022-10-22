@@ -15,7 +15,6 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //Переменные для подсборки Поршень
     MbSolid* Yaganov1 = LIS_ME22_3_002_01_001();
     MbSolid* Morozova1 = LIS_ME22_3_002_01_002();
-    //
     //MbSolid* Zarubin1 = LIS_ME22_3_002_01_003();
     //MbSolid* Shepovalova1 = LIS_ME22_3_002_01_004();
     //MbSolid* Fukina1 = LIS_ME22_3_002_01_005();
@@ -24,7 +23,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //MbSolid* Aleksanyan3 = LIS_ME22_3_002_01_008();
 
     //// Основная сборка
-    //MbSolid* Seleznev1 = LIS_ME22_3_002_00_004();
+    MbSolid* Seleznev1 = LIS_ME22_3_002_00_004();
     //Seleznev1->SetColor(191, 255, 110);
     //MbSolid* Vasinkina1 = LIS_ME22_3_002_00_016();/*!!!!!!!!!!!!!Почему именно с 6 на конце детали начинают не отображать грани и вести себя как то не адекватно?!!!!!!!!!!!!!*/
 
@@ -53,9 +52,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     InstanceSPtr Porshen7(new MbInstance(*Aleksanyan3, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));*/
 
     //Переменные для сборки
+   /// InstanceSPtr Sborka2(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
    /* InstanceSPtr Sborka(new MbInstance(*Seleznev1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka1(new MbInstance(*Vasinkina1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    InstanceSPtr Sborka2(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka3(new MbInstance(*Kozir1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka4(new MbInstance(*Fukina2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka5(new MbInstance(*Solov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -109,15 +108,15 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     /*-------------------------------------------------------------------------*/
 
 
-
-    SPtr<MbAssembly> assm(new MbAssembly(pair));
-
+    AssemblySPtr assm = AssemblySPtr(new MbAssembly(pair));
     assm->SetJournal("C:\\Users\\Admin\\Desktop\\journal.jrn");
 	// крышки пневмоцилиндра
 	//CreateBase(pAsm, diamDifRatio); // Зарубин
 	//CreateBase(pAsm, diamDifRatio); // Зарубин
-	
+    assm.operator MbAssembly* ();
     pAsm->AddItem(*Yaganov1);
     pAsm->AddItem(*Morozova1);
+    pAsm->AddItem(*Seleznev1);
+    //pAsm->AddItem(*Veronika1);
 	return pAsm;
 }

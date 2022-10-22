@@ -182,6 +182,8 @@ namespace BuildMathModel {
 		static void CreateBase(MbAssembly* pAsm, double ratio);
 		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_01_001();
 		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_01_002();
+		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005();
+		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_004();
 
 	};
 }
