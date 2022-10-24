@@ -6,7 +6,7 @@ using namespace BuildMathModel;
 
 MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams params)
 {
-	MbAssembly* pAsm = new MbAssembly();
+	//MbAssembly* pAsm = new MbAssembly();
 
 
 
@@ -50,10 +50,10 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     InstanceSPtr Porshen5(new MbInstance(*Aleksanyan1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen6(new MbInstance(*Aleksanyan2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen7(new MbInstance(*Aleksanyan3, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));*/
-
+    InstanceSPtr Sborka(new MbInstance(*Seleznev1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     //Переменные для сборки
    /// InstanceSPtr Sborka2(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-   /* InstanceSPtr Sborka(new MbInstance(*Seleznev1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+   /* 
     InstanceSPtr Sborka1(new MbInstance(*Vasinkina1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka3(new MbInstance(*Kozir1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka4(new MbInstance(*Fukina2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -73,7 +73,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //SPtr<MbInstance> Porshen6Comp(new MbInstance(*Porshen6, lcs));
     //SPtr<MbInstance> Porshen7Comp(new MbInstance(*Porshen7, lcs));
     ////Переменные для сборки
-    //SPtr<MbInstance> SborkaComp(new MbInstance(*Sborka, lcs));
+    SPtr<MbInstance> SborkaComp(new MbInstance(*Sborka, lcs));
     //SPtr<MbInstance> Sborka1Comp(new MbInstance(*Sborka1, lcs));
     //SPtr<MbInstance> Sborka2Comp(new MbInstance(*Sborka2, lcs));
     //SPtr<MbInstance> Sborka3Comp(new MbInstance(*Sborka3, lcs));
@@ -97,7 +97,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //pair.push_back(Porshen6Comp);
     //pair.push_back(Porshen7Comp);
     ////Переменные для сборки
-    //pair.push_back(SborkaComp);
+    pair.push_back(SborkaComp);
     //pair.push_back(Sborka1Comp);
     //pair.push_back(Sborka2Comp);
     //pair.push_back(Sborka3Comp);
@@ -106,17 +106,23 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //pair.push_back(Sborka61Comp);
     //pair.push_back(Sborka62Comp);
     /*-------------------------------------------------------------------------*/
-
-
-    AssemblySPtr assm = AssemblySPtr(new MbAssembly(pair));
-    assm->SetJournal("C:\\Users\\Admin\\Desktop\\journal.jrn");
+    //Сигналы и слоты
+    //Умные указатели
+    MbAssembly* SborkaMainPtr = new MbAssembly(pair);
+    //SPtr<MbAssembly> assm();
+    //SPtr<MbAssembly> assm = AssemblySPtr(new MbAssembly(pair));
+    //assm->SetJournal("C:\\Users\\Admin\\Desktop\\journal.jrn");
 	// крышки пневмоцилиндра
 	//CreateBase(pAsm, diamDifRatio); // Зарубин
 	//CreateBase(pAsm, diamDifRatio); // Зарубин
-    assm.operator MbAssembly* ();
-    pAsm->AddItem(*Yaganov1);
-    pAsm->AddItem(*Morozova1);
-    pAsm->AddItem(*Seleznev1);
-    //pAsm->AddItem(*Veronika1);
-	return pAsm;
+    //Зависимость совмещения между втулки до колпачка
+
+    //MbAssembly* pAsm = new MbAssembly();
+    //pAsm->AddItem(*Yaganov1);
+    // pAsm->AddItem(*Morozova1);
+    ///pAsm->AddItem(*Seleznev1);
+    // operator T* (void) const { return m_pI; } // SKIP_SA
+    //MbAssembly* as = assm.operator MbAssembly* ();
+    //MbAssembly* as = assm.get();
+	return SborkaMainPtr;
 }
