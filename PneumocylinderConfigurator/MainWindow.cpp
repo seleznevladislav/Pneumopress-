@@ -76,16 +76,17 @@ void MainWindow::unsetCurrentModel()
 
 void MainWindow::aboutSlot()
 {
-	const QString GitRepo("https://github.com/maxchistt/PneumocylinderConfigurator");
+	const QString GitRepo("https://github.com/seleznevladislav/Pneumopress-");
 	QString str;
 	str += "<h3>" + QApplication::applicationName() + "</h3>";
-	str += u8"<p>Приложение-конфигуратор параметрической модели пневматического цилиндра</p>";
-	str += u8"На базе <a href=\"https://c3dlabs.com/ru/products/c3d-toolkit/\">C3D Toolkit</a> , Vision 2.6.4.6<br/>";
+	str += u8"<p>Приложение-конфигуратор параметрической модели пневматического пресса</p>";
+	str += u8"На базе <a href=\"https://c3dlabs.com/ru/products/c3d-toolkit/\">C3D Toolkit</a> , Vision 2.6.4.117<br/>";
 	str += u8"Под лицензией MIT license<br/>";
 	str += u8"Подробнее на странице GitHub <a href=\"" + GitRepo + u8"\">репозитория</a><br/>";
 	str += u8"Версия: " + QApplication::applicationVersion() + "<hr/>";
-	str += u8"Создано в рамках проектной деятельности <a href=\"" + QApplication::organizationDomain() + "\">" + u8"Центром САПР-разработки Московского Политеха" + "</a>";
-	QMessageBox::about(this, "About", str);
+	str += u8"Создано командой SIA в  рамках хакатона КИТТИ 2022 <a href=\"" + QApplication::organizationDomain() + "\">" + u8"Центром САПР-разработки Московского Политеха" + "</a><br/>";
+	str += u8"Состав команды:<br/> Зарубин Александр<br/>Селезнёв Владислав<br/>Козырь Сергей<br/>Шеповалова Полина<br/>Яганов Алихан<br/>";
+	QMessageBox::about(this, "О приложении", str);
 }
 
 void MainWindow::aboutQtSlot()

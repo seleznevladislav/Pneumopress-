@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_model">
       <attribute name="title">
@@ -50,7 +50,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Длина</string>
+            <string>Высота</string>
            </property>
           </widget>
          </item>
@@ -61,6 +61,13 @@
              <width>0</width>
              <height>24</height>
             </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLineEdit {
+
+	border: 2px solid rgb(85, 85, 127);
+	border-radius: 4px;
+}</string>
            </property>
            <property name="buttonSymbols">
             <enum>QAbstractSpinBox::PlusMinus</enum>
@@ -88,7 +95,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Диаметр</string>
+            <string>Ширина</string>
            </property>
           </widget>
          </item>
