@@ -4,7 +4,7 @@ using namespace c3d;
 using namespace std;
 using namespace BuildMathModel;
 
-MbSolid* ParametricModelCreator::LIS_ME22_3_002_01_001()
+SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
 {
 
 
@@ -467,5 +467,6 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_01_001()
 
     //-----------------------------------------------------------------------------------
     // Отображение построенного тела
-    return detail002;	
+    SolidSPtr MainSolid(detail002);
+    return MainSolid;
 }

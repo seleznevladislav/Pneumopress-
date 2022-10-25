@@ -8,33 +8,27 @@ using namespace c3d;
 using namespace std;
 using namespace BuildMathModel;
 
-void CreateBlock(SArray<MbSolid*>& _SolidsB, float x, float y, float z, float x1, float y1, float z1)
+void CreateBlock(SArray<MbCartPoint3D>& _CardPoint, float x, float y, float z, float x1, float y1, float z1)
 {
-    SArray<MbCartPoint3D> _alCardPoint(4);
-    _alCardPoint.Add(MbCartPoint3D(x, y, z));
-    _alCardPoint.Add(MbCartPoint3D(x + x1, y, z));
-    _alCardPoint.Add(MbCartPoint3D(x, y + y1, z));
-    _alCardPoint.Add(MbCartPoint3D(x, y, z + z1));
-
-    MbSNameMaker elNames(ct_ElementarySolid, MbSNameMaker::i_SideNone);
-    MbSolid* pBlock = NULL;
-    ::ElementarySolid(_alCardPoint, et_Block, elNames, pBlock);
-    _SolidsB.push_back(pBlock);
+    _CardPoint.RemoveInd(0, 4);
+    _CardPoint.Add(MbCartPoint3D(x, y, z));
+    _CardPoint.Add(MbCartPoint3D(x + x1, y, z));
+    _CardPoint.Add(MbCartPoint3D(x, y + y1, z));
+    _CardPoint.Add(MbCartPoint3D(x, y, z + z1));
 }
-void CreateCylinder(SArray<MbSolid*>& _SolidsC, float x, float y, float z, float y1, float x1, float x2, float y2, float z1)
-{
-    SArray<MbCartPoint3D> _alCardPoint(3);
-    _alCardPoint.Add(MbCartPoint3D(x, y, z));
-    _alCardPoint.Add(MbCartPoint3D(x + x2, y + y1, z + z1));
-    _alCardPoint.Add(MbCartPoint3D(x + x1, y + y2, z));
 
-    MbSNameMaker elNames(ct_ElementarySolid, MbSNameMaker::i_SideNone);
-    MbSolid* pCylinder = NULL;
-    ::ElementarySolid(_alCardPoint, et_Cylinder, elNames, pCylinder);
-    _SolidsC.push_back(pCylinder);
-}
-MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005()
+void CreateCylinder(SArray<MbCartPoint3D>& _CardPoint, float x, float y, float z, float y1, float x1, float x2, float y2, float z1)
 {
+    _CardPoint.RemoveInd(0, 3);
+    _CardPoint.Add(MbCartPoint3D(x, y, z));
+    _CardPoint.Add(MbCartPoint3D(x + x2, y + y1, z + z1));
+    _CardPoint.Add(MbCartPoint3D(x + x1, y + y2, z));
+}
+
+
+SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005()
+{
+    //ГЛАВНЫЕ РАЗМЕРЫ
     float mn_l = 350.0;
     float mn_w = 154.0;
     float mn_btw = 50.0; //расстояние МЕЖДУ двумя отзеркаленными элементами
@@ -110,35 +104,43 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005()
     float er_l4 = 210.0;
     float er_l5 = 100.0;
 
-    SArray<MbSolid*> SolidsB;
-    SArray<MbSolid*> SolidsC;
+    SArray<MbCartPoint3D> CardPointB(4);
+    SArray<MbCartPoint3D> CardPointC(3);
+
+    MbSNameMaker elNames(ct_ElementarySolid, MbSNameMaker::i_SideNone);
 
     //Создаем 3 блока
-    CreateBlock(SolidsB, rtg2_l, (-rtg1_w + rtg1_th1 * 2) * 2, -(rtg1_w + rtg1_th2 - rtg1_th1) / 2,
-        rtg2_w, 5 * (rtg1_w - rtg1_th1 * 2) / 2, rtg1_w + (rtg1_th2 - rtg1_th1));//SolidsB[0]
+    CreateBlock(CardPointB, rtg2_l, (-rtg1_w + rtg1_th1 * 2) * 2, -(rtg1_w + rtg1_th2 - rtg1_th1) / 2,
+        rtg2_w, 5 * (rtg1_w - rtg1_th1 * 2) / 2, rtg1_w + (rtg1_th2 - rtg1_th1));
+    MbSolid* pBlock1 = NULL;
+    ::ElementarySolid(CardPointB, et_Block, elNames, pBlock1);
 
-    CreateBlock(SolidsB, -rtg1_d + rtg1_th3, -(rtg1_w - rtg1_th1 * 2) / 2, -(rtg1_w + rtg3_th) / 2,
-        rtg1_d * 2 - rtg1_th3 * 2, rtg1_w - rtg1_th1 * 2, rtg1_w + rtg3_th); //SolidsB[1]
+    CreateBlock(CardPointB, -rtg1_d + rtg1_th3, -(rtg1_w - rtg1_th1 * 2) / 2, -(rtg1_w + rtg3_th) / 2,
+        rtg1_d * 2 - rtg1_th3 * 2, rtg1_w - rtg1_th1 * 2, rtg1_w + rtg3_th);
+    MbSolid* pBlock2 = NULL;
+    ::ElementarySolid(CardPointB, et_Block, elNames, pBlock2);
 
-    CreateBlock(SolidsB, 0, -rtg1_w / 2, -rtg1_l / 2, rtg1_d, rtg1_w, rtg1_l);//SolidsB[2]
+    CreateBlock(CardPointB, 0, -rtg1_w / 2, -rtg1_l / 2, rtg1_d, rtg1_w, rtg1_l);
+    MbSolid* pBlock3 = NULL;
+    ::ElementarySolid(CardPointB, et_Block, elNames, pBlock3);
 
-    //Вырезаем из SolidsB[2] SolidsB[0] и SolidsB[1]
-    MbSolid* pSolid = NULL;
+    //Вырезаем из pBlock3 pBlock1 и pBlock2
     MbSNameMaker operBoolNames(ct_BooleanSolid, MbSNameMaker::i_SideNone);
     MbBooleanFlags flagsBool;
-    MbResultType res;
+    MbResultType res1;
 
-    for (int i = 0; i < 2; i++)
-    {
-        res = ::BooleanResult(*SolidsB[2], cm_Copy, *SolidsB[i], cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
-        SolidsB.RemoveInd(2);
-        SolidsB.AddAt(pSolid, 2);
-    }
+    res1 = ::BooleanResult(*pBlock3, cm_Copy, *pBlock1, cm_Copy, bo_Difference, flagsBool, operBoolNames, pBlock3);
+    res1 = ::BooleanResult(*pBlock3, cm_Copy, *pBlock2, cm_Copy, bo_Difference, flagsBool, operBoolNames, pBlock3);
 
-    //SolidsB[3]
-    CreateBlock(SolidsB, rtg1_d - rtg3_l - rtg3_ind, rtg1_w / 2, -rtg3_w / 2, rtg3_l, rtg3_th, rtg3_w);
+    ::DeleteItem(pBlock1);
+    ::DeleteItem(pBlock2);
 
-    //Скругление SolidsB[3]
+    //pBlock4
+    CreateBlock(CardPointB, rtg1_d - rtg3_l - rtg3_ind, rtg1_w / 2, -rtg3_w / 2, rtg3_l, rtg3_th, rtg3_w);
+    MbSolid* pBlock4 = NULL;
+    ::ElementarySolid(CardPointB, et_Block, elNames, pBlock4);
+
+    //Скругление pBlock4
     MbSNameMaker filletNames(ct_FilletSolid, MbSNameMaker::i_SideNone, 0);
     SmoothValues params1;
 
@@ -148,17 +150,22 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005()
     params1.smoothCorner = SmoothValues::ec_uniform;
     RPArray<MbFace> initBounds(0, 1);
     RPArray<MbCurveEdge> initCurves(4, 4);
-    initCurves.Add(SolidsB[3]->GetEdge(2)); //8 ребро - радиус
-    initCurves.Add(SolidsB[3]->GetEdge(5));
-    initCurves.Add(SolidsB[3]->GetEdge(7));
-    initCurves.Add(SolidsB[3]->GetEdge(0));
+    initCurves.Add(pBlock4->GetEdge(2)); //8 ребро - радиус
+    initCurves.Add(pBlock4->GetEdge(5));
+    initCurves.Add(pBlock4->GetEdge(7));
+    initCurves.Add(pBlock4->GetEdge(0));
 
-    MbResultType res7 = ::FilletSolid(*SolidsB[3], cm_Copy, initCurves, initBounds, params1, filletNames, SolidsB[3]);
+    MbResultType res2 = ::FilletSolid(*pBlock4, cm_Copy, initCurves, initBounds, params1, filletNames, pBlock4);
 
-    //SolidsC[0]
-    CreateCylinder(SolidsC, cln1_ix, -cln1_iy + rtg1_w / 2, -(rtg1_l / 2) + rtg1_th1, 0, -cln1_D / 2, 0, 0, cln1_d);
-    //SolidsC[1]
-    CreateCylinder(SolidsC, cln1_ix, -cln1_iy + rtg1_w / 2, -rtg1_l / 2, 0, -cln2_D / 2, 0, 0, rtg1_l / 2);
+    //pCylinder1
+    CreateCylinder(CardPointC, cln1_ix, -cln1_iy + rtg1_w / 2, -(rtg1_l / 2) + rtg1_th1, 0, -cln1_D / 2, 0, 0, cln1_d);
+    MbSolid* pCylinder1 = NULL;
+    ::ElementarySolid(CardPointC, et_Cylinder, elNames, pCylinder1);
+
+    //pCylinder2
+    CreateCylinder(CardPointC, cln1_ix, -cln1_iy + rtg1_w / 2, -rtg1_l / 2, 0, -cln2_D / 2, 0, 0, rtg1_l / 2);
+    MbSolid* pCylinder2 = NULL;
+    ::ElementarySolid(CardPointC, et_Cylinder, elNames, pCylinder2);
 
     //тело непонятной формы
     MbPlacement3D pl;
@@ -182,23 +189,26 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005()
     MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
     PArray<MbSNameMaker> cNames(0, 1, false);
 
-    MbSolid* pSolid2 = nullptr;
-    MbResultType res1 = ::ExtrusionSolid(sweptData, dir, nullptr, nullptr, false, extrusionParams, operNames, cNames, pSolid2);
+    MbSolid* pSolid1 = nullptr;
+    MbResultType res3 = ::ExtrusionSolid(sweptData, dir, nullptr, nullptr, false, extrusionParams, operNames, cNames, pSolid1);
 
-    //Объединяем pSolid2, SolidsC[0]
-    MbSolid* pUnionSolid = NULL;
+    //Объединяем pSolid1, pCylinder1
+    MbSolid* pSolid2 = NULL;
     MbSNameMaker operUnionNames(ct_UnionSolid, MbSNameMaker::i_SideNone, 0);
     bool checkIntersection = true; bool isArray = false;
     RPArray<MbSolid> solids;
-    solids.Add(pSolid2);
-    solids.Add(SolidsC[0]);
-    MbResultType resUnion = ::UnionSolid(solids, cm_Same, checkIntersection, operUnionNames, isArray, pUnionSolid);
+    solids.Add(pSolid1);
+    solids.Add(pCylinder1);
+    MbResultType resUnion = ::UnionSolid(solids, cm_Same, checkIntersection, operUnionNames, isArray, pSolid2);
 
-    //Вырезаем из pUnionSolid SolidsC[1]
-    MbSolid* pSolid3 = NULL;
-    MbResultType res2 = ::BooleanResult(*pUnionSolid, cm_Copy, *SolidsC[1], cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid3);
+    //Вырезаем из pSolid2 pCylinder2
+    MbResultType res4 = ::BooleanResult(*pSolid2, cm_Copy, *pCylinder2, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid2);
 
-    //Скругление тела pSolid3
+    ::DeleteItem(pSolid1);
+    ::DeleteItem(pCylinder1);
+    ::DeleteItem(pCylinder2);
+
+    //Скругление тела pSolid2
     params1.distance1 = cln1_fl;
     params1.distance2 = cln2_fl;
 
@@ -206,12 +216,12 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005()
     initCurves.RemoveInd(1);
     initCurves.RemoveInd(2);
     initCurves.RemoveInd(3);
-    initCurves.Add(pSolid3->GetEdge(25)); //25 ребро - радиус 3
-    initCurves.Add(pSolid3->GetEdge(8)); //8 ребро - радиус 5
+    initCurves.Add(pSolid2->GetEdge(25)); //25 ребро - радиус 3
+    initCurves.Add(pSolid2->GetEdge(8)); //8 ребро - радиус 5
 
-    MbResultType res5 = ::FilletSolid(*pSolid3, cm_Copy, initCurves, initBounds, params1, filletNames, pSolid3);
+    MbResultType res5 = ::FilletSolid(*pSolid2, cm_Copy, initCurves, initBounds, params1, filletNames, pSolid2);
 
-    //Фаска pSolid3 
+    //Фаска pSolid2
     MbSNameMaker chamferNames(ct_FilletSolid, MbSNameMaker::i_SideNone, 0);
     SmoothValues params2;
     params2.distance1 = er_ch;
@@ -221,45 +231,71 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005()
 
     initCurves.RemoveInd(0);
     initCurves.RemoveInd(1);
-    initCurves.Add(pSolid3->GetEdge(19)); // 19 ребро - фаска 5
-    MbResultType res6 = ::ChamferSolid(*pSolid3, cm_Copy, initCurves, params2, chamferNames, pSolid3);
+    initCurves.Add(pSolid2->GetEdge(19)); // 19 ребро - фаска 5
+    MbResultType res6 = ::ChamferSolid(*pSolid2, cm_Copy, initCurves, params2, chamferNames, pSolid2);
 
-    //Зеркально отражаем pSolid3
+    //Зеркально отражаем pSolid2
     MbPlacement3D plSym;
     MbSolid* pSolidCopy = NULL;
     MbSNameMaker symNames(ct_SymmetrySolid);
-    MbResultType resSolidCopy = ::MirrorSolid(*pSolid3, plSym, symNames, pSolidCopy);
+    MbResultType resSolidCopy = ::MirrorSolid(*pSolid2, plSym, symNames, pSolidCopy);
 
-    //Объединяем pSolid3, pSolidCopy, pSolid, SolidsB[3]
+    //Объединяем pSolid2, pSolidCopy, pBlock3, pBlock4
+    MbSolid* pUnionSolid = NULL;
     solids.RemoveInd(0);
     solids.RemoveInd(1);
-    solids.Add(pSolid3);
+    solids.Add(pSolid2);
     solids.Add(pSolidCopy);
-    solids.Add(pSolid);
-    solids.Add(SolidsB[3]);
+    solids.Add(pBlock3);
+    solids.Add(pBlock4);
     resUnion = ::UnionSolid(solids, cm_Same, checkIntersection, operUnionNames, isArray, pUnionSolid);
 
-    ///Создаем 4 отверстия
-    CreateCylinder(SolidsC, cln3_dist, rtg1_w / 2 + rtg3_th, 0,
-        -rtg1_th2, -cln3_D / 2, 0, 0, 0); //SolidsC[2]
-    CreateCylinder(SolidsC, cln3_dist + cln3_btw, rtg1_w / 2 + rtg3_th, 0,
-        -rtg1_th2, -cln3_D / 2, 0, 0, 0); //SolidsC[3]
-    CreateCylinder(SolidsC, cln3_dist + cln3_btw * 2, rtg1_w / 2 + rtg3_th, 0,
-        -rtg1_th2, -cln3_D / 2, 0, 0, 0); //SolidsC[4]
+    ::DeleteItem(pSolid2);
+    ::DeleteItem(pSolidCopy);
+    ::DeleteItem(pBlock3);
+    ::DeleteItem(pBlock4);
 
-    CreateCylinder(SolidsC, rtg1_d, rtg1_w / 2 - cln6_dist, 0, 0, 0, -rtg1_d, cln6_D / 2, 0); //SolidsC[5]
+    ///Создаем 4 отверстия
+    CreateCylinder(CardPointC, cln3_dist, rtg1_w / 2 + rtg3_th, 0,
+        -rtg1_th2, -cln3_D / 2, 0, 0, 0); //pCylinder3
+    MbSolid* pCylinder3 = NULL;
+    ::ElementarySolid(CardPointC, et_Cylinder, elNames, pCylinder3);
+
+    CreateCylinder(CardPointC, cln3_dist + cln3_btw, rtg1_w / 2 + rtg3_th, 0,
+        -rtg1_th2, -cln3_D / 2, 0, 0, 0); //pCylinder4
+    MbSolid* pCylinder4 = NULL;
+    ::ElementarySolid(CardPointC, et_Cylinder, elNames, pCylinder4);
+
+    CreateCylinder(CardPointC, cln3_dist + cln3_btw * 2, rtg1_w / 2 + rtg3_th, 0,
+        -rtg1_th2, -cln3_D / 2, 0, 0, 0); //pCylinder5
+    MbSolid* pCylinder5 = NULL;
+    ::ElementarySolid(CardPointC, et_Cylinder, elNames, pCylinder5);
+
+    CreateCylinder(CardPointC, rtg1_d, rtg1_w / 2 - cln6_dist, 0, 0, 0, -rtg1_d, cln6_D / 2, 0); //pCylinder6
+    MbSolid* pCylinder6 = NULL;
+    ::ElementarySolid(CardPointC, et_Cylinder, elNames, pCylinder6);
 
     //Вырезаем 4 отверстия из основного тела
-    MbResultType res3;
-    for (int i = 2; i < 6; i++)
-    {
-        res3 = ::BooleanResult(*pUnionSolid, cm_Copy, *SolidsC[i], cm_Copy,
-            bo_Difference, flagsBool, operBoolNames, pUnionSolid);
-    }
+    MbResultType res7;
+    res7 = ::BooleanResult(*pUnionSolid, cm_Copy, *pCylinder3, cm_Copy,
+        bo_Difference, flagsBool, operBoolNames, pUnionSolid);
+    res7 = ::BooleanResult(*pUnionSolid, cm_Copy, *pCylinder4, cm_Copy,
+        bo_Difference, flagsBool, operBoolNames, pUnionSolid);
+    res7 = ::BooleanResult(*pUnionSolid, cm_Copy, *pCylinder5, cm_Copy,
+        bo_Difference, flagsBool, operBoolNames, pUnionSolid);
+    res7 = ::BooleanResult(*pUnionSolid, cm_Copy, *pCylinder6, cm_Copy,
+        bo_Difference, flagsBool, operBoolNames, pUnionSolid);
+
+    ::DeleteItem(pCylinder3);
+    ::DeleteItem(pCylinder4);
+    ::DeleteItem(pCylinder5);
+    ::DeleteItem(pCylinder6);
 
     //5 отверстие и тело его копий
-    CreateCylinder(SolidsC, cln7_indx, -rtg1_w / 2, rtg1_l / 2 - (rtg1_l - cln7_distz) / 2,
-        cln7_d, -cln7_D / 2, 0, 0, 0); //SolidsC[6]
+    CreateCylinder(CardPointC, cln7_indx, -rtg1_w / 2, rtg1_l / 2 - (rtg1_l - cln7_distz) / 2,
+        cln7_d, -cln7_D / 2, 0, 0, 0); //pCylinder7
+    MbSolid* pCylinder7 = NULL;
+    ::ElementarySolid(CardPointC, et_Cylinder, elNames, pCylinder7);
 
     MbVector3D vecDir1(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0));
     MbVector3D vecDir2(MbCartPoint3D(0, 0, 0), MbCartPoint3D(0, 0, -1));
@@ -271,13 +307,23 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005()
     DuplicationMeshValues params(false, vecDir1, step1, num1, vecDir2, step2, num2, &l);
 
     MbSolid* pDuplSolid = NULL;
+    MbSolid* pUnionSolid2 = NULL;
     MbSNameMaker namesDupl(ct_DuplicationSolid, MbSNameMaker::i_SideNone, 0);
-    MbResultType res4 = ::DuplicationSolid(*SolidsC[6], params, namesDupl, pDuplSolid);
-    res4 = ::BooleanResult(*pUnionSolid, cm_Copy, *pDuplSolid, cm_Copy, bo_Difference, flagsBool, operBoolNames, pUnionSolid);
+    MbResultType res8 = ::DuplicationSolid(*pCylinder7, params, namesDupl, pDuplSolid);
+    res8 = ::BooleanResult(*pUnionSolid, cm_Copy, *pDuplSolid, cm_Copy, bo_Difference, flagsBool, operBoolNames, pUnionSolid2);
+
+    ::DeleteItem(pUnionSolid);
+    ::DeleteItem(pCylinder7);
+    ::DeleteItem(pDuplSolid);
 
     //6 отверстие и тело его копий
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    CreateCylinder(SolidsC, 337, -98, 0, 0, -(11.5 / 2), 0, 0, 53 * 4); //SolidsC[7]
+    CreateCylinder(CardPointC, 337, -98, 0, 0, -(11.5 / 2), 0, 0, 53 * 4); //SolidsC[7]
+    MbSolid* pCylinder8 = NULL;
+
+    MbSolid* pDuplSolid2 = NULL;
+    MbSolid* pUnionSolid3 = NULL;
+    ::ElementarySolid(CardPointC, et_Cylinder, elNames, pCylinder8);
 
     MbVector3D vecDir12(MbCartPoint3D(0, 0, 0), MbCartPoint3D(0, 1, 0));
     MbVector3D vecDir22(MbCartPoint3D(0, 0, 0), MbCartPoint3D(-1, 0, 0));
@@ -287,10 +333,11 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005()
     const unsigned int num12 = cln8_ky; const unsigned int num22 = cln8_kx;
     DuplicationMeshValues params22(false, vecDir12, step12, num12, vecDir22, step22, num22, &l2);
 
-    MbResultType res8 = ::DuplicationSolid(*SolidsC[7], params22, namesDupl, pDuplSolid);
-    res8 = ::BooleanResult(*pUnionSolid, cm_Copy, *pDuplSolid, cm_Copy, bo_Difference, flagsBool, operBoolNames, pUnionSolid);
-   // show(LIGHTGRAY, pUnionSolid);
+    res8 = ::DuplicationSolid(*pCylinder8, params22, namesDupl, pDuplSolid2);
+    MbResultType res9 = ::BooleanResult(*pUnionSolid2, cm_Copy, *pDuplSolid2, cm_Copy, bo_Difference, flagsBool, operBoolNames, pUnionSolid3);
 
-    //return pUnionSolid;
-    return pSolid;
+
+    SolidSPtr MainSolid(pUnionSolid3);
+
+    return MainSolid;
 }

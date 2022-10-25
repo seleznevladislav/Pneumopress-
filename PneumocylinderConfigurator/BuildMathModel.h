@@ -78,9 +78,9 @@
 #include <surf_spiral_surface.h>
 #include <surf_spline_surface.h>
 #include <surf_offset_surface.h>
-#include <surf_curve_bounded_surface.h>license
+#include <surf_curve_bounded_surface.h>
 
-#include <attribute.h>
+#include <attribute_item.h>
 #include <attr_color.h>
 #include <attr_common_attribute.h>
 #include <attr_dencity.h>
@@ -102,7 +102,7 @@
 #include <creator.h>
 #include <cr_simple_creator.h>
 #include <solid.h>
-#include <instance.h>
+#include <instance_item.h>
 #include <plane_instance.h>
 #include <space_instance.h>
 #include <assembly.h>
@@ -128,10 +128,12 @@
 #include <cdet_bool.h>
 #include <cdet_data.h>
 #include <cdet_utility.h>
+#include <part_solid.h>
 
 #include <alg_base.h>
 #include <alg_draw.h>
 #include <generic_utility.h>
+#include <conv_model_exchange.h>
 #include <algorithm>
 #include <ctime>
 #include <functional>
@@ -139,37 +141,44 @@
 #include <vector>
 #include <utility>
 
-//подключаемые мной
-#include "action_solid.h"
-#include "cr_elementary_solid.h"
-#include <vector>
-#include "alg_curve_fillet.h"
-
-#include "cur_line_segment3d.h"
-#include "cur_polyline3d.h"
-#include "cur_contour3d.h"
-#include "cur_arc3d.h"
-#include "cur_contour.h"
-#include "action_surface.h"
-#include "surf_revolution_surface.h"
-#include "action_surface_curve.h"
-#include "action_curve.h"
-
-#include "surf_revolution_surface.h"
-#include "surf_plane.h"
-#include "cur_surface_intersection.h"
-#include "cur_bezier3d.h"
-#include "mb_axis3d.h"
-#include "action_surface_curve.h"
-#include "name_item.h"
-#include "wire_frame.h"
-
-
 #include <math_namespace.h>
 #include <last.h>
 
+//
+//#include <test_samples.h>
+//#include <test_manager.h>
+#include <action_solid.h>
+#include <creator.h>
+#include <assembly.h>
+#include <constraint.h>
+#include <solid.h>
+#include <instance_item.h>
+#include <attr_common_attribute.h>
+#include <templ_sptr.h>
+#include <alg_draw.h>
+#include <generic_utility.h>
+#include <ctime>
+#include <math_namespace.h>
+#include <last.h>
+
+#include <vector>
+#include "alg_curve_fillet.h"
+#include "mb_placement3d.h"
+#include "cur_polyline.h"
+#include "surf_plane.h"
+#include "action_solid.h"
+#include "cur_arc.h"
+//Our Files
+#include <math_namespace.h>
+
 #include "colorDef.h"
 #include "BuildParams.h"
+//GCM
+#include "gcm_api.h"
+#include "gcm_constraint.h"
+#include "gcm_manager.h"
+#include "gcm_types.h"
+
 
 namespace BuildMathModel {
 	class ParametricModelCreator {
@@ -180,9 +189,9 @@ namespace BuildMathModel {
 		static MbAssembly* CreatePneumocylinderAssembly(BuildParams params);
 	private:
 		static void CreateBase(MbAssembly* pAsm, double ratio);
-		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_01_001();
-		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_01_002();
-		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_005();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_002();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005();
 		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_004();
 
 	};

@@ -4,7 +4,7 @@ using namespace c3d;
 using namespace std;
 using namespace BuildMathModel;
 
-MbSolid* ParametricModelCreator::LIS_ME22_3_002_01_002()
+SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_002()
 {// Множитель для преобразования углов из градусной в радианную меру.
     const double DEG_TO_RAD = M_PI / 180.0;
     const double SqureSize = 65; //для цилиндров
@@ -195,5 +195,6 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_01_002()
         namesElSolid, pCyl10_Solid);
     MbResultType res10 = ::BooleanResult(*pCyl1_Solid, cm_Copy, *pCyl10_Solid, cm_Copy, bo_Difference, flagsBool, operBoolNames, pCyl1_Solid);
 
-    return pCyl1_Solid;
+    SolidSPtr MainSolid(pCyl1_Solid);
+    return MainSolid;
 }
