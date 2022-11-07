@@ -193,18 +193,21 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005()
     MbResultType res3 = ::ExtrusionSolid(sweptData, dir, nullptr, nullptr, false, extrusionParams, operNames, cNames, pSolid1);
 
     //Объединяем pSolid1, pCylinder1
-    MbSolid* pSolid2 = NULL;
+    //MbSolid* pSolid2 = NULL;
     MbSNameMaker operUnionNames(ct_UnionSolid, MbSNameMaker::i_SideNone, 0);
     bool checkIntersection = true; bool isArray = false;
-    RPArray<MbSolid> solids;
-    solids.Add(pSolid1);
-    solids.Add(pCylinder1);
-    MbResultType resUnion = ::UnionSolid(solids, cm_Same, checkIntersection, operUnionNames, isArray, pSolid2);
+    //RPArray<MbSolid> solids;
+    //solids.Add(pSolid1);
+    //solids.Add(pCylinder1);
+    //MbResultType resUnion = ::UnionSolid(solids, cm_Same, checkIntersection, operUnionNames, isArray, pSolid2);
+    ::BooleanResult(*pSolid1, cm_Copy, *pCylinder1, cm_Copy, bo_Union,
+        flagsBool, operBoolNames, pSolid1);
 
     //Вырезаем из pSolid2 pCylinder2
-    MbResultType res4 = ::BooleanResult(*pSolid2, cm_Copy, *pCylinder2, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid2);
-
-    ::DeleteItem(pSolid1);
+    //MbResultType res4 = ::BooleanResult(*pSolid2, cm_Copy, *pCylinder2, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid2);
+    ::BooleanResult(*pSolid1, cm_Copy, *pCylinder2, cm_Copy, bo_Union,
+        flagsBool, operBoolNames, pSolid1);
+    //::DeleteItem(pSolid1);
     ::DeleteItem(pCylinder1);
     ::DeleteItem(pCylinder2);
 
@@ -216,10 +219,10 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005()
     initCurves.RemoveInd(1);
     initCurves.RemoveInd(2);
     initCurves.RemoveInd(3);
-    initCurves.Add(pSolid2->GetEdge(25)); //25 ребро - радиус 3
-    initCurves.Add(pSolid2->GetEdge(8)); //8 ребро - радиус 5
+    initCurves.Add(pSolid1->GetEdge(25)); //25 ребро - радиус 3
+    initCurves.Add(pSolid1->GetEdge(8)); //8 ребро - радиус 5
 
-    MbResultType res5 = ::FilletSolid(*pSolid2, cm_Copy, initCurves, initBounds, params1, filletNames, pSolid2);
+    MbResultType res5 = ::FilletSolid(*pSolid1, cm_Copy, initCurves, initBounds, params1, filletNames, pSolid1);
 
     //Фаска pSolid2
     MbSNameMaker chamferNames(ct_FilletSolid, MbSNameMaker::i_SideNone, 0);
@@ -231,26 +234,31 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005()
 
     initCurves.RemoveInd(0);
     initCurves.RemoveInd(1);
-    initCurves.Add(pSolid2->GetEdge(19)); // 19 ребро - фаска 5
-    MbResultType res6 = ::ChamferSolid(*pSolid2, cm_Copy, initCurves, params2, chamferNames, pSolid2);
+    initCurves.Add(pSolid1->GetEdge(19)); // 19 ребро - фаска 5
+    MbResultType res6 = ::ChamferSolid(*pSolid1, cm_Copy, initCurves, params2, chamferNames, pSolid1);
 
     //Зеркально отражаем pSolid2
     MbPlacement3D plSym;
     MbSolid* pSolidCopy = NULL;
     MbSNameMaker symNames(ct_SymmetrySolid);
-    MbResultType resSolidCopy = ::MirrorSolid(*pSolid2, plSym, symNames, pSolidCopy);
+    MbResultType resSolidCopy = ::MirrorSolid(*pSolid1, plSym, symNames, pSolidCopy);
 
     //Объединяем pSolid2, pSolidCopy, pBlock3, pBlock4
-    MbSolid* pUnionSolid = NULL;
+    /*MbSolid* pUnionSolid = NULL;
     solids.RemoveInd(0);
     solids.RemoveInd(1);
     solids.Add(pSolid2);
     solids.Add(pSolidCopy);
     solids.Add(pBlock3);
-    solids.Add(pBlock4);
     resUnion = ::UnionSolid(solids, cm_Same, checkIntersection, operUnionNames, isArray, pUnionSolid);
-
-    ::DeleteItem(pSolid2);
+    solids.Add(pBlock4);*/
+    ::BooleanResult(*pSolid1, cm_Copy, *pSolidCopy, cm_Copy, bo_Union,
+        flagsBool, operBoolNames, pSolid1);
+    ::BooleanResult(*pSolid1, cm_Copy, *pBlock3, cm_Copy, bo_Union,
+        flagsBool, operBoolNames, pSolid1);
+    ::BooleanResult(*pSolid1, cm_Copy, *pBlock4, cm_Copy, bo_Union,
+        flagsBool, operBoolNames, pSolid1);
+    //::DeleteItem(pSolid2);
     ::DeleteItem(pSolidCopy);
     ::DeleteItem(pBlock3);
     ::DeleteItem(pBlock4);
@@ -277,14 +285,14 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005()
 
     //Вырезаем 4 отверстия из основного тела
     MbResultType res7;
-    res7 = ::BooleanResult(*pUnionSolid, cm_Copy, *pCylinder3, cm_Copy,
-        bo_Difference, flagsBool, operBoolNames, pUnionSolid);
-    res7 = ::BooleanResult(*pUnionSolid, cm_Copy, *pCylinder4, cm_Copy,
-        bo_Difference, flagsBool, operBoolNames, pUnionSolid);
-    res7 = ::BooleanResult(*pUnionSolid, cm_Copy, *pCylinder5, cm_Copy,
-        bo_Difference, flagsBool, operBoolNames, pUnionSolid);
-    res7 = ::BooleanResult(*pUnionSolid, cm_Copy, *pCylinder6, cm_Copy,
-        bo_Difference, flagsBool, operBoolNames, pUnionSolid);
+    res7 = ::BooleanResult(*pSolid1, cm_Copy, *pCylinder3, cm_Copy,
+        bo_Difference, flagsBool, operBoolNames, pSolid1);
+    res7 = ::BooleanResult(*pSolid1, cm_Copy, *pCylinder4, cm_Copy,
+        bo_Difference, flagsBool, operBoolNames, pSolid1);
+    res7 = ::BooleanResult(*pSolid1, cm_Copy, *pCylinder5, cm_Copy,
+        bo_Difference, flagsBool, operBoolNames, pSolid1);
+    res7 = ::BooleanResult(*pSolid1, cm_Copy, *pCylinder6, cm_Copy,
+        bo_Difference, flagsBool, operBoolNames, pSolid1);
 
     ::DeleteItem(pCylinder3);
     ::DeleteItem(pCylinder4);
@@ -310,9 +318,9 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005()
     MbSolid* pUnionSolid2 = NULL;
     MbSNameMaker namesDupl(ct_DuplicationSolid, MbSNameMaker::i_SideNone, 0);
     MbResultType res8 = ::DuplicationSolid(*pCylinder7, params, namesDupl, pDuplSolid);
-    res8 = ::BooleanResult(*pUnionSolid, cm_Copy, *pDuplSolid, cm_Copy, bo_Difference, flagsBool, operBoolNames, pUnionSolid2);
+    res8 = ::BooleanResult(*pSolid1, cm_Copy, *pDuplSolid, cm_Copy, bo_Difference, flagsBool, operBoolNames, pUnionSolid2);
 
-    ::DeleteItem(pUnionSolid);
+    //::DeleteItem(pUnionSolid);
     ::DeleteItem(pCylinder7);
     ::DeleteItem(pDuplSolid);
 

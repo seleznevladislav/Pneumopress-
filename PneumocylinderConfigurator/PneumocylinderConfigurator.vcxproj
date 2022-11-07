@@ -115,11 +115,17 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="Build_Assembly.cpp" />
     <ClCompile Include="Build_Base.cpp" />
     <ClCompile Include="FileController.cpp" />
+    <ClCompile Include="LIS.ME22.3.002.01.005 (Шток).cpp" />
     <ClCompile Include="ParamsWidget.cpp" />
     <ClCompile Include="LIS.ME22.3.002.01.001 %28Блок передний%29.cpp" />
     <ClCompile Include="LIS.ME22.3.002.01.002 %28Зажим%29.cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.005 %28Опора Цилиндра%29.cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.004 %28Стойка%29.cpp" />
+    <ClCompile Include="LIS.ME22.3.002.01.003 %28Колпачок%29.cpp" />
+    <ClCompile Include="LIS.ME22.3.002.01.004 %28Цилиндр%29.cpp" />
+    <ClCompile Include="LIS.ME22.3.002.01.006 %28Втулка%29.cpp" />
+    <ClCompile Include="LIS.ME22.3.002.01.007 %28Втулка%29.cpp" />
+    <ClCompile Include="LIS.ME22.3.002.01.008 %28Втулка тонкая%29.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="MainWindow.qrc" />
     <QtUic Include="MainWindow.ui" />

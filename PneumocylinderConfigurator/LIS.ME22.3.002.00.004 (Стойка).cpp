@@ -188,7 +188,7 @@ void CreateEdgesBack(RPArray<MbContour>& _arrContours)
 
 }
 
-MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_004()
+SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004()
 {
 
     RPArray<MbContour> arrContours;
@@ -522,7 +522,8 @@ MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_004()
     ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid18, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
     ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid19, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
 
-    return pSolid;
+    SPtr<MbSolid> pSolidRes(pSolid);
+    return pSolidRes;
 
     //Уменьшение счетчиков ссылок динамически созданных объектов ядра
 

@@ -70,6 +70,24 @@
     <ClCompile Include="LIS.ME22.3.002.00.004 %28Стойка%29.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.01.003 %28Колпачок%29.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.01.004 %28Цилиндр%29.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.01.005 (Шток).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.01.006 %28Втулка%29.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.01.007 %28Втулка%29.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.01.008 %28Втулка тонкая%29.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">

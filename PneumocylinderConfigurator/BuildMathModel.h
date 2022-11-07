@@ -189,10 +189,18 @@ namespace BuildMathModel {
 		static MbAssembly* CreatePneumocylinderAssembly(BuildParams params);
 	private:
 		static void CreateBase(MbAssembly* pAsm, double ratio);
+		//Переменные для поршня
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_002();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_003();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_004();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_005();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_006();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_007();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_008();
+
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005();
-		static MbSolid* ParametricModelCreator::LIS_ME22_3_002_00_004();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004();
 
 	};
 }

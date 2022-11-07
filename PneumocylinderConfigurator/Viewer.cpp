@@ -14,7 +14,7 @@ Viewer::Viewer(QWidget* parent) : QtVision::QtOpenGLSceneWidget(parent)
 Viewer::~Viewer()
 {
 }
-
+/*
 NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment)
 {
 	
@@ -36,6 +36,7 @@ NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment
 		}
 	}
 	else {
+		//item ->Transform(matrFrom, )
 		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(new MbSpaceInstance(*pSurface), CommandType::Synchronous), rootSegment);
 		SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
 		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
@@ -46,7 +47,7 @@ NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment
 
 	return keys;
 }
-
+*/
 NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegment)
 {
 	if (!sceneSegment) sceneSegment = rootSceneSegment;
@@ -57,8 +58,8 @@ NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegme
 	model->GetItems(MbeSpaceType::st_SpaceItem, subitems, matrs);
 
 #if 1 //two ways to add model to view
-	for (auto subitem : subitems) {
-		NodeKeyVector subkeys = addMathGeoms(subitem, sceneSegment);
+	for (int i = 0; i < subitems.size(); i++) {
+		NodeKeyVector subkeys = addMathGeoms(subitems[i], sceneSegment, matrs[i]);
 		keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
 	}
 #else
@@ -70,6 +71,38 @@ NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegme
 	keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
 #endif
 	updHideElements();
+	return keys;
+}
+
+NodeKeyVector Viewer::addMathGeoms(MbItem * item,  VSN::SceneSegment * sceneSegment , MbMatrix3D matrix )
+{
+
+	if (!sceneSegment) sceneSegment = rootSceneSegment;
+
+	NodeKeyVector keys;
+
+	if (item->Type() == MbeSpaceType::st_Assembly) {
+		//разделение сборки на составные элементы, тк MbAssembly отображается бесцветной
+		RPArray<MbItem> subitems;
+		SArray<MbMatrix3D> matrs;
+		MbMatrix3D matrFrom;
+		item->GetMatrixFrom(matrFrom);
+		item->GetItems(MbeSpaceType::st_Item, matrFrom, subitems, matrs);
+
+		for (int i = 0; i < subitems.size(); i++) {
+			NodeKeyVector subkeys = addMathGeoms(subitems[i], sceneSegment, matrs[i].Transform(matrix));
+			keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
+		}
+	}
+	else {
+		item->Transform(matrix);
+		SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
+		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
+		segSinSurface->SetObjectName(VSN::String(item->GetItemName()));
+		checkHideElement(segSinSurface);
+		keys.push_back(segSinSurface->GetUniqueKey());
+	}
+
 	return keys;
 }
 
