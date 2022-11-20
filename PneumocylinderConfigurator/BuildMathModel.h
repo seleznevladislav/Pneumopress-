@@ -202,5 +202,6 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004();
 
+		static SPtr<MbSolid> ParametricModelCreator::GHOST();
 	};
 }
