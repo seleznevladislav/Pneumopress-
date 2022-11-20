@@ -70,6 +70,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Yaganov1->SetColor(255, 255, 0);
     SPtr<MbSolid> Morozova1 = LIS_ME22_3_002_01_002();
     Morozova1->SetColor(255, 255, 255);
+
+    SPtr<MbSolid> Washer = GHOST();
     /*SPtr<MbSolid> Zarubin1 = LIS_ME22_3_002_01_003();
     Zarubin1->SetColor(255, 255, 0);
     SPtr<MbSolid> Shepovalova1 = LIS_ME22_3_002_01_004();
@@ -88,6 +90,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MbPlacement3D lcs;
     InstanceSPtr Porshen(new MbInstance(*Yaganov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen1(new MbInstance(*Morozova1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Porshen2(new MbInstance(*Washer, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+
+
     //InstanceSPtr Porshen2(new MbInstance(*Zarubin1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     //InstanceSPtr Porshen3(new MbInstance(*Shepovalova1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     //InstanceSPtr Porshen4(new MbInstance(*Fukina1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -98,6 +103,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //Переменные для подсборки Поршень
     SPtr<MbInstance> PorshenComp(new MbInstance(*Porshen, lcs));
     SPtr<MbInstance> Porshen1Comp(new MbInstance(*Porshen1, lcs));
+    SPtr<MbInstance> Porshen2Comp(new MbInstance(*Porshen2, lcs));
     //SPtr<MbInstance> Porshen2Comp(new MbInstance(*Porshen2, lcs));
     //SPtr<MbInstance> Porshen3Comp(new MbInstance(*Porshen3, lcs));
     //SPtr<MbInstance> Porshen41Comp(new MbInstance(*Porshen4, lcs));
@@ -112,6 +118,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     vector<SPtr<MbInstance>> pair;
     pair.push_back(PorshenComp);
     pair.push_back(Porshen1Comp);
+    pair.push_back(Porshen2Comp);
     /*
     pair.push_back(Porshen2Comp);
     pair.push_back(Porshen3Comp);
