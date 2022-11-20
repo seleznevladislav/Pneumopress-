@@ -522,6 +522,8 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004()
     ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid18, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
     ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid19, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
 
+    pSolid->Move(MbVector3D(MbCartPoint3D(0.0, 0.0, 0.0), MbCartPoint3D(-255.0 / 2, 0.0, 0.0)));
+
     SPtr<MbSolid> pSolidRes(pSolid);
     return pSolidRes;
 

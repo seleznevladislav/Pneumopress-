@@ -83,6 +83,10 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Aleksanyan2->SetColor(140, 70, 0);
     SPtr<MbSolid> Aleksanyan3 = LIS_ME22_3_002_01_008();
     Aleksanyan3->SetColor(255, 58, 58);*/
+
+    // Основная сборка
+    SPtr<MbSolid> Seleznev1 = LIS_ME22_3_002_00_004();
+    Seleznev1->SetColor(191, 255, 110);
     /*-------------------------------------------------------------------------*/
     //Переменные для подсборки Поршень
     MbPlacement3D lcs;
@@ -94,6 +98,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //InstanceSPtr Porshen5(new MbInstance(*Aleksanyan1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     //InstanceSPtr Porshen6(new MbInstance(*Aleksanyan2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     //InstanceSPtr Porshen7(new MbInstance(*Aleksanyan3, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    //Переменные для сборки
+    InstanceSPtr Sborka(new MbInstance(*Seleznev1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     /*-------------------------------------------------------------------------*/
     //Переменные для подсборки Поршень
     SPtr<MbInstance> PorshenComp(new MbInstance(*Porshen, lcs));
@@ -107,6 +113,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //SPtr<MbInstance> Porshen5Comp(new MbInstance(*Porshen5, lcs));
     //SPtr<MbInstance> Porshen6Comp(new MbInstance(*Porshen6, lcs));
     //SPtr<MbInstance> Porshen7Comp(new MbInstance(*Porshen7, lcs));
+    //Переменные для сборки
+    SPtr<MbInstance> SborkaComp(new MbInstance(*Sborka, lcs));
     /*-------------------------------------------------------------------------*/
     //Переменные для подсборки Поршень
     vector<SPtr<MbInstance>> pair;
@@ -122,34 +130,36 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Porshen5Comp);
     pair.push_back(Porshen6Comp);;
     pair.push_back(Porshen7Comp);*/
+    //Переменные для сборки
+    pair.push_back(SborkaComp);
+
 
     MbAssembly* assm = new MbAssembly(pair);
 
     ConstraintSolver cs;
 
 
-    GCM_geom sideIdPorshenComp = cs.AddGeom(PorshenComp->GetPlacement());
-    GCM_geom StartPlacement = cs.AddGeom(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0)));
-
-    GCM_geom box1Id = cs.AddGeom(Porshen1Comp->GetPlacement());
-
-    //GCM_geom box1ContactPointPlacementId = cs.AddGeom(PrepareBoxContactPointPlacement(MbPlacement3D(MbCartPoint3D(-25.0, 5.0, -0.5)), M_PI / 4));
-    MbPlacement3D for1 = MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0));
-    //for1.Rotate(MbAxis3D(MbCartPoint3D(0.0,0.0,0.0), MbCartPoint3D(10.0, 0.0, 0.0)), 90*M_PI/180);
-    GCM_geom box1ContactPointPlacementId = cs.AddGeom(for1);
-
-
+    GCM_geom LCSPorshenComp = cs.AddGeom(PorshenComp->GetPlacement());
+    GCM_geom LCSPorshen1Comp = cs.AddGeom(Porshen1Comp->GetPlacement());
+    GCM_geom LCSSborkaComp = cs.AddGeom(SborkaComp->GetPlacement());
+    //Создание основной плоскости
+    GCM_geom StartPlacement = cs.AddGeom(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0), MbCartPoint3D(1.0, 0.0, 0.0), MbCartPoint3D(0.0, 1.0, 0.0)));
     cs.FixGeom(StartPlacement);
-    cs.FixGeom(box1ContactPointPlacementId);
+    //GCM_geom box1ContactPointPlacementId = cs.AddGeom(PrepareBoxContactPointPlacement(MbPlacement3D(MbCartPoint3D(-25.0, 5.0, -0.5)), M_PI / 4));
+    //MbPlacement3D for1 = MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0));
+    //for1.Rotate(MbAxis3D(MbCartPoint3D(0.0,0.0,0.0), MbCartPoint3D(10.0, 0.0, 0.0)), 90*M_PI/180);
+    //GCM_geom box1ContactPointPlacementId = cs.AddGeom(for1);
 
-    cs.AddConstraint(GCM_COINCIDENT, StartPlacement, sideIdPorshenComp);
-    cs.AddConstraint(GCM_COINCIDENT, box1ContactPointPlacementId, box1Id);
+    cs.AddConstraint(GCM_COINCIDENT, StartPlacement, LCSPorshenComp);
+    cs.AddConstraint(GCM_COINCIDENT, StartPlacement, LCSPorshen1Comp);
+    cs.AddConstraint(GCM_COINCIDENT, StartPlacement, LCSSborkaComp);
 
     // Решение ограничений
     cs.Evaluate();
 
-    PorshenComp->SetPlacement(cs.GetNewPlacement3D(sideIdPorshenComp));
-    Porshen1Comp->SetPlacement(cs.GetNewPlacement3D(box1Id));
+    PorshenComp->SetPlacement(cs.GetNewPlacement3D(LCSPorshenComp));
+    Porshen1Comp->SetPlacement(cs.GetNewPlacement3D(LCSPorshen1Comp));
+    Porshen1Comp->SetPlacement(cs.GetNewPlacement3D(LCSSborkaComp));
 
     //TEST
     //GCM_geom side1 = cs.AddGeom(PorshenComp->GetPlacement());
