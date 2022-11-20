@@ -14,7 +14,7 @@ public:
     ConstraintSolver()
     {
         m_gcSystem = GCM_CreateSystem();
-        GCM_SetJournal(m_gcSystem, "SampleAnimationOfBending.jrn");
+        //GCM_SetJournal(m_gcSystem, "SampleAnimationOfBending.jrn");
     }
 
     ~ConstraintSolver()
