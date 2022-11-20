@@ -1,6 +1,6 @@
 ;;
 ;; Journal of C3D solver: SampleAnimationOfBending.jrn
-;; Generated: 11/20/22 14:04:22
+;; Generated: 11/20/22 14:30:21
 ;; C3D version (hex): 15001001
 ;;
 
@@ -8,12 +8,10 @@
 (GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0) (0.0 1.0 0.0)) #1)
 (GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0) (0.0 1.0 0.0)) #2)
 (GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0) (0.0 1.0 0.0)) #3)
-(GCM_AddGeom (GCM_LCS (32.5 -0.0 -32.5) (0.0 -1.0 0.0) (1.0 0.0 0.0) (-0.0 0.0 1.0)) #4)
+(GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0) (0.0 1.0 0.0)) #4)
 (GCM_FixGeom #2 )
 (GCM_FixGeom #4 )
 (GCM_AddConstraint (GCM_COINCIDENT #2 #1 GCM_CLOSEST) #5)
 (GCM_AddConstraint (GCM_COINCIDENT #4 #3 GCM_CLOSEST) #6)
 (GCM_Evaluate GCM_RESULT_Ok)
-(GCM_Placement #1 ((0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0)))
-(GCM_Placement #3 ((32.5 -0.0 -32.5) (0.0 -1.0 0.0) (1.0 0.0 -0.0)))
-(GCM_DiagnosticPars ((consCount 2) (inConsCount 19) (reductCoef 47.368421052631575) (dof 0)))
+(GCM_DiagnosticPars ((consCount 2) (inConsCount 19) (reductCoef -1.0) (dof 0)))

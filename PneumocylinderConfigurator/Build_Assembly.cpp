@@ -135,7 +135,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     //GCM_geom box1ContactPointPlacementId = cs.AddGeom(PrepareBoxContactPointPlacement(MbPlacement3D(MbCartPoint3D(-25.0, 5.0, -0.5)), M_PI / 4));
     MbPlacement3D for1 = MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0));
-    for1.Rotate(MbAxis3D(MbCartPoint3D(0.0,0.0,0.0), MbCartPoint3D(10.0, 0.0, 0.0)), 90*M_PI/180);
+    //for1.Rotate(MbAxis3D(MbCartPoint3D(0.0,0.0,0.0), MbCartPoint3D(10.0, 0.0, 0.0)), 90*M_PI/180);
     GCM_geom box1ContactPointPlacementId = cs.AddGeom(for1);
 
 
@@ -145,6 +145,11 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     cs.AddConstraint(GCM_COINCIDENT, StartPlacement, sideIdPorshenComp);
     cs.AddConstraint(GCM_COINCIDENT, box1ContactPointPlacementId, box1Id);
 
+    // Решение ограничений
+    cs.Evaluate();
+
+    PorshenComp->SetPlacement(cs.GetNewPlacement3D(sideIdPorshenComp));
+    Porshen1Comp->SetPlacement(cs.GetNewPlacement3D(box1Id));
 
     //TEST
     //GCM_geom side1 = cs.AddGeom(PorshenComp->GetPlacement());
@@ -162,11 +167,6 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //PorshenComp->SetPlacement(cs.GetNewPlacement3D(side1));
     //Porshen1Comp->SetPlacement(cs.GetNewPlacement3D(side2));
     //END TEST
-    // Решение ограничений
-    cs.Evaluate();
-
-    PorshenComp->SetPlacement(cs.GetNewPlacement3D(sideIdPorshenComp));
-    Porshen1Comp->SetPlacement(cs.GetNewPlacement3D(box1Id));
 
 	return assm;
 }

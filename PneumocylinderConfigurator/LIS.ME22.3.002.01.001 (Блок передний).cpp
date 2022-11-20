@@ -7,7 +7,6 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
 {
 
-
     double osnovanie_lenghth = 95;// сторона квадрата основания
     double osnovanie_high = 45;//высота квадрата основания
     double sopr = 4;//сопряжение основания
@@ -37,19 +36,21 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
     double d_centr_otv9 = 10;//диаметр четырех отверстий (вид снизу)
     double d_massiva = 52;//диаметр окружности на котором расположены отверстия d_centr_otv9
     double glubina_centr_otv9 = 20;//глубина отверстий d_centr_otv9
+    double a = osnovanie_lenghth;
     //--------------основание-------------------------------------
     MbSNameMaker namesElSolid(ct_ElementarySolid, MbSNameMaker::i_SideNone, 0);
     // ИСХОДНОЕ ТЕЛО №1 - ПАРАЛЛЕЛЕПИПЕД
     MbSolid* fpOsnovanie = NULL;
     // Опорные точки для построения элементарного тела - блока
     SArray<MbCartPoint3D> blockPnts(4);
-    blockPnts.Add(MbCartPoint3D(0, 0, osnovanie_lenghth));
-    blockPnts.Add(MbCartPoint3D(0, 0, 0));
-    blockPnts.Add(MbCartPoint3D(0, osnovanie_high, osnovanie_lenghth));
-    blockPnts.Add(MbCartPoint3D(osnovanie_lenghth, 0, osnovanie_lenghth));
+    blockPnts.Add(MbCartPoint3D(-osnovanie_lenghth / 2, 0, osnovanie_lenghth / 2));
+    blockPnts.Add(MbCartPoint3D(-osnovanie_lenghth / 2, 0, -osnovanie_lenghth / 2));
+    blockPnts.Add(MbCartPoint3D(-osnovanie_lenghth / 2, osnovanie_high, osnovanie_lenghth / 2));
+    blockPnts.Add(MbCartPoint3D(osnovanie_lenghth / 2, 0, osnovanie_lenghth / 2));
     // Построение элементарного тела - блока
     MbResultType resBlock = ::ElementarySolid(blockPnts, et_Block,
         namesElSolid, fpOsnovanie);
+
     //-----------------------------------------------------------------------------------   
     SmoothValues fparams;
     MbSNameMaker filletNames(ct_FilletSolid, MbSNameMaker::i_SideNone, 0);
@@ -80,6 +81,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
     MbSolid* pOsnovanie = NULL;
     MbResultType resf = ::FilletSolid(*fpOsnovanie, cm_Copy, initCurves2, initBounds2,
         fparams, filletNames, pOsnovanie);
+    osnovanie_lenghth = 0;
     //-----------------------------------------------------------------------------------   
     MbCartPoint3D baseCenter1(osnovanie_lenghth / 2, osnovanie_high / 2, osnovanie_lenghth / 2 - uho_length / 2); // Центр первого основания
     MbCartPoint3D baseCenter2(osnovanie_lenghth / 2, osnovanie_high / 2, osnovanie_lenghth / 2 + uho_length / 2); // Центр второго основания
@@ -133,6 +135,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
     }
 
     //-----------------------------------------------------------------------------------
+
         // Построение цилиндрической поверхности
     MbCartPoint3D baseCenter_for_kol_vnut1(osnovanie_lenghth / 2, osnovanie_high - glubina, osnovanie_lenghth / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_kol_vnut2(osnovanie_lenghth / 2, osnovanie_high, osnovanie_lenghth / 2); // Центр второго основания
@@ -165,6 +168,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_virez);
 
     //----------------------------------------------------------------------------------- 
+
           //отверстия
     MbCartPoint3D baseCenter_for_otv1(osnovanie_lenghth / 2 - a_kvadrata / 2, 0, osnovanie_lenghth / 2 - a_kvadrata / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_otv2(osnovanie_lenghth / 2 - a_kvadrata / 2, osnovanie_high, osnovanie_lenghth / 2 - a_kvadrata / 2); // Центр второго основания
@@ -216,6 +220,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_otv);
 
     //-----------------------------------------------------------------------------------
+
           // Построение цилиндрической поверхности
     MbCartPoint3D baseCenter_for_centr_otv1(osnovanie_lenghth / 2, 0, osnovanie_lenghth / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_centr_otv2(osnovanie_lenghth / 2, glubina_centr_otv, osnovanie_lenghth / 2); // Центр второго основания
@@ -269,6 +274,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_centr_otv2);
 
     //-----------------------------------------------------------------------------------
+
     MbCartPoint3D baseCenter_for_centr_3otv1(osnovanie_lenghth / 2, glubina_centr_otv + glubina_centr_otv2, osnovanie_lenghth / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_centr_3otv2(osnovanie_lenghth / 2, glubina_centr_otv + glubina_centr_otv2 + glubina_centr_otv3, osnovanie_lenghth / 2); // Центр второго основания
     // Точка на втором основании для указания радиуса цилиндра
@@ -293,6 +299,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_centr_otv3);
 
     //-----------------------------------------------------------------------------------   
+
     MbCartPoint3D baseCenter_for_centr_4otv1(osnovanie_lenghth / 2, glubina_centr_otv + glubina_centr_otv2 + glubina_centr_otv3, osnovanie_lenghth / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_centr_4otv2(osnovanie_lenghth / 2, glubina_centr_otv + glubina_centr_otv2 + glubina_centr_otv3 + glubina_centr_otv4, osnovanie_lenghth / 2); // Центр второго основания
     // Точка на втором основании для указания радиуса цилиндра
@@ -317,6 +324,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_centr_otv4);
 
     //-----------------------------------------------------------------------------------  
+
     MbCartPoint3D baseCenter_for_centr_5otv1(osnovanie_lenghth / 2 - a_otv, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_centr_5otv2(osnovanie_lenghth / 2 - a_otv, osnovanie_high, osnovanie_lenghth / 2); // Центр второго основания
     // Точка на втором основании для указания радиуса цилиндра
@@ -341,6 +349,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_centr_otv5);
 
     //-----------------------------------------------------------------------------------
+
     MbCartPoint3D baseCenter_for_centr_6otv1(osnovanie_lenghth / 2 + a_otv, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_centr_6otv2(osnovanie_lenghth / 2 + a_otv, osnovanie_high, osnovanie_lenghth / 2); // Центр второго основания
     // Точка на втором основании для указания радиуса цилиндра
@@ -365,10 +374,11 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_centr_otv6);
 
     //-----------------------------------------------------------------------------------
-    MbCartPoint3D baseCenter_for_centr_7otv1(osnovanie_lenghth, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2); // Центр первого основания
-    MbCartPoint3D baseCenter_for_centr_7otv2(osnovanie_lenghth - glubina_centr_otv7, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2); // Центр второго основания
+
+    MbCartPoint3D baseCenter_for_centr_7otv1(a / 2, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 4); // Центр первого основания
+    MbCartPoint3D baseCenter_for_centr_7otv2(a / 2 - glubina_centr_otv7, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2); // Центр второго основания
     // Точка на втором основании для указания радиуса цилиндра
-    MbCartPoint3D pntOnBase_for_centr_7otv2(osnovanie_lenghth - glubina_centr_otv7, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2 + d_centr_otv7 / 2);
+    MbCartPoint3D pntOnBase_for_centr_7otv2(a / 2 - glubina_centr_otv7, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2 + d_centr_otv7 / 2);
     // Вызов функции ядра для создания элементарной поверхности
     MbSurface* pCylSurf_kol_centr_7otv = NULL;
     MbResultType resCylSurf_centr_7otv = ::ElementarySurface(baseCenter_for_centr_7otv1, baseCenter_for_centr_7otv2, pntOnBase_for_centr_7otv2,
@@ -389,7 +399,8 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_centr_otv7);
 
     //-----------------------------------------------------------------------------------
-    MbCartPoint3D baseCenter_for_centr_8otv1(0, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2); // Центр первого основания
+
+    MbCartPoint3D baseCenter_for_centr_8otv1(-a / 2, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_centr_8otv2(osnovanie_lenghth / 2, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2); // Центр второго основания
     // Точка на втором основании для указания радиуса цилиндра
     MbCartPoint3D pntOnBase_for_centr_8otv2(osnovanie_lenghth / 2, osnovanie_high - glubina_centr_otv5, osnovanie_lenghth / 2 + d_centr_otv8 / 2);
@@ -413,6 +424,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, pOsn_obsh_centr_otv8);
 
     //-----------------------------------------------------------------------------------
+
     MbCartPoint3D baseCenter_for_centr_9otv1(osnovanie_lenghth / 2, 0, osnovanie_lenghth / 2); // Центр первого основания
     MbCartPoint3D baseCenter_for_centr_9otv2(osnovanie_lenghth / 2, glubina_centr_otv9, osnovanie_lenghth / 2); // Центр второго основания
     // Точка на втором основании для указания радиуса цилиндра
@@ -466,7 +478,9 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001()
         flagsBool, operBoolNames, detail002);
 
     //-----------------------------------------------------------------------------------
-    // Отображение построенного тела
+    osnovanie_lenghth = a;
+
+
     SolidSPtr MainSolid(detail002);
     return MainSolid;
 }
