@@ -88,6 +88,9 @@
     <ClCompile Include="LIS.ME22.3.002.01.008 %28Втулка тонкая%29.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">
