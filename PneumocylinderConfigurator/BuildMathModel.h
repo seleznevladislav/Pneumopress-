@@ -180,6 +180,7 @@
 #include "gcm_types.h"
 
 
+
 namespace BuildMathModel {
 	class ParametricModelCreator {
 		static int colorScheme; // статическое поле инициализируется вне класса, в .cpp
@@ -199,8 +200,11 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_007();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_008();
 
-		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_001();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_002();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016();
 
 		static SPtr<MbSolid> ParametricModelCreator::GHOST();
 	};

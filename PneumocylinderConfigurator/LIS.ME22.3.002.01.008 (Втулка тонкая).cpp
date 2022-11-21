@@ -10,10 +10,10 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_008()
     const double DEG_TO_RAD = M_PI / 180.0;
 
     //Создание двумерные точки на осях X и Y
-    MbCartPoint p1(15, 2.5);
-    MbCartPoint p2(21, 2.5);
-    MbCartPoint p3(21, -2.5);
-    MbCartPoint p4(15, -2.5);
+    MbCartPoint p1(15, 5);
+    MbCartPoint p2(21, 5);
+    MbCartPoint p3(21, 0);
+    MbCartPoint p4(15, 0);
 
     //Динамическое создание объектов отрезков
     MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
@@ -49,7 +49,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_008()
     PArray<MbSNameMaker> cNames(0, 1, false);
 
     //Ось вращения для построения тела
-    MbAxis3D axis(place->GetAxisX());
+    MbAxis3D axis(place->GetAxisY());
 
     // Вызов функции-утилиты для построения твердого тела вращения
     MbSolid* m_pResSolid = nullptr;

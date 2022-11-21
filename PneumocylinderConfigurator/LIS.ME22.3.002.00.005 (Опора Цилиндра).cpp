@@ -4,6 +4,7 @@
 #include "cur_polyline.h" 
 #include "surf_plane.h"
 
+
 using namespace c3d;
 using namespace std;
 using namespace BuildMathModel;

@@ -94,6 +94,15 @@
     <ClCompile Include="GHOST.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.001 (Вилка).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.002 (Ползун).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.016 (Стол).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">
