@@ -179,7 +179,8 @@
 #include "gcm_manager.h"
 #include "gcm_types.h"
 
-
+using namespace c3d;
+using namespace std;
 
 namespace BuildMathModel {
 	class ParametricModelCreator {
@@ -204,6 +205,7 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_002();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_005();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_011();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016();
 
 		static SPtr<MbSolid> ParametricModelCreator::GHOST();

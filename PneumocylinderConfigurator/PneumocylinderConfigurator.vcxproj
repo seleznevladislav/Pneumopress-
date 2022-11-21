@@ -117,6 +117,7 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="FileController.cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.001 (Вилка).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.002 (Ползун).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.011 (Кронштейн регулировочный).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.016 (Стол).cpp" />
     <ClCompile Include="LIS.ME22.3.002.01.005 (Шток).cpp" />
     <ClCompile Include="ParamsWidget.cpp" />

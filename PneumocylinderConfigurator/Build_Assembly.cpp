@@ -107,6 +107,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Seleznev1->SetColor(191, 255, 110);
     //SPtr<MbSolid> Veronika1 = LIS_ME22_3_002_00_005();
     //Veronika1->SetColor(191, 255, 110);
+    SPtr<MbSolid> Kozir1 = LIS_ME22_3_002_00_011();
+    Kozir1->SetColor(74, 148, 0);
     SPtr<MbSolid> Vasinkina1 = LIS_ME22_3_002_00_016();
     Vasinkina1->SetColor(89, 44, 0);
 
@@ -131,6 +133,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     InstanceSPtr Sborka2(new MbInstance(*Vasinkina2, MbPlacement3D(MbCartPoint3D(0.0,0.0, 0.0))));
     InstanceSPtr Sborka4(new MbInstance(*Seleznev1, MbPlacement3D(MbCartPoint3D(0.0,0.0, 0.0))));
     //InstanceSPtr Sborka5(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Sborka11(new MbInstance(*Kozir1, MbPlacement3D(MbCartPoint3D(0.0,0.0, 0.0))));
     InstanceSPtr Sborka16(new MbInstance(*Vasinkina1, MbPlacement3D(MbCartPoint3D(0.0,0.0, 0.0))));
     /*-------------------------------------------------------------------------*/
     //Переменные для подсборки Поршень
@@ -154,6 +157,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Sborka2);
     pair.push_back(Sborka4);
    //pair.push_back(Sborka5);
+    pair.push_back(Sborka11);
     pair.push_back(Sborka16);
 
 
@@ -165,14 +169,14 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     GCM_geom LCSPorshen = cs.AddGeom(Porshen->GetPlacement());
     GCM_geom LCSPorshen1 = cs.AddGeom(Porshen1->GetPlacement());
     GCM_geom LCSSborka4 = cs.AddGeom(Sborka4->GetPlacement());
-    GCM_geom LCSSborka16 = cs.AddGeom(Sborka16->GetPlacement());
     //GCM_geom LCSSborka5 = cs.AddGeom(Sborka5->GetPlacement());
+    GCM_geom LCSSborka11 = cs.AddGeom(Sborka11->GetPlacement());
+    GCM_geom LCSSborka16 = cs.AddGeom(Sborka16->GetPlacement());
     //Создание основной плоскости
-    GCM_geom StartPlacement = cs.AddGeom(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0), MbVector3D(0.0, 0.0, 0.0), MbVector3D(0.0, 0.0, 0.0)));
+    GCM_geom StartPlacement = cs.AddGeom(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0)));
     GCM_geom StartPlacement1 = cs.AddGeom(MbPlacement3D(MbCartPoint3D(1.0, 0.0, 500.0), MbVector3D(0.0, 1.0, 500.0), MbVector3D(0.0, 0.0, 0.0)));
-    GCM_geom StartPlacement2 = cs.AddGeom(MbPlacement3D(MbCartPoint3D(-2.0, 75.0, 160.0)));
-    //, MbVector3D(1.0, 75.0, 0.0), MbVector3D(0.0, 75.0, 1.0)
-
+    GCM_geom StartPlacement2 = cs.AddGeom(MbPlacement3D(MbCartPoint3D(-2.0, 75.0, 160.0), MbVector3D(0, 0, 1), MbVector3D(1, 0, 0)));//!!! захардкодили координаты
+    GCM_geom StartPlacement3 = cs.AddGeom(MbPlacement3D(MbCartPoint3D(16.0, 495.0, 52.4), MbVector3D(0.0, 1.0, 0.0), MbVector3D(0.0, -1.0, -1.0)));
     cs.FixGeom(StartPlacement);
     //GCM_geom box1ContactPointPlacementId = cs.AddGeom(PrepareBoxContactPointPlacement(MbPlacement3D(MbCartPoint3D(-25.0, 5.0, -0.5)), M_PI / 4));
     //MbPlacement3D for1 = MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0));
@@ -181,8 +185,10 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     cs.AddConstraint(GCM_COINCIDENT, StartPlacement1, LCSPorshen);
     cs.AddConstraint(GCM_COINCIDENT, StartPlacement1, LCSPorshen1);
+    // Закрепили стойку с началом координат
     cs.AddConstraint(GCM_COINCIDENT, StartPlacement, LCSSborka4);
     //cs.AddConstraint(GCM_COINCIDENT, StartPlacement, LCSSborka5);
+    cs.AddConstraint(GCM_COINCIDENT, StartPlacement3, LCSSborka11);
     cs.AddConstraint(GCM_COINCIDENT, StartPlacement2, LCSSborka16);
 
     // Решение ограничений
@@ -192,6 +198,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Porshen1->SetPlacement(cs.GetNewPlacement3D(LCSPorshen1));
     //Porshen2->SetPlacement(cs.GetNewPlacement3D(LCSSborka4));
     //Porshen2->SetPlacement(cs.GetNewPlacement3D(LCSSborka5));
+    Sborka11->SetPlacement(cs.GetNewPlacement3D(LCSSborka11));
     Sborka16->SetPlacement(cs.GetNewPlacement3D(LCSSborka16));
 
     //TEST
