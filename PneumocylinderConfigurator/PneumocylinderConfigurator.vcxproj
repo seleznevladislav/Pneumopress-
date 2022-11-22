@@ -117,8 +117,14 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="FileController.cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.001 (Вилка).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.002 (Ползун).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.006 (Кронштейн цапфы).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.007 (Направляющая ползуна).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.010 (Шатун Скользящий).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.011 (Кронштейн регулировочный).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.012 (Штифт 16).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.015 (Болт крепежный).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.016 (Стол).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.08 (Втулка самосмазывающая).cpp" />
     <ClCompile Include="LIS.ME22.3.002.01.005 (Шток).cpp" />
     <ClCompile Include="ParamsWidget.cpp" />
     <ClCompile Include="LIS.ME22.3.002.01.001 %28Блок передний%29.cpp" />
@@ -132,6 +138,7 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="LIS.ME22.3.002.01.008 %28Втулка тонкая%29.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="GHOST.cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.003 %28Раздвижная тяга%29.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="MainWindow.qrc" />
     <QtUic Include="MainWindow.ui" />

@@ -1,12 +1,11 @@
 #include "BuildMathModel.h"
-using namespace c3d;
-using namespace std;
+
 using namespace BuildMathModel;
 
-double a = 200.0;//длина
-double b = 165.0;//ширина
+double aa = 200.0;//длина
+double bb = 165.0;//ширина
 double b_pol = 82.5;//половина ширины
-double c = 16.0;//высота
+double cc = 16.0;//высота
 double razn = 200 / 8; //=25
 double r = 10.0;//радиус центрального отверстия
 
@@ -43,11 +42,11 @@ void CreateSketch1YI(RPArray<MbContour>& _arrContours)
     SArray<MbCartPoint> arrPnts(6);
 
     arrPnts.Add(MbCartPoint(0 - 100, 0 - 80));
-    arrPnts.Add(MbCartPoint(a - 100, 0 - 80));
-    arrPnts.Add(MbCartPoint(a - 100, b - razn - 80));
-    arrPnts.Add(MbCartPoint(a - razn - 100, b - 80));
-    arrPnts.Add(MbCartPoint(razn - 100, b - 80));
-    arrPnts.Add(MbCartPoint(0 - 100, b - razn - 80));
+    arrPnts.Add(MbCartPoint(aa - 100, 0 - 80));
+    arrPnts.Add(MbCartPoint(aa - 100, bb - razn - 80));
+    arrPnts.Add(MbCartPoint(aa - razn - 100, bb - 80));
+    arrPnts.Add(MbCartPoint(razn - 100, bb - 80));
+    arrPnts.Add(MbCartPoint(0 - 100, bb - razn - 80));
     //arrPnts.Add(MbCartPoint(0, 0));
 
     MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
@@ -68,7 +67,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016()
         MbPlane* pPlaneXZ1 = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0), MbCartPoint3D(0, 0, 1));
         MbSweptData sweptData1(*pPlaneXZ1, arrContours1);
         MbVector3D dirY1(0, 1, 0);
-        const double HEIGHT_FORWARD1 = c, HEIGHT_BACKWARD1 = 0;
+        const double HEIGHT_FORWARD1 = cc, HEIGHT_BACKWARD1 = 0;
         ExtrusionValues extrusionParams1(HEIGHT_FORWARD1, HEIGHT_BACKWARD1);
 
         MbSNameMaker names1(1, MbSNameMaker::i_SideNone, 0);
@@ -85,8 +84,8 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016()
         MbSNameMaker names(1, MbSNameMaker::i_SideNone, 0);
         SArray<MbCartPoint3D> points(3);
         points.Add(MbCartPoint3D(0, 0, 0));//центр СК
-        points.Add(MbCartPoint3D(0, c, 0));//высота цилиндра
-        points.Add(MbCartPoint3D(r, c, 0));//радиус цилиндра
+        points.Add(MbCartPoint3D(0, cc, 0));//высота цилиндра
+        points.Add(MbCartPoint3D(r, cc, 0));//радиус цилиндра
         ::ElementarySolid(points, et_Cylinder, names, pCyl);
     }
 
@@ -101,7 +100,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016()
             MbCartPoint3D(0, 0, 1));
         MbVector3D dirY(0, 1, 0);
         MbSweptData sweptData(*pPlaneXZ, arrContours);
-        const double HEIGHT_FORWARD = c, HEIGHT_BACKWARD = 0;
+        const double HEIGHT_FORWARD = cc, HEIGHT_BACKWARD = 0;
         ExtrusionValues extrusionParams(HEIGHT_FORWARD, HEIGHT_BACKWARD);
 
         MbSNameMaker names(1, MbSNameMaker::i_SideNone, 0);

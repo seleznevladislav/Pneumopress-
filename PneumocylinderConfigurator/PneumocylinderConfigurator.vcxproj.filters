@@ -106,6 +106,27 @@
     <ClCompile Include="LIS.ME22.3.002.00.011 (Кронштейн регулировочный).cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.003 %28Раздвижная тяга%29.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.006 (Кронштейн цапфы).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.007 (Направляющая ползуна).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.08 (Втулка самосмазывающая).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.010 (Шатун Скользящий).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.012 (Штифт 16).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.00.015 (Болт крепежный).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">

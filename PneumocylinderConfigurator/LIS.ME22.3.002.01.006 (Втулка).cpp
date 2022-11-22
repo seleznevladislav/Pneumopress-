@@ -1,7 +1,5 @@
 #include "BuildMathModel.h"
 
-using namespace c3d;
-using namespace std;
 using namespace BuildMathModel;
 
 

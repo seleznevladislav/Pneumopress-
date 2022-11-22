@@ -1,7 +1,5 @@
 #include "BuildMathModel.h"
 
-using namespace c3d;
-using namespace std;
 using namespace BuildMathModel;
 
 SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_005()
