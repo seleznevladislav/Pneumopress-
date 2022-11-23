@@ -24,7 +24,6 @@ public slots:
 	void fitSceneSlot();
 	void nextOrientationSlot();
 	void changeSectionPlaneSlot();
-
 private:
 	int sectionId = 0;
 	SectionPlaneId m_sectionPlaneIdArr[2]{ 0,0 };
@@ -35,5 +34,6 @@ private:
 	void prepareSectionPlane();
 	void updSectionState();
 	void updHideElements();
+	void animation(MbItem* item);
 	void checkHideElement(VSN::SceneSegment* seg);
 };

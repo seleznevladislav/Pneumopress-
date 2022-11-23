@@ -139,6 +139,7 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="GHOST.cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.003 %28Раздвижная тяга%29.cpp" />
+    <ClCompile Include="LIS_ME22_3_002_04_001.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="MainWindow.qrc" />
     <QtUic Include="MainWindow.ui" />

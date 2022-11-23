@@ -105,6 +105,18 @@ NodeKeyVector Viewer::addMathGeoms(MbItem * item,  VSN::SceneSegment * sceneSegm
 
 	return keys;
 }
+// Вопрос для C3D
+//void Viewer::animation(MbItem* item)
+//{
+//	MbPlacement3D rotationCenter;
+//	MbMatrix3D matrFrom;
+//	item->GetPlacement(rotationCenter);
+//
+//	double sign = viewport()->GetCamera()->GetDefaultUpVector() * viewport()->GetCamera()->GetUpVector();
+//	sign = sign <= 0.0 ? 1.0 : sign / fabs(sign);
+//	viewport()->GetCamera()->RotateAbout(viewport()->GetCamera()->GetDefaultUpVector(), sign * 0.03, rotationCenter);
+//	update();
+//}
 
 void Viewer::clearScene()
 {

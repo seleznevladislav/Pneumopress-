@@ -100,6 +100,10 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Aleksanyan2->SetColor(140, 70, 0);
     SPtr<MbSolid> Aleksanyan3 = LIS_ME22_3_002_01_008();
     Aleksanyan3->SetColor(255, 58, 58);
+    SPtr<MbSolid> Veronika1 = LIS_ME22_3_002_00_005();
+    Veronika1->SetColor(191, 255, 110);
+    SPtr<MbSolid> Fukina5 = LIS_ME22_3_002_04_001();
+    Fukina5->SetColor(220, 220, 220);
     /*-------------------------------------------------------------------------*/
     //Переменные для подсборки Поршень
     MbPlacement3D lcs;
@@ -114,6 +118,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     InstanceSPtr Porshen6(new MbInstance(*Aleksanyan1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen7(new MbInstance(*Aleksanyan2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen8(new MbInstance(*Aleksanyan3, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Porshen9(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Porshen10(new MbInstance(*Fukina5, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     /*-------------------------------------------------------------------------*/
     //Переменные для подсборки Поршень
     SPtr<MbInstance> Porshen1Comp(new MbInstance(*Porshen1, lcs));
@@ -127,10 +133,12 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Porshen6Comp(new MbInstance(*Porshen6, lcs));
     SPtr<MbInstance> Porshen7Comp(new MbInstance(*Porshen7, lcs));
     SPtr<MbInstance> Porshen8Comp(new MbInstance(*Porshen8, lcs));
+    SPtr<MbInstance> Porshen9Comp(new MbInstance(*Porshen9, lcs));
+    SPtr<MbInstance> Porshen10Comp(new MbInstance(*Porshen10, lcs));
 
     //Переменные для подсборки Поршень
     vector<SPtr<MbInstance>> pair;
-    pair.push_back(Porshen1Comp);
+    /*pair.push_back(Porshen1Comp);
     pair.push_back(Porshen2Comp);
     pair.push_back(Porshen3Comp);
     pair.push_back(Porshen4Comp);
@@ -140,7 +148,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Porshen54Comp);
     pair.push_back(Porshen6Comp);
     pair.push_back(Porshen7Comp);
-    pair.push_back(Porshen8Comp);
+    pair.push_back(Porshen8Comp);*/
+    pair.push_back(Porshen9Comp);
+    pair.push_back(Porshen10Comp);
 
 
     MbAssembly* assm = new MbAssembly(pair);
@@ -214,9 +224,41 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->AddConstraint(GCM_CONCENTRIC, Ar2, Br2);
     assm->AddConstraint(GCM_CONCENTRIC, Ar3, Br3);
     assm->AddConstraint(GCM_CONCENTRIC, Ar4, Br4);
-    
-    
-    
+
+    /*----------------------------------Соединение оси и цапфы---------------------------------------*/
+    MtGeomArgument PlaneOporaC5(Veronika1->GetFace(38), Porshen9Comp);
+    MtGeomArgument PlaneOpora5(Veronika1->GetFace(3), Porshen9Comp);
+    MtGeomArgument PlaneAxeC1(Fukina5->GetFace(5), Porshen10Comp);
+    MtGeomArgument PlaneAxe1(Fukina5->GetFace(8), Porshen10Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PlaneOporaC5, PlaneAxeC1);
+    assm->AddConstraint(GCM_COINCIDENT, PlaneOpora5, PlaneAxe1);
+
+    assm->EvaluateConstraints();
+
+
+    // Это просто так добавил как у нас была раньше реализована анимация
+    //const clock_t duration = CLOCKS_PER_SEC * 4; // 2 seconds
+    //const double delta = CLOCKS_PER_SEC / 24;
+    //const clock_t startClock = std::clock();
+    //while (std::clock() < (startClock + duration))
+    //{
+    //    const clock_t t = std::clock();
+    //    assm->ChangeDimension(angDim, (t - startClock) * 200 / duration);
+    //    assm->ChangeDimension(angDim2, (t - startClock) * 200 / duration);
+    //    assm->ChangeDimension(angDim3, (t - startClock) * 200 / duration);
+    //    assm->ChangeDimension(angDim4, (t - startClock) * 200 / duration);
+    //    assm->ChangeDimension(angDim5, (t - startClock) * 200 / duration);
+
+    //    while (std::clock() - t < delta); // delay
+    //    /* MbAxis3D axVert(MbVector3D(0, 1, 0));
+    //     assm->Rotate(axVert, M_PI / 2);
+    //     MbAxis3D axVert2(MbVector3D(1, 0, 0));
+    //     assm->Rotate(axVert2, -M_PI / 2);
+    //     MbAxis3D axVert3(MbVector3D(0, 0, 1));
+    //     assm->Rotate(axVert3, M_PI);*/
+    //    viewManager->RefreshModel();
+    //    viewManager->ShowModel();
+    //}
     
     assm->EvaluateConstraints();
 	return assm;
