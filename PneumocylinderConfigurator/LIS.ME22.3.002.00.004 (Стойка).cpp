@@ -525,9 +525,6 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004()
     pSolid->Move(MbVector3D(MbCartPoint3D(0.0, 0.0, 0.0), MbCartPoint3D(-255.0 / 2, 0.0, 0.0)));
 
     SPtr<MbSolid> pSolidRes(pSolid);
-    return pSolidRes;
-
-    //Уменьшение счетчиков ссылок динамически созданных объектов ядра
 
     ::DeleteItem(pSolid);
     ::DeleteItem(pSolid2);
@@ -536,7 +533,33 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_004()
     ::DeleteItem(pSolid5);
     ::DeleteItem(pSolid6);
     ::DeleteItem(pSolid7);
+    ::DeleteItem(pSolid8);
+    ::DeleteItem(pSolid9);
+    ::DeleteItem(pSolid10);
+    ::DeleteItem(pSolid11);
 
+    ::DeleteItem(pCyl_Solid);
+    ::DeleteItem(pCyl_Solid2);
+    ::DeleteItem(pCyl_Solid3);
+    ::DeleteItem(pCyl_Solid4);
+    ::DeleteItem(pCyl_Solid5);
+    ::DeleteItem(pCyl_Solid6);
+    ::DeleteItem(pCyl_Solid7);
+    ::DeleteItem(pCyl_Solid8);
+    ::DeleteItem(pCyl_Solid9);
+    ::DeleteItem(pCyl_Solid10);
+    ::DeleteItem(pCyl_Solid11);
+    ::DeleteItem(pCyl_Solid12);
+    ::DeleteItem(pCyl_Solid13);
+    ::DeleteItem(pCyl_Solid14);
+    ::DeleteItem(pCyl_Solid15);
+    ::DeleteItem(pCyl_Solid16);
+    ::DeleteItem(pCyl_Solid17);
+    ::DeleteItem(pCyl_Solid18);
+    ::DeleteItem(pCyl_Solid19);
 
+    ::DeleteItem(pBlock_Solid);
+    ::DeleteItem(pBlock_Solid2);
 
+    return pSolidRes;
 }

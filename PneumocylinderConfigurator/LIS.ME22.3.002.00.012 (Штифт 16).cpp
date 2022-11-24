@@ -93,11 +93,11 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_012()
     MbResultType res1 = ::ChamferSolid(*pOs1, cm_Copy, initCurves,
         params, chamferNames, pOs1_r);
 
-    // Уменьшение счетчиков ссылок динамических объектов ядра
-    ::DeleteItem(pOs1);
-    ::DeleteItem(pOs1_r);
-
     SolidSPtr MainSolid(pOs1_r);
+
+    ::DeleteItem(pOs1_r);
+    ::DeleteItem(pOs1);
+
     return MainSolid;
 
 }

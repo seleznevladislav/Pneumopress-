@@ -387,10 +387,9 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_002()
         flagsBool, operBoolNames, baseBody);
 
 
-    // show(baseBodyBackAddition);
+    SolidSPtr MainSolid(baseBody);
 
-    // show(Style(1, RGB(0, 255, 0)), topBlock);
-
+    ::DeleteItem(baseBody);
     ::DeleteItem(rectangle);
     ::DeleteItem(baseBodyContour);
 
@@ -403,7 +402,15 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_002()
     ::DeleteItem(topBlockContour);
     ::DeleteItem(topBlock);
 
-    SolidSPtr MainSolid(baseBody);
+    ::DeleteItem(pKolp);
+    ::DeleteItem(pCylAside);
+    ::DeleteItem(pCylFront);
+    ::DeleteItem(pCylSmallDiagR);
+
+    ::DeleteItem(pCylSmallDiagL);
+    ::DeleteItem(pSolid);
+    ::DeleteItem(pCyl);
+    ::DeleteItem(pSolid1);
 
     return MainSolid;
 }

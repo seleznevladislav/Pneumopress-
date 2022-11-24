@@ -50,9 +50,9 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_005()
         params, chamferNames, pResult);
 
 
-    ::DeleteItem(pShtok);
-
-
     SolidSPtr MainSolid(pResult);
+
+    ::DeleteItem(pResult);
+    ::DeleteItem(pShtok);
     return MainSolid;
 }

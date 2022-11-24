@@ -252,6 +252,11 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001()
     MbResultType res3 = ::BooleanResult(*pSolid_Shtok_res, cm_Copy, *square, cm_Copy, bo_Union, flagsBool_SH, operBoolNamesUnion, pSolid_Shtok_res);
     MbResultType res4 = ::BooleanResult(*pSolid_Shtok_res, cm_Copy, *firstRightCylinder, cm_Copy, bo_Union, flagsBool_SH, operBoolNamesUnion, pSolid_Shtok_res);
 
+
+
+    SolidSPtr MainSolid(pSolid_Shtok_res);
+
+    ::DeleteItem(pSolid_Shtok_res);
     ::DeleteItem(leftFirstCylinder);
     ::DeleteItem(leftSecondCylinder);
     ::DeleteItem(leftThirdCylinder);
@@ -260,8 +265,6 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001()
     ::DeleteItem(firstRightCylinder);
     ::DeleteItem(pSquare);
     ::DeleteItem(pFillets);
-
-    SolidSPtr MainSolid(pSolid_Shtok_res);
 
     return MainSolid;
 }

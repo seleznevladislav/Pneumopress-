@@ -206,6 +206,22 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_004()
     MbResultType res10 = ::ChamferSolid(*pResult2, cm_Copy, initCurves2,
         params, chamferNames, pResult1);
 
+
     SolidSPtr MainSolid(pResult1);
+
+    ::DeleteItem(pResult1);
+    ::DeleteItem(pResult2);
+    ::DeleteItem(pSolid6);
+    ::DeleteItem(pSolid5);
+    ::DeleteItem(pCy6);
+    ::DeleteItem(pCyl5);
+    ::DeleteItem(pSolid4);
+    ::DeleteItem(pSolid3);
+    ::DeleteItem(pCy2);
+    ::DeleteItem(pCyl4);
+    ::DeleteItem(pSolid2);
+    ::DeleteItem(pCy02);
+    ::DeleteItem(pCy);
+
     return MainSolid;
 }

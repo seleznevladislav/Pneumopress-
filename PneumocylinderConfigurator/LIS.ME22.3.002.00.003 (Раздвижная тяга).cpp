@@ -206,10 +206,12 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_003()
     flagsBool.SetMergingFaces(true);
     flagsBool.SetMergingEdges(true);
     MbResultType res6 = ::BooleanResult(*pSolid, cm_Copy, *pSolid1, cm_Copy, bo_Union, flagsBool, operBoolNames, pSolid3);
-    // Уменьшение счетчиков ссылок динамически созданных объектов ядра
+
+    SolidSPtr MainSolid(pSolid3);
+
+    ::DeleteItem(pSolid3);
     ::DeleteItem(pSolid);
     ::DeleteItem(pSolid1);
 
-    SolidSPtr MainSolid(pSolid3);
     return MainSolid;
 }

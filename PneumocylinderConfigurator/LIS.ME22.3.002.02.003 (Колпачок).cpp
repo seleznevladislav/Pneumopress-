@@ -96,10 +96,10 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_003()
     MbResultType res1 = ::FilletSolid(*pKolp, cm_Copy, initCurves, initBounds,
         params, filletNames, pKolp_res);
 
-    // Уменьшение счетчиков ссылок динамических объектов ядра
-    ::DeleteItem(pKolp);
-
     SolidSPtr MainSolid(pKolp_res);
+
+    ::DeleteItem(pKolp_res);
+    ::DeleteItem(pKolp);
 
     return MainSolid;
 }

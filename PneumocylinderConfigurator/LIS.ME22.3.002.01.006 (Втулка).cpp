@@ -55,5 +55,6 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_006()
     MbResultType m_bResult = RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
 
     SolidSPtr MainSolid(m_pResSolid);
+    ::DeleteItem(m_pResSolid);
     return MainSolid;
 }

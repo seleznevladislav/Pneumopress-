@@ -155,12 +155,15 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_006()
 
 
     // Уменьшение счетчиков ссылок динамически созданных объектов ядра
+
+    SolidSPtr MainSolid(pResult_kron);
+
+    ::DeleteItem(pResult_kron);
     ::DeleteItem(pSolidEX);
     ::DeleteItem(pCyl);
     ::DeleteItem(pSolid1);
+    ::DeleteItem(pSolid);
     ::DeleteItem(pSolidholes);
 
-
-    SolidSPtr MainSolid(pResult_kron);
     return MainSolid;
 }

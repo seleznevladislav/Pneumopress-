@@ -122,10 +122,12 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_015()
         flagsBool1, operBoolNames1, pBoltik);
 
 
+    SolidSPtr MainSolid(pBoltik);
+
+    ::DeleteItem(pBoltik);
     ::DeleteItem(pCyl);
     ::DeleteItem(pBlock);
     ::DeleteItem(pTriangle);
-
-    SolidSPtr MainSolid(pBoltik);
+    ::DeleteItem(pBolt);
     return MainSolid;
 }

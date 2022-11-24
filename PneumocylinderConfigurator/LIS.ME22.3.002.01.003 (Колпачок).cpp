@@ -217,16 +217,18 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_003()
     MbResultType resBool4 = ::BooleanResult(*pSolid, cm_Copy, *pRotHoriz, cm_Copy, bo_Difference,
         flagsBool, operBoolNames, pSolid);
 
-
     SolidSPtr MainSolid(pSolid);
-    return MainSolid;
 
-    // Уменьшение счетчиков ссылок динамических объектов ядра
-    //::DeleteItem(pSolid);
+
+    ::DeleteItem(pSolid);
     ::DeleteItem(pCylSolid);
     ::DeleteItem(pCylSolid1);
     ::DeleteItem(pDuplSolid);
     ::DeleteItem(pRing);
     ::DeleteItem(pRotCentr);
     ::DeleteItem(pRotHoriz);
+
+
+    return MainSolid;
+
 }

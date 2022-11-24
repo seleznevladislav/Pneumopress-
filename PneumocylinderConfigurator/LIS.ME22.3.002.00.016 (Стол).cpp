@@ -2,72 +2,56 @@
 
 using namespace BuildMathModel;
 
-double aa = 200.0;//длина
-double bb = 165.0;//ширина
-double b_pol = 82.5;//половина ширины
-double cc = 16.0;//высота
+double a = 200.0;//длина
+double b = 165.0;//ширина
+double c = 16.0;//высота
 double razn = 200 / 8; //=25
 double r = 10.0;//радиус центрального отверстия
 
-void CreateSketchYI(RPArray<MbContour>& _arrContours)
+void CreateSketch1vf(RPArray<MbContour>& _arrContours)
 {
-    const double rad = 6.8 / 2;
-    const double ots = 20.0;//отступ
-    const double a1 = 80.0;//половина длины прямоуг-ка отверстий
-    const double b1 = 60.0;//половина ширины
+    SArray<MbCartPoint> pnts(6);
 
-    MbArc* pCircle1 = new MbArc(MbCartPoint(ots - 100, ots - 80), rad);//создается окружность
-    MbArc* pCircle2 = new MbArc(MbCartPoint(ots + a1 - 100, ots - 80), rad);
-    MbArc* pCircle3 = new MbArc(MbCartPoint(ots + 2 * a1 - 100, ots - 80), rad);
+    pnts.Add(MbCartPoint(-102.1, -84.65));
+    pnts.Add(MbCartPoint(97.9, -84.65));
+    pnts.Add(MbCartPoint(97.9, 73.7));
+    pnts.Add(MbCartPoint(76.31, 95.24));//204.31-25.9-102.1, 255.24-75.35-84.65
+    pnts.Add(MbCartPoint(-77.07, 95.24));
+    pnts.Add(MbCartPoint(-102.1, 70.2));
 
-    MbArc* pCircle4 = new MbArc(MbCartPoint(ots + 2 * a1 - 100, ots + b1 - 80), rad);
-    MbArc* pCircle5 = new MbArc(MbCartPoint(ots + 2 * a1 - 100, ots + 2 * b1 - 80), rad);
 
-    MbArc* pCircle6 = new MbArc(MbCartPoint(ots + a1 - 100, ots + 2 * b1 - 80), rad);
-    MbArc* pCircle7 = new MbArc(MbCartPoint(ots - 100, ots + 2 * b1 - 80), rad);
-    MbArc* pCircle8 = new MbArc(MbCartPoint(ots - 100, ots + b1 - 80), rad);
+    MbLineSegment* pS1 = new MbLineSegment(pnts[0], pnts[1]);
+    MbLineSegment* pS2 = new MbLineSegment(pnts[1], pnts[2]);
+    MbLineSegment* pS3 = new MbLineSegment(pnts[2], pnts[3]);
+    MbLineSegment* pS4 = new MbLineSegment(pnts[3], pnts[4]);
+    MbLineSegment* pS5 = new MbLineSegment(pnts[4], pnts[5]);
+    MbLineSegment* pS6 = new MbLineSegment(pnts[5], pnts[0]);
 
-    _arrContours.push_back(new MbContour(*pCircle1, true));
-    _arrContours.push_back(new MbContour(*pCircle2, true));
-    _arrContours.push_back(new MbContour(*pCircle3, true));
-    _arrContours.push_back(new MbContour(*pCircle4, true));
-    _arrContours.push_back(new MbContour(*pCircle5, true));
-    _arrContours.push_back(new MbContour(*pCircle6, true));
-    _arrContours.push_back(new MbContour(*pCircle7, true));
-    _arrContours.push_back(new MbContour(*pCircle8, true));
-}
 
-void CreateSketch1YI(RPArray<MbContour>& _arrContours)
-{
-    SArray<MbCartPoint> arrPnts(6);
+    MbContour* pContour = new MbContour();
 
-    arrPnts.Add(MbCartPoint(0 - 100, 0 - 80));
-    arrPnts.Add(MbCartPoint(aa - 100, 0 - 80));
-    arrPnts.Add(MbCartPoint(aa - 100, bb - razn - 80));
-    arrPnts.Add(MbCartPoint(aa - razn - 100, bb - 80));
-    arrPnts.Add(MbCartPoint(razn - 100, bb - 80));
-    arrPnts.Add(MbCartPoint(0 - 100, bb - razn - 80));
-    //arrPnts.Add(MbCartPoint(0, 0));
+    pContour->AddSegment(pS1);
+    pContour->AddSegment(pS2);
+    pContour->AddSegment(pS3);
+    pContour->AddSegment(pS4);
+    pContour->AddSegment(pS5);
+    pContour->AddSegment(pS6);
 
-    MbPolyline* pPolyline = new MbPolyline(arrPnts, true);
-    MbContour* pContourPolyline = new MbContour(*pPolyline, true);
-    _arrContours.push_back(pContourPolyline);
+    _arrContours.push_back(pContour);
 }
 
 
 SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016()
 {
-    //MbPlacement3D pl;
-
     MbSolid* pPrism = nullptr;
     {
         RPArray<MbContour> arrContours1;
-        CreateSketch1YI(arrContours1);
+        CreateSketch1vf(arrContours1);
 
         MbPlane* pPlaneXZ1 = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0), MbCartPoint3D(0, 0, 1));
         MbSweptData sweptData1(*pPlaneXZ1, arrContours1);
         MbVector3D dirY1(0, 1, 0);
-        const double HEIGHT_FORWARD1 = cc, HEIGHT_BACKWARD1 = 0;
+        const double HEIGHT_FORWARD1 = c, HEIGHT_BACKWARD1 = 0;
         ExtrusionValues extrusionParams1(HEIGHT_FORWARD1, HEIGHT_BACKWARD1);
 
         MbSNameMaker names1(1, MbSNameMaker::i_SideNone, 0);
@@ -76,38 +60,66 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016()
         MbResultType resholes = ::ExtrusionSolid(sweptData1, dirY1, nullptr, nullptr, false, extrusionParams1, names1, cNames1, pPrism);
 
     }
-    // Создание образующей для тела выдавливания
+
+    MbPlacement3D VerticalPlane3(MbVector3D(1, 0, 0),
+        MbVector3D(0, 1, 0),
+        MbCartPoint3D(0, 0, -28  /* 132-75.35-84.65 */));
+
+    MbPlacement3D VerticalPlane4(MbVector3D(1, 0, 0),
+        MbVector3D(0, 1, 0),
+        MbCartPoint3D(0, 0, 2  /*162-75.35-84.65*/));
+
+    MbPlacement3D VerticalPlane5(MbVector3D(0, 0, 1),
+        MbVector3D(0, 1, 0),
+        MbCartPoint3D(0, 0, 0 /* 128-25.9-102.1 */));
+
+    MbPlacement3D VerticalPlane6(MbVector3D(0, 0, 1),
+        MbVector3D(0, 1, 0),
+        MbCartPoint3D(40, 0, 0 /* 168-25.9-102.1 */));
+
+
 
     //Построение центрального отверстия
+
     MbSolid* pCyl = nullptr;
     {
         MbSNameMaker names(1, MbSNameMaker::i_SideNone, 0);
         SArray<MbCartPoint3D> points(3);
-        points.Add(MbCartPoint3D(0, 0, 0));//центр СК
-        points.Add(MbCartPoint3D(0, cc, 0));//высота цилиндра
-        points.Add(MbCartPoint3D(r, cc, 0));//радиус цилиндра
+        points.Add(MbCartPoint3D(0, 0, 0));//центр СК//128-25.9=102.1 160-75.35=84.65
+        points.Add(MbCartPoint3D(0, 16, 0));//высота цилиндра
+        points.Add(MbCartPoint3D(0, 16, 10));//радиус цилиндра
         ::ElementarySolid(points, et_Cylinder, names, pCyl);
     }
 
-    //Построение отверстий
-    MbSolid* pSolidholes = nullptr;
-    {
-        RPArray<MbContour> arrContours;
-        CreateSketchYI(arrContours);
+    MbSolid* pCyl_Solid5 = NULL;
+    MbSolid* pCyl_Solid6 = NULL;
+    MbSolid* pCyl_Solid7 = NULL;
+    MbSolid* pCyl_Solid8 = NULL;
+    MbSolid* pCyl_Solid9 = NULL;
+    MbSolid* pCyl_Solid10 = NULL;
+    MbSolid* pCyl_Solid11 = NULL;
+    MbSolid* pCyl_Solid12 = NULL;
+    MbSolid* pCyl_Solid13 = NULL;
 
-        MbPlane* pPlaneXZ = new MbPlane(MbCartPoint3D(0, 0, 0),
-            MbCartPoint3D(1, 0, 0),
-            MbCartPoint3D(0, 0, 1));
-        MbVector3D dirY(0, 1, 0);
-        MbSweptData sweptData(*pPlaneXZ, arrContours);
-        const double HEIGHT_FORWARD = cc, HEIGHT_BACKWARD = 0;
-        ExtrusionValues extrusionParams(HEIGHT_FORWARD, HEIGHT_BACKWARD);
+    MbSNameMaker namesElSolid(ct_ElementarySolid, MbSNameMaker::i_SideNone, 0);
 
-        MbSNameMaker names(1, MbSNameMaker::i_SideNone, 0);
-        PArray<MbSNameMaker> cNames(0, 1, false);
+    SArray<MbCartPoint3D> cylPnts5;
+    cylPnts5.Add(MbCartPoint3D(80, 0, -58));
+    cylPnts5.Add(MbCartPoint3D(80, 16, -58));//102-75.35-84.65
+    cylPnts5.Add(MbCartPoint3D(80, 16, -54.6));//105.4-75.35-84.65
+    // Построение элементарного тела - цилиндра
+    ::ElementarySolid(cylPnts5, et_Cylinder,
+        namesElSolid, pCyl_Solid5);
 
-        MbResultType resholes = ::ExtrusionSolid(sweptData, dirY, nullptr, nullptr, false, extrusionParams, names, cNames, pSolidholes);
-    }
+    MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
+
+    ::MirrorSolid(*pCyl_Solid5, VerticalPlane3, operNames, pCyl_Solid6);
+    ::MirrorSolid(*pCyl_Solid5, VerticalPlane4, operNames, pCyl_Solid7);
+    ::MirrorSolid(*pCyl_Solid7, VerticalPlane5, operNames, pCyl_Solid8);
+    ::MirrorSolid(*pCyl_Solid6, VerticalPlane5, operNames, pCyl_Solid9);
+    ::MirrorSolid(*pCyl_Solid5, VerticalPlane5, operNames, pCyl_Solid10);
+    ::MirrorSolid(*pCyl_Solid5, VerticalPlane6, operNames, pCyl_Solid11);
+    ::MirrorSolid(*pCyl_Solid7, VerticalPlane6, operNames, pCyl_Solid13);
 
 
     //Выдавливание отверстий
@@ -120,17 +132,33 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016()
     MbSolid* pSolid = NULL;
     MbResultType res = ::BooleanResult(*pPrism, cm_Copy, *pCyl, cm_Copy, bo_Difference,
         flagsBool, operBoolNames, pSolid);
-    //остальные
-    MbSolid* pSolid1 = NULL;
-    MbResultType res1 = ::BooleanResult(*pSolid, cm_Copy, *pSolidholes, cm_Copy, bo_Difference,
-        flagsBool, operBoolNames, pSolid1);
 
+
+    ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid5, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
+    ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid6, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
+    ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid7, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
+    ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid8, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
+    ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid9, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
+    ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid10, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
+    ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid11, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
+
+    ::BooleanResult(*pSolid, cm_Copy, *pCyl_Solid13, cm_Copy, bo_Difference, flagsBool, operBoolNames, pSolid);
+
+
+    SolidSPtr MainSolid(pSolid);
+
+    ::DeleteItem(pSolid);
     ::DeleteItem(pPrism);
     ::DeleteItem(pCyl);
-    ::DeleteItem(pSolidholes);
-    ::DeleteItem(pSolid);
+    ::DeleteItem(pCyl_Solid5);
+    ::DeleteItem(pCyl_Solid6);
+    ::DeleteItem(pCyl_Solid7);
+    ::DeleteItem(pCyl_Solid8);
+    ::DeleteItem(pCyl_Solid9);
+    ::DeleteItem(pCyl_Solid10);
+    ::DeleteItem(pCyl_Solid11);
+    ::DeleteItem(pCyl_Solid12);
+    ::DeleteItem(pCyl_Solid13);
 
-
-    SolidSPtr MainSolid(pSolid1);
     return MainSolid;
 }

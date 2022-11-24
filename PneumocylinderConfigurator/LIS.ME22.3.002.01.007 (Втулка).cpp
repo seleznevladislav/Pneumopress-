@@ -98,5 +98,6 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_007()
 
 
     SolidSPtr MainSolid(m_pResSolid);
+    ::DeleteItem(m_pResSolid);
     return MainSolid;
 }

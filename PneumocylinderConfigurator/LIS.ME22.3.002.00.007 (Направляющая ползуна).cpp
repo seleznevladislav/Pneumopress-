@@ -266,13 +266,29 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_007()
     pSolidBase->Rotate(MbAxis3D(MbVector3D(MbCartPoint3D(0.0, 0.0, 0.0), MbCartPoint3D(0.0, 0.0, 1))), 180 * DTR);
     pSolidBase->Rotate(MbAxis3D(MbVector3D(MbCartPoint3D(0.0, 0.0, 0.0), MbCartPoint3D(0.0, 1.0, 0))), 90 * DTR);
     pSolidBase->Move(MbVector3D(MbCartPoint3D(0.0, 0.0, 0.0), MbCartPoint3D(0.0, 55.0, 0)));
-     //наглядный цвет
-    //show(Style(1, WHITE), pSolidRect);    
-    //show(Style(1, LIGHTBLUE), pCyl6_Solid);
-    //show(Style(1, LIGHTRED), pCyl1_Solid);
-    //show(Style(1, LIGHTGRAY), pCyl4_Solid);
-    //show(Style(1, LIGHTGRAY), pCyl9_Solid);
-    //show(Style(1, LIGHTGRAY), pCyl10_Solid);
+
     SolidSPtr MainSolid(pSolidBase);
+
+    ::DeleteItem(pSolidBase);
+    ::DeleteItem(pSolidRect);
+    ::DeleteItem(pCyl1_Solid);
+    ::DeleteItem(pCyl2_Solid);
+    ::DeleteItem(pCyl3_Solid);
+    ::DeleteItem(pCyl4_Solid);
+    ::DeleteItem(pCyl5_Solid);
+    ::DeleteItem(pCyl6_Solid);
+    ::DeleteItem(pCyl7_Solid);
+    ::DeleteItem(pCyl8_Solid);
+
+    ::DeleteItem(pCyl9_Solid);
+    ::DeleteItem(pCyl10_Solid);
+    ::DeleteItem(pCyl11_Solid);
+    ::DeleteItem(pCyl12_Solid);
+    ::DeleteItem(pCyl13_Solid);
+    ::DeleteItem(pCyl14_Solid);
+    ::DeleteItem(pCyl15_Solid);
+    ::DeleteItem(pCyl16_Solid);
+
+
     return MainSolid;
 }

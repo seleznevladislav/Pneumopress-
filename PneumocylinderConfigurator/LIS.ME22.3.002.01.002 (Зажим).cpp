@@ -164,7 +164,18 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_002()
     MbResultType res6 = ::BooleanResult(*osnovanie_s_otv, cm_Copy, *pCy1, cm_Copy, bo_Difference,
         flagsBool, operBoolNames, res);
 
-
     SolidSPtr MainSolid(res);
+
+    ::DeleteItem(res);
+    ::DeleteItem(pCy);
+    ::DeleteItem(pCy_vnesh);
+    ::DeleteItem(pCy_vnesh1);
+    ::DeleteItem(pCy_vnesh2);
+    ::DeleteItem(vtulka_bez_vireza);
+    ::DeleteItem(vtulka_dlya_otv);
+    ::DeleteItem(mas_pDuplSolid);
+    ::DeleteItem(pCy1);
+    ::DeleteItem(osnovanie_s_otv);
+
     return MainSolid;
 }

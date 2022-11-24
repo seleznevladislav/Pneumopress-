@@ -176,5 +176,15 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_008()
         params, filletNames, detail_008);
 
     SolidSPtr MainSolid(detail_008);
+
+    ::DeleteItem(detail_008);
+    ::DeleteItem(pResult1);
+    ::DeleteItem(pResult);
+    ::DeleteItem(vtulka_samosmaz);
+    ::DeleteItem(pCy_virez);
+    ::DeleteItem(vtulka_bez_vireza);
+    ::DeleteItem(pCy_vnesh);
+    ::DeleteItem(pCy);
+
     return MainSolid;
 }
