@@ -130,6 +130,18 @@
     <ClCompile Include="LIS_ME22_3_002_04_001.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.02.001 (Шток Поршневой).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.02.002 (Поршень).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.02.003 (Колпачок).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LIS.ME22.3.002.02.004 (Кольцо уплотнителя).cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">

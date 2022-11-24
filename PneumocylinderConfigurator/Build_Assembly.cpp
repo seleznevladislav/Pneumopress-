@@ -77,6 +77,7 @@ public:
 };
 MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams params)
 {
+#pragma region Porshen
     //Переменные для подсборки Поршень
     SPtr<MbSolid> Yaganov1 = LIS_ME22_3_002_01_001();
     Yaganov1->SetColor(255, 255, 0);
@@ -85,7 +86,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbSolid> Zarubin1 = LIS_ME22_3_002_01_003();
     Zarubin1->SetColor(255, 255, 0);
     SPtr<MbSolid> Shepovalova1 = LIS_ME22_3_002_01_004();
-    Shepovalova1->SetColor(0, 0, 0);
+    Shepovalova1->SetColor(255, 255, 255);
+    Shepovalova1->SetVisual(0, 0, 0, 0, 0.8, 0, 0);
     SPtr<MbSolid> Fukina11 = LIS_ME22_3_002_01_005();
     Fukina11->SetColor(0, 236, 236);
     SPtr<MbSolid> Fukina12 = LIS_ME22_3_002_01_005();
@@ -100,8 +102,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Aleksanyan2->SetColor(140, 70, 0);
     SPtr<MbSolid> Aleksanyan3 = LIS_ME22_3_002_01_008();
     Aleksanyan3->SetColor(255, 58, 58);
-
-
+#pragma endregion
+#pragma region Sborka
     // Основная сборка
     SPtr<MbSolid> Seleznev1 = LIS_ME22_3_002_00_004();
     Seleznev1->SetColor(191, 255, 110);
@@ -113,8 +115,23 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Fukina32->SetColor(74, 148, 0);
     SPtr<MbSolid> Fukina5 = LIS_ME22_3_002_04_001();
     Fukina5->SetColor(220, 220, 220);
+#pragma endregion
+#pragma region Shatun
+    // Шатун
+    SPtr<MbSolid> Bychkov1 = LIS_ME22_3_002_02_001();
+    Bychkov1->SetColor(224, 224, 224);
+    SPtr<MbSolid> Morozova2 = LIS_ME22_3_002_02_002();
+    Morozova2->SetColor(230, 230, 230);
+    SPtr<MbSolid> Fukina4 = LIS_ME22_3_002_02_003();
+    Fukina4->SetColor(240, 240, 240);
+    SPtr<MbSolid> Prihodko11 = LIS_ME22_3_002_02_004();
+    Prihodko11->SetColor(255, 165, 165);
+    SPtr<MbSolid> Prihodko12 = LIS_ME22_3_002_02_004();
+    Prihodko12->SetColor(255, 165, 165);
+#pragma endregion
     /*-------------------------------------------------------------------------*/
     //Переменные для подсборки Поршень
+#pragma region Porshen InstanceSPtr
     MbPlacement3D lcs;
     InstanceSPtr Porshen1(new MbInstance(*Yaganov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen2(new MbInstance(*Morozova1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -127,14 +144,23 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     InstanceSPtr Porshen6(new MbInstance(*Aleksanyan1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen7(new MbInstance(*Aleksanyan2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen8(new MbInstance(*Aleksanyan3, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
-    
+#pragma endregion
+
     InstanceSPtr Porshen10(new MbInstance(*Fukina5, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     //Переменные для сборки
     InstanceSPtr Sborka4(new MbInstance(*Seleznev1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka5(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka61(new MbInstance(*Fukina31, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka62(new MbInstance(*Fukina32, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+#pragma region Shatun InstanceSPtr
+    InstanceSPtr Shatun1(new MbInstance(*Bychkov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Shatun2(new MbInstance(*Morozova2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Shatun3(new MbInstance(*Fukina4, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Shatun41(new MbInstance(*Prihodko11, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Shatun42(new MbInstance(*Prihodko12, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+#pragma endregion
     /*-------------------------------------------------------------------------*/
+#pragma region Porshen SPtr<MbInstance>
     //Переменные для подсборки Поршень
     SPtr<MbInstance> Porshen1Comp(new MbInstance(*Porshen1, lcs));
     SPtr<MbInstance> Porshen2Comp(new MbInstance(*Porshen2, lcs));
@@ -148,12 +174,19 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Porshen7Comp(new MbInstance(*Porshen7, lcs));
     SPtr<MbInstance> Porshen8Comp(new MbInstance(*Porshen8, lcs));
     SPtr<MbInstance> Porshen10Comp(new MbInstance(*Porshen10, lcs));
+#pragma endregion
     //Переменные для сборки
     SPtr<MbInstance> Sborka4Comp(new MbInstance(*Sborka4, lcs));
     SPtr<MbInstance> Sborka5Comp(new MbInstance(*Sborka5, lcs));
     SPtr<MbInstance> Sborka61Comp(new MbInstance(*Sborka61, lcs));
     SPtr<MbInstance> Sborka62Comp(new MbInstance(*Sborka62, lcs));
-
+#pragma region Shatun SPtr<MbInstance>
+    SPtr<MbInstance> Shatun1Comp(new MbInstance(*Shatun1, lcs));
+    SPtr<MbInstance> Shatun2Comp(new MbInstance(*Shatun2, lcs));
+    SPtr<MbInstance> Shatun3Comp(new MbInstance(*Shatun3, lcs));
+    SPtr<MbInstance> Shatun41Comp(new MbInstance(*Shatun41, lcs));
+    SPtr<MbInstance> Shatun42Comp(new MbInstance(*Shatun42, lcs));
+#pragma endregion
     //Переменные для подсборки Поршень
     vector<SPtr<MbInstance>> pair;
     pair.push_back(Porshen1Comp);
@@ -169,11 +202,17 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Porshen7Comp);
     pair.push_back(Porshen8Comp);*/
     pair.push_back(Porshen10Comp);
-    //Переменные для сборки
+    //Переменные для Сборки
     pair.push_back(Sborka4Comp);
     pair.push_back(Sborka5Comp);
     pair.push_back(Sborka61Comp);
     pair.push_back(Sborka62Comp);
+    //Переменные для Шатуна
+    pair.push_back(Shatun1Comp);
+    pair.push_back(Shatun2Comp);
+    pair.push_back(Shatun3Comp);
+    pair.push_back(Shatun41Comp);
+    pair.push_back(Shatun42Comp);
 
     MbAssembly* assm = new MbAssembly(pair);
     ConstraintSolver cs;
@@ -304,6 +343,47 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->AddConstraint(GCM_CONCENTRIC, AR2, BR2);
     assm->AddConstraint(GCM_CONCENTRIC, AR3, BR3);
     assm->AddConstraint(GCM_CONCENTRIC, AR4, BR4);
+#pragma endregion
+#pragma region Shatun - Shtok and Porshen
+    double Val22 = 0;
+    MtParVariant Arg22(Val22);
+    //Плоскость
+    MtGeomArgument PFL1(Bychkov1->GetFace(16), Shatun1Comp);
+    MtGeomArgument PFL2(Morozova2->GetFace(6), Shatun2Comp);
+
+    assm->AddConstraint(GCM_DISTANCE, PFL1, PFL2, Arg22);
+
+    //Отверстие
+    MtGeomArgument PHL1(Bychkov1->GetFace(14), Shatun1Comp);
+    MtGeomArgument PHL2(Morozova2->GetFace(4), Shatun2Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHL1, PHL2, 1); //<!!! Переворачиваем поршень чтобы стояло правильно>
+#pragma endregion
+#pragma region Shatun - Porshen and 2 rings
+    double Val20 = 0;
+    MtParVariant Arg20(Val20);
+    //Плоскость
+    MtGeomArgument PFJ1(Morozova2->GetFace(13), Shatun2Comp);
+    MtGeomArgument PFJ2(Prihodko11->GetFace(0), Shatun41Comp);
+    MtGeomArgument PFJ3(Morozova2->GetFace(5), Shatun2Comp);
+    MtGeomArgument PFJ4(Prihodko12->GetFace(0), Shatun42Comp);
+
+    assm->AddConstraint(GCM_DISTANCE, PFJ2, PFJ1, Arg20);
+    assm->AddConstraint(GCM_DISTANCE, PFJ4, PFJ3, Arg20);
+    //Отверстие
+    MtGeomArgument PHJ1(Morozova2->GetFace(3), Shatun2Comp);
+    MtGeomArgument PHJ2(Prihodko11->GetFace(12), Shatun41Comp);
+    MtGeomArgument PHJ3(Prihodko12->GetFace(12), Shatun42Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHJ2, PHJ1);
+    assm->AddConstraint(GCM_CONCENTRIC, PHJ3, PHJ1);
+#pragma endregion
+#pragma region Shatun - Porshen and Cylinder 1 constraint
+    double Val23 = 0;
+    MtParVariant Arg23(Val23);
+
+    //Отверстие (СОЕДИНЕНИЕ ПОРШНЯ И ЦИЛИНДРА)
+    MtGeomArgument PHZ1(Morozova2->GetFace(3), Shatun2Comp);
+    MtGeomArgument PHZ2(Shepovalova1->GetFace(3), Porshen4Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHZ1, PHZ2, -1);
 #pragma endregion
 
     /*----------------------------------Соединение оси и цапфы---------------------------------------*/
