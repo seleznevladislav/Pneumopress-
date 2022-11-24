@@ -2,9 +2,9 @@
 
 using namespace BuildMathModel;
 
-double a = 200.0;//длина
-double b = 165.0;//ширина
-double c = 16.0;//высота
+double aa = 200.0;//длина
+double bb = 165.0;//ширина
+double cc = 16.0;//высота
 double razn = 200 / 8; //=25
 double r = 10.0;//радиус центрального отверстия
 
@@ -51,7 +51,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016()
         MbPlane* pPlaneXZ1 = new MbPlane(MbCartPoint3D(0, 0, 0), MbCartPoint3D(1, 0, 0), MbCartPoint3D(0, 0, 1));
         MbSweptData sweptData1(*pPlaneXZ1, arrContours1);
         MbVector3D dirY1(0, 1, 0);
-        const double HEIGHT_FORWARD1 = c, HEIGHT_BACKWARD1 = 0;
+        const double HEIGHT_FORWARD1 = cc, HEIGHT_BACKWARD1 = 0;
         ExtrusionValues extrusionParams1(HEIGHT_FORWARD1, HEIGHT_BACKWARD1);
 
         MbSNameMaker names1(1, MbSNameMaker::i_SideNone, 0);
