@@ -113,6 +113,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Fukina31->SetColor(74, 148, 0);
     SPtr<MbSolid> Fukina32 = LIS_ME22_3_002_00_006();
     Fukina32->SetColor(74, 148, 0);
+    SPtr<MbSolid> Vasinkina1 = LIS_ME22_3_002_00_016();
+    Vasinkina1->SetColor(89, 44, 0);
     SPtr<MbSolid> Fukina5 = LIS_ME22_3_002_04_001();
     Fukina5->SetColor(220, 220, 220);
 #pragma endregion
@@ -152,6 +154,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     InstanceSPtr Sborka5(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka61(new MbInstance(*Fukina31, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka62(new MbInstance(*Fukina32, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Sborka16(new MbInstance(*Vasinkina1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
 #pragma region Shatun InstanceSPtr
     InstanceSPtr Shatun1(new MbInstance(*Bychkov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Shatun2(new MbInstance(*Morozova2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -180,6 +183,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Sborka5Comp(new MbInstance(*Sborka5, lcs));
     SPtr<MbInstance> Sborka61Comp(new MbInstance(*Sborka61, lcs));
     SPtr<MbInstance> Sborka62Comp(new MbInstance(*Sborka62, lcs));
+    SPtr<MbInstance> Sborka16Comp(new MbInstance(*Sborka16, lcs));
 #pragma region Shatun SPtr<MbInstance>
     SPtr<MbInstance> Shatun1Comp(new MbInstance(*Shatun1, lcs));
     SPtr<MbInstance> Shatun2Comp(new MbInstance(*Shatun2, lcs));
@@ -207,6 +211,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Sborka5Comp);
     pair.push_back(Sborka61Comp);
     pair.push_back(Sborka62Comp);
+    pair.push_back(Sborka16Comp);
     //Переменные для Шатуна
     pair.push_back(Shatun1Comp);
     pair.push_back(Shatun2Comp);
@@ -286,6 +291,22 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //<!!! свободно вращается сборка>
     
 #pragma endregion
+#pragma region Sborka - Stol and Stoika
+    double Val7 = 0;
+    MtParVariant Arg7(Val7);
+    //Плоскости между
+    MtGeomArgument PFR1(Seleznev1->GetFace(13), Sborka4Comp);
+    MtGeomArgument PFR2(Vasinkina1->GetFace(1), Sborka16Comp);
+    assm->AddConstraint(GCM_DISTANCE, PFR1, PFR2, Arg7);
+    //Центральное отверстие
+    MtGeomArgument PHR1(Seleznev1->GetFace(64), Sborka4Comp);
+    MtGeomArgument PHR2(Vasinkina1->GetFace(12), Sborka16Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHR1, PHR2);
+    //Боковое отверстие для выравнивания
+    MtGeomArgument PHR3(Seleznev1->GetFace(55), Sborka4Comp);
+    MtGeomArgument PHR4(Vasinkina1->GetFace(14), Sborka16Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHR3, PHR4);
+#pragma endregion
 #pragma region Porshen - Krishki and Cylinder
 //Параметр расстояния от крышек до цилиндра
     double Val4 = 0;
@@ -344,6 +365,22 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->AddConstraint(GCM_CONCENTRIC, AR3, BR3);
     assm->AddConstraint(GCM_CONCENTRIC, AR4, BR4);
 #pragma endregion
+#pragma region Porshen - Block and Zazhim
+    double Val3 = 0;
+    MtParVariant Arg3(Val3);
+
+    MtGeomArgument PF1(Morozova1->GetFace(0), Porshen2Comp);
+    MtGeomArgument PF2(Yaganov1->GetFace(0), Porshen1Comp);
+    assm->AddConstraint(GCM_DISTANCE, PF1, PF2, Arg3);
+
+    MtGeomArgument PH1(Morozova1->GetFace(3), Porshen2Comp);
+    MtGeomArgument PH2(Shepovalova1->GetFace(3), Porshen4Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PH1, PH2);
+
+    MtGeomArgument PH3(Yaganov1->GetFace(13), Porshen1Comp);
+    MtGeomArgument PH4(Shepovalova1->GetFace(1), Porshen4Comp);
+    //assm->AddConstraint(GCM_CONCENTRIC, PH3, PH4);<!!! Не хатает зависимости совмещения зажима и блока по 4 отверстиям для выравнивания>
+#pragma endregion
 #pragma region Shatun - Shtok and Porshen
     double Val22 = 0;
     MtParVariant Arg22(Val22);
@@ -385,6 +422,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MtGeomArgument PHZ2(Shepovalova1->GetFace(3), Porshen4Comp);
     assm->AddConstraint(GCM_CONCENTRIC, PHZ1, PHZ2, -1);
 #pragma endregion
+
 
     /*----------------------------------Соединение оси и цапфы---------------------------------------*/
     /*MtGeomArgument PlaneOporaC5(Veronika1->GetFace(38), Porshen9Comp);
