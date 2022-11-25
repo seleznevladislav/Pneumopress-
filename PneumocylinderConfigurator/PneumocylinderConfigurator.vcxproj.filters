@@ -142,6 +142,9 @@
     <ClCompile Include="LIS.ME22.3.002.02.004 (Кольцо уплотнителя).cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WasherM20.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="colorDef.h">

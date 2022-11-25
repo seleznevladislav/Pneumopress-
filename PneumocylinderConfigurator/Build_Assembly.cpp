@@ -106,8 +106,12 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma endregion
 #pragma region Sborka
     // Основная сборка
+    SPtr<MbSolid> Solov2 = LIS_ME22_3_002_00_001();
+    Solov2->SetColor(255, 0, 0);
     SPtr<MbSolid> Vasinkina2 = LIS_ME22_3_002_00_002();
     Vasinkina2->SetColor(0, 255, 255);
+    SPtr<MbSolid> Prihodko2 = LIS_ME22_3_002_00_003();
+    Prihodko2->SetColor(255, 255, 0);
     SPtr<MbSolid> Seleznev1 = LIS_ME22_3_002_00_004();
     Seleznev1->SetColor(191, 255, 110);
     SPtr<MbSolid> Veronika1 = LIS_ME22_3_002_00_005();
@@ -124,6 +128,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Vasinkina32->SetColor(0, 0, 255);
     SPtr<MbSolid> Vasinkina1 = LIS_ME22_3_002_00_016();
     Vasinkina1->SetColor(89, 44, 0);
+
+
     SPtr<MbSolid> Fukina5 = LIS_ME22_3_002_04_001();
     Fukina5->SetColor(220, 220, 220);
 #pragma endregion
@@ -140,6 +146,12 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbSolid> Prihodko12 = LIS_ME22_3_002_02_004();
     Prihodko12->SetColor(255, 165, 165);
 #pragma endregion
+#pragma region GOST
+    // Шатун
+    SPtr<MbSolid> WasherM20 = GWasherM20();
+
+#pragma endregion
+
     /*-------------------------------------------------------------------------*/
     //Переменные для подсборки Поршень
 #pragma region Porshen InstanceSPtr
@@ -159,7 +171,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     InstanceSPtr Porshen10(new MbInstance(*Fukina5, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     //Переменные для сборки
+    InstanceSPtr Sborka1(new MbInstance(*Solov2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka2(new MbInstance(*Vasinkina2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Sborka3(new MbInstance(*Prihodko2, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka4(new MbInstance(*Seleznev1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka5(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka61(new MbInstance(*Fukina31, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -192,7 +206,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Porshen10Comp(new MbInstance(*Porshen10, lcs));
 #pragma endregion
     //Переменные для сборки
+    SPtr<MbInstance> Sborka1Comp(new MbInstance(*Sborka1, lcs));
     SPtr<MbInstance> Sborka2Comp(new MbInstance(*Sborka2, lcs));
+    SPtr<MbInstance> Sborka3Comp(new MbInstance(*Sborka3, lcs));
     SPtr<MbInstance> Sborka4Comp(new MbInstance(*Sborka4, lcs));
     SPtr<MbInstance> Sborka5Comp(new MbInstance(*Sborka5, lcs));
     SPtr<MbInstance> Sborka61Comp(new MbInstance(*Sborka61, lcs));
@@ -208,6 +224,10 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Shatun41Comp(new MbInstance(*Shatun41, lcs));
     SPtr<MbInstance> Shatun42Comp(new MbInstance(*Shatun42, lcs));
 #pragma endregion
+#pragma region GOST SPtr<MbInstance>
+    SPtr<MbInstance> WasherM20Comp1(new MbInstance(*WasherM20, lcs));
+#pragma endregion
+
     //Переменные для подсборки Поршень
     vector<SPtr<MbInstance>> pair;
     pair.push_back(Porshen1Comp);
@@ -222,10 +242,12 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Porshen6Comp);
     pair.push_back(Porshen7Comp);
     pair.push_back(Porshen8Comp);
-    pair.push_back(Porshen10Comp);
     */
+    pair.push_back(Porshen10Comp);
     //Переменные для Сборки
+    pair.push_back(Sborka1Comp);
     pair.push_back(Sborka2Comp);
+    pair.push_back(Sborka3Comp);
     pair.push_back(Sborka4Comp);
     pair.push_back(Sborka5Comp);
     pair.push_back(Sborka61Comp);
@@ -241,6 +263,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Shatun41Comp);
     pair.push_back(Shatun42Comp);
 
+
+    pair.push_back(WasherM20Comp1);
+
     MbAssembly* assm = new MbAssembly(pair);
     ConstraintSolver cs;
     //Фиксация первого элемента сборки
@@ -248,7 +273,6 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     GCM_geom PlacementSborka4 = cs.AddGeom(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0), MbVector3D(0.0,0.0,1.0), MbVector3D(1.0, 0.0, 0.0)));
     cs.FixGeom(PlacementSborka4);
     cs.AddConstraint(GCM_COINCIDENT, PlacementSborka4, LCSSborka4);
-
 #pragma region Sborka - Stoika and Opora
     double Val1 = 0;
     MtParVariant Arg1(Val1);
@@ -452,7 +476,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->AddConstraint(GCM_DISTANCE, PlaneС1, PlaneС2, Arg15);
     MtGeomArgument HoleС1(Fukina4->GetFace(0), Shatun3Comp);
     MtGeomArgument HoleС2(Morozova2->GetFace(4), Shatun2Comp);
-    assm->AddConstraint(GCM_CONCENTRIC, HoleС1, HoleС2, -1);
+    assm->AddConstraint(GCM_CONCENTRIC, HoleС1, HoleС2);
 #pragma endregion
 #pragma region Sborka - Napravlyachaya and Opora
     ////Параметр расстояния от блока до втулки2
@@ -481,11 +505,11 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MtGeomArgument PFA3(Vasinkina2->GetFace(23), Sborka2Comp);
     MtGeomArgument PFA4(Seleznev1->GetFace(13), Sborka4Comp);
     assm->AddConstraint(GCM_DISTANCE, PFA3, PFA4, Arg151);//<!!! Жесткая закрепка ползуна>
-    //Плоскость боковая
+    
     MtGeomArgument PFA5(Solov1->GetFace(14), Sborka7Comp);//24
     MtGeomArgument PFA6(Vasinkina2->GetFace(18), Sborka2Comp);//12
     assm->AddConstraint(GCM_DISTANCE, PFA6, PFA5, Arg14);//Тут крч совмещение пхд надо будет убрать !!!!! тк мешает сделать концентричность
-    //Плоскость между
+    
     MtGeomArgument PFA1(Vasinkina2->GetFace(13), Sborka2Comp);//17
     MtGeomArgument PFA2(Solov1->GetFace(21), Sborka7Comp);
     assm->AddConstraint(GCM_DISTANCE, PFA2, PFA1, Arg14);
@@ -494,23 +518,71 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma region Sborka - Polzun and Skolzyachie
     double Val16 = 0.5;
     MtParVariant Arg16(Val16);
-    //Плоскость между первым
-    MtGeomArgument PFS1(Vasinkina32->GetFace(22), Sborka102Comp);
-    MtGeomArgument PFS2(Vasinkina2->GetFace(2), Sborka2Comp);
-    assm->AddConstraint(GCM_DISTANCE, PFS1, PFS2, Arg16);
-    //Отверстие первого
+
     MtGeomArgument PHS1(Vasinkina32->GetFace(23), Sborka102Comp);
     MtGeomArgument PHS2(Vasinkina2->GetFace(22), Sborka2Comp);
-    assm->AddConstraint(GCM_CONCENTRIC, PHS1, PHS2, 0);//<!!! Разворачиваем скользящий>
-    //Плоскость между вторым
-    MtGeomArgument PFS3(Vasinkina31->GetFace(1), Sborka101Comp);
-    MtGeomArgument PFS4(Vasinkina2->GetFace(3), Sborka2Comp);
-    assm->AddConstraint(GCM_DISTANCE, PFS3, PFS4, Arg16);//<!!! Вроде не надо, но добавим, это одни из скользяжих выравнивается с тягой(Но зачем, он же выровнян уже с ползуном)>
-    //Отверстие второго    
-    MtGeomArgument PHS3(Vasinkina31->GetFace(2), Sborka101Comp);
-    MtGeomArgument PHS4(Vasinkina2->GetFace(22), Sborka2Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHS1, PHS2, 1);//<!!! Разворачиваем скользящий>
+ 
+    MtGeomArgument PHS3(Vasinkina31->GetFace(23), Sborka101Comp);
+    MtGeomArgument PHS4(Vasinkina32->GetFace(23), Sborka102Comp);
     assm->AddConstraint(GCM_CONCENTRIC, PHS3, PHS4);
 #pragma endregion
+#pragma region Sborka - Skolzyachie and Tyaga
+    double Val17 = 0;
+    MtParVariant Arg17(Val17);
+    //Плоскость между первым
+    MtGeomArgument PFD1(Prihodko2->GetFace(8), Sborka3Comp);
+    MtGeomArgument PFD2(Vasinkina32->GetFace(1), Sborka102Comp);
+    assm->AddConstraint(GCM_DISTANCE, PFD1, PFD2, Arg17);
+    //Отверстие первого
+    MtGeomArgument PHD1(Vasinkina32->GetFace(2), Sborka102Comp);
+    MtGeomArgument PHD2(Prihodko2->GetFace(16), Sborka3Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHD1, PHD2, 1);//<!!! Разворачиваем Тягу>
+    //Плоскость между Вторым
+    MtGeomArgument PFD3(Prihodko2->GetFace(6), Sborka3Comp);
+    MtGeomArgument PFD4(Vasinkina31->GetFace(22), Sborka101Comp);
+    assm->AddConstraint(GCM_DISTANCE, PFD3, PFD4, Arg17);
+    //Отверстие Второго
+    MtGeomArgument PHD3(Vasinkina31->GetFace(2), Sborka101Comp);//23
+    MtGeomArgument PHD4(Prihodko2->GetFace(16), Sborka3Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHD3, PHD4);
+#pragma endregion
+#pragma region Sborka - Tyaga and Vilka
+    double Val18 = 0;
+    MtParVariant Arg18(Val18);
+    //Плоскость
+    MtGeomArgument PFF1(Prihodko2->GetFace(4), Sborka3Comp);
+    MtGeomArgument PFF2(Solov2->GetFace(4), Sborka1Comp);
+    assm->AddConstraint(GCM_DISTANCE, PFF2, PFF1, Arg18);
+    //Отверстие
+    MtGeomArgument PHF1(Solov2->GetFace(11), Sborka1Comp);
+    MtGeomArgument PHF2(Prihodko2->GetFace(11), Sborka3Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHF2, PHF1);
+#pragma endregion
+#pragma region Sborka - Vilka and Gaika
+    double Val19 = 0;
+    MtParVariant Arg19(Val19);
+    //Плоскость
+    MtGeomArgument PFH1(Solov2->GetFace(27), Sborka1Comp);
+    MtGeomArgument PFH2(WasherM20->GetFace(0), WasherM20Comp1);
+    assm->AddConstraint(GCM_DISTANCE, PFH1, PFH2, Arg19);
+    //Отверстие 
+    MtGeomArgument PHH1(Solov2->GetFace(20), Sborka1Comp);
+    MtGeomArgument PHH2(WasherM20->GetFace(8), WasherM20Comp1);
+    assm->AddConstraint(GCM_CONCENTRIC, PHH1, PHH2);
+#pragma endregion
+//СОЕДИНИЛИ ВИЛКУ ЦЕНТР С ЦИЛИНДРОМ НЕ ОТМЕНЯТЬ
+    MtGeomArgument hole232332(Shepovalova1->GetFace(3), Porshen4Comp);
+    MtGeomArgument hole2323321(Solov2->GetFace(20), Sborka1Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, hole232332, hole2323321);
+
+    double Val21 = 0;
+    MtParVariant Arg21(Val21);
+    //Плоскость
+    MtGeomArgument PFK1(Bychkov1->GetFace(0), Shatun1Comp);
+    MtGeomArgument PFK2(WasherM20->GetFace(10), WasherM20Comp1);
+
+    assm->AddConstraint(GCM_DISTANCE, PFK1, PFK2, Arg21);
     /*----------------------------------Соединение оси и цапфы---------------------------------------*/
     /*MtGeomArgument PlaneOporaC5(Veronika1->GetFace(38), Porshen9Comp);
     MtGeomArgument PlaneOpora5(Veronika1->GetFace(3), Porshen9Comp);
@@ -549,6 +621,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MtGeomArgument face6(Seleznev1->GetFace(47), Sborka4Comp);
     assm->AddConstraint(GCM_ANGLE, face6, face5, (180 - 10)* M_PI / 180);//Градус 10
 
+    MtGeomArgument Opa1(Solov2->GetFace(16), Sborka1Comp);
+    MtGeomArgument Opa2(Seleznev1->GetFace(47), Sborka4Comp);
+    assm->AddConstraint(GCM_ANGLE, Opa1, Opa2, (180 - 10)* M_PI / 180);//Градус 10
     cs.Evaluate();
 
     Sborka4Comp->SetPlacement(cs.GetNewPlacement3D(LCSSborka4));
