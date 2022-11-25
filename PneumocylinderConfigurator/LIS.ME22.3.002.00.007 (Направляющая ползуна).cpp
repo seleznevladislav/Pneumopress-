@@ -10,6 +10,13 @@ const double dy1 = 35; //базовое смещение по Y от плоскости ZX
 
 //основной эскиз для выдавливания 
 void CreateSketch1t(RPArray<MbContour>& _arrContours) {
+    double a = 200.0;//длина
+    double b = 165.0;//ширина
+    double c = 16.0;//высота
+    double razn = 200 / 8; //=25
+    double r = 10.0;//радиус центрального отверстия
+    const double dy1 = 35; //базовое смещение по Y от плоскости ZX
+    const double DTR = M_PI / 180.0;
     //создаём 8 точек для контура
     SArray<MbCartPoint> arrPnts(10); //2 точки прозапас с учётом фасок
     MbCartPoint p1(-55, 0 - dy1);
@@ -71,7 +78,6 @@ void CreateSketch2t(RPArray<MbContour>& _arrContours2) {
     arrPnts2.Add(MbCartPoint(-27.5, -15));
     arrPnts2.Add(MbCartPoint(-35.5, -15));
 
-    //проще реально сделать скругления в 0, чем через сегменты
     MbPolyline* pPolyline2 = new MbPolyline(arrPnts2, true);
     MbContour* pContourPolyline2 = new MbContour;
     ::FilletPolyContour(pPolyline2, 0, false, arrPnts2[4], pContourPolyline2);
@@ -79,7 +85,6 @@ void CreateSketch2t(RPArray<MbContour>& _arrContours2) {
     ptrdiff_t idxSideRight2 = 2;
     ptrdiff_t idxSideRight3 = 4;
 
-    // Добавление скруглений
     pContourPolyline2->FilletTwoSegments(idxSideRight1, 0);
     pContourPolyline2->FilletTwoSegments(idxSideRight2, 0);
     pContourPolyline2->FilletTwoSegments(idxSideRight3, 0);
@@ -89,7 +94,6 @@ void CreateSketch2t(RPArray<MbContour>& _arrContours2) {
 
 SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_007()
 {
-    // Локальная СК (по умолчанию совпадает с мировой СК)
     MbPlacement3D pl;
 
     // Создание образующей для тела выдавливания
@@ -133,11 +137,11 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_007()
     //для массива отверстий, справа и слева от центрального соответственно
     MbPlacement3D HoleRightPlane(MbVector3D(0, 1, 0), /* Ось Y */
         MbVector3D(1, 0, 0), /* Ось X */
-        MbCartPoint3D(0, 0, 35 / 2 /* Начало координат СК */));
+        MbCartPoint3D(0, 0, 17.5 /* Начало координат СК */));
 
     MbPlacement3D HoleLeftPlane(MbVector3D(0, 1, 0), /* Ось Y */
         MbVector3D(1, 0, 0), /* Ось X СК */
-        MbCartPoint3D(0, 0, -35 / 2 /* Начало координат СК */));
+        MbCartPoint3D(0, 0, -17.5 /* Начало координат СК */));
 
     // Направляющий вектор для операции выдавливания
     MbVector3D dirX(1, 0, 0);
@@ -158,14 +162,12 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_007()
     //ExtrusionValues extrusionParams3(HEIGHT_FORWARD3, HEIGHT_BACKWARD3);
     //ExtrusionValues extrusionParams4(HEIGHT_FORWARD4, HEIGHT_BACKWARD4);
 
-
     // Именователи элементов модели твердого тела и контуров образующей, просто переписать их в аргументы выдавливания и не трогать более
     MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
     PArray<MbSNameMaker> cNames(0, 1, false);
     MbSNameMaker namesElSolid(ct_ElementarySolid, MbSNameMaker::i_SideNone, 0);
     MbSNameMaker namesDupl(ct_DuplicationSolid, MbSNameMaker::i_SideNone, 0);
     // Именователь операции построения элементарного тела
-
 
     // СОЗДАНИЕ ПЕРЕМЕННЫХ ДЛЯ ТВЕРДЫХ ТЕЛ
     MbSolid* pSolidBase = nullptr; //восьмиточечный эскиз
@@ -227,7 +229,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_007()
     SArray<MbCartPoint3D> cylPnts3(3);
     cylPnts3.Add(MbCartPoint3D(-43, -35, 0));
     cylPnts3.Add(MbCartPoint3D(-43, -35 + 55, 0));
-    cylPnts3.Add(MbCartPoint3D(-43 + 4.5, -35, 0));
+    cylPnts3.Add(MbCartPoint3D(-43 + 4, -35, 0));
 
     MbResultType res51 = ::ElementarySolid(cylPnts3, et_Cylinder, namesElSolid, pCyl5_Solid);
     MbResultType res52 = ::MirrorSolid(*pCyl5_Solid, HoleRightPlane, operNames, pCyl6_Solid);

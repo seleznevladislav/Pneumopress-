@@ -115,7 +115,7 @@
     <ClCompile Include="LIS.ME22.3.002.00.007 (Направляющая ползуна).cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LIS.ME22.3.002.00.08 (Втулка самосмазывающая).cpp">
+    <ClCompile Include="LIS.ME22.3.002.00.008 %28Втулка самосмазывающая%29.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LIS.ME22.3.002.00.010 (Шатун Скользящий).cpp">
