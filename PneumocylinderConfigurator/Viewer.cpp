@@ -5,10 +5,14 @@ Viewer::Viewer(QWidget* parent) : QtVision::QtOpenGLSceneWidget(parent)
 	rootSceneSegment = this->sceneContent()->GetRootSegment();
 	Q_ASSERT(rootSceneSegment != nullptr);
 
+	timer = new QTimer();
+
 	QtVision::createProcessesCameraControls(this);
 
 	prepareSceneBackground();
 	prepareSectionPlane();
+
+	connect(timer, SIGNAL(timeout()), this, SLOT(animationSlot()));
 }
 
 Viewer::~Viewer()
@@ -17,7 +21,7 @@ Viewer::~Viewer()
 /*
 NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment)
 {
-	
+
 	if (!sceneSegment) sceneSegment = rootSceneSegment;
 
 	NodeKeyVector keys;
@@ -57,6 +61,7 @@ NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegme
 	SArray<MbMatrix3D> matrs;
 	model->GetItems(MbeSpaceType::st_SpaceItem, subitems, matrs);
 
+
 #if 1 //two ways to add model to view
 	for (int i = 0; i < subitems.size(); i++) {
 		NodeKeyVector subkeys = addMathGeoms(subitems[i], sceneSegment, matrs[i]);
@@ -74,7 +79,7 @@ NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegme
 	return keys;
 }
 
-NodeKeyVector Viewer::addMathGeoms(MbItem * item,  VSN::SceneSegment * sceneSegment , MbMatrix3D matrix )
+NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment, MbMatrix3D matrix)
 {
 
 	if (!sceneSegment) sceneSegment = rootSceneSegment;
@@ -106,17 +111,22 @@ NodeKeyVector Viewer::addMathGeoms(MbItem * item,  VSN::SceneSegment * sceneSegm
 	return keys;
 }
 // Вопрос для C3D
-//void Viewer::animation(MbItem* item)
-//{
-//	MbPlacement3D rotationCenter;
-//	MbMatrix3D matrFrom;
-//	item->GetPlacement(rotationCenter);
-//
-//	double sign = viewport()->GetCamera()->GetDefaultUpVector() * viewport()->GetCamera()->GetUpVector();
-//	sign = sign <= 0.0 ? 1.0 : sign / fabs(sign);
-//	viewport()->GetCamera()->RotateAbout(viewport()->GetCamera()->GetDefaultUpVector(), sign * 0.03, rotationCenter);
-//	update();
-//}
+void Viewer::animation()
+{
+	//auto renderObjects = sceneContent()->GetObjects();
+	//std::list<VSN::RenderObject *>::iterator it = renderObjects.begin();
+	//std::advance(it, 2);
+	//auto renderObject = *it;
+	//MbCube cube = renderObject->GetBoundingBox();
+	////MbItem* mainItem = segment;
+	//MbCartPoint3D rotationCenter;
+	//cube.GetCenter(rotationCenter);
+	MbCartPoint3D rotationCenter;
+	double sign = viewport()->GetCamera()->GetDefaultUpVector() * viewport()->GetCamera()->GetUpVector();
+	sign = sign <= 0.0 ? 1.0 : sign / fabs(sign);
+	viewport()->GetCamera()->RotateAbout(viewport()->GetCamera()->GetDefaultUpVector(), sign * 0.06, rotationCenter);
+	update();
+}
 
 void Viewer::clearScene()
 {
@@ -159,6 +169,24 @@ void Viewer::changeSectionPlaneSlot()
 		this->update();
 	}
 }
+
+void Viewer::animationSlot()
+{
+	animation();
+}
+
+void Viewer::animationSwitchSlot()
+{
+	if (timer->isActive())
+	{
+		timer->stop();
+	}
+	else
+	{
+		timer->start(100);
+	}
+}
+
 
 void Viewer::prepareSceneBackground()
 {

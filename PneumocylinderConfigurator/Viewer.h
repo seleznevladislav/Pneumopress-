@@ -5,6 +5,9 @@
 #include <vsn_segmentfeatures.h>
 #include <model.h>
 #include "SceneParams.h"
+#include <QTimer>
+#include <QTime>
+
 
 class Viewer : public QtVision::QtOpenGLSceneWidget
 {
@@ -19,12 +22,16 @@ public:
 	NodeKeyVector addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment = nullptr, MbMatrix3D matrix = MbMatrix3D());
 	void clearScene();
 	void setSceneParams(SceneParams params);
+	void animation();
 
 public slots:
 	void fitSceneSlot();
 	void nextOrientationSlot();
 	void changeSectionPlaneSlot();
+	void animationSlot();
+	void animationSwitchSlot();
 private:
+	QTimer* timer;
 	int sectionId = 0;
 	SectionPlaneId m_sectionPlaneIdArr[2]{ 0,0 };
 	SceneParams sceneParams;
@@ -34,6 +41,5 @@ private:
 	void prepareSectionPlane();
 	void updSectionState();
 	void updHideElements();
-	void animation(MbItem* item);
 	void checkHideElement(VSN::SceneSegment* seg);
 };

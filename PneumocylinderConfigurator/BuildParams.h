@@ -1,5 +1,5 @@
 #pragma once
-#define CASE_ITEMNAME std::uint32_t("Pneumocylinder case")
+#define CASE_ITEMNAME std::uint32_t(1111)
 
 namespace BuildMathModel {
 	struct BuildParams
