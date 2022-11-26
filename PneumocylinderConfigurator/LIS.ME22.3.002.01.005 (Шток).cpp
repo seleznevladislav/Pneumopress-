@@ -2,7 +2,7 @@
 
 using namespace BuildMathModel;
 
-SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_005()
+SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_005(double length = 265)
 {
     // построение стержня 
     MbSNameMaker elNames(ct_ElementarySolid, MbSNameMaker::i_SideNone);
@@ -10,7 +10,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_005()
     {
         SArray<MbCartPoint3D> points(3);
         points.Add(MbCartPoint3D(0, 0, 0));
-        points.Add(MbCartPoint3D(0, 265, 0));
+        points.Add(MbCartPoint3D(0, length, 0));
         points.Add(MbCartPoint3D(5, 0, 0));
 
         ElementarySolid(points, et_Cylinder, elNames, pShtok);

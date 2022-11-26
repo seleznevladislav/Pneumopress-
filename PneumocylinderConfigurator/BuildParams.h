@@ -5,7 +5,7 @@ namespace BuildMathModel {
 	struct BuildParams
 	{
 		double diam = 50.0;
-		double length = 449.0;
+		double length = 265;
 		int colorScheme = 1;
 	};
 }

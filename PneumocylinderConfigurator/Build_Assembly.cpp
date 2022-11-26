@@ -77,6 +77,28 @@ public:
 };
 MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams params)
 {
+#pragma region PARAMS
+    
+    double param_length = params.length;
+
+    double diamMain = params.diam;
+    const double diamMain_STD = 50;
+    //calculate offsets
+    //Разница стандартного и заданного диаметров
+    double diamMainOffset = diamMain - diamMain_STD;
+    //Соотношение стандартного и заданного диаметров
+    double diamDifRatio = diamMain / diamMain_STD;
+
+    double radMainOffset = diamMainOffset / 2;
+
+    // �������� ������
+    double len_dif = param_length - 132.95;
+
+    //pAsm->AddItem(*pSolid);
+
+    double DD = 23.6 + radMainOffset;//ClampingBar and bolts offset from 0 coord
+   
+#pragma endregion
 #pragma region Porshen
     //Переменные для подсборки Поршень
     SPtr<MbSolid> Yaganov1 = LIS_ME22_3_002_01_001();
@@ -89,13 +111,13 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Shepovalova1->SetColor(255, 255, 255);
     //Shepovalova1->SetVisual(0, 0, 0, 0, 0.8, 0, 0);
     Shepovalova1->SetItemName(SimpleName(CASE_ITEMNAME));
-    SPtr<MbSolid> Fukina11 = LIS_ME22_3_002_01_005();
+    SPtr<MbSolid> Fukina11 = LIS_ME22_3_002_01_005(param_length);
     Fukina11->SetColor(0, 236, 236);
-    SPtr<MbSolid> Fukina12 = LIS_ME22_3_002_01_005();
+    SPtr<MbSolid> Fukina12 = LIS_ME22_3_002_01_005(param_length);
     Fukina12->SetColor(0, 236, 236);
-    SPtr<MbSolid> Fukina13 = LIS_ME22_3_002_01_005();
+    SPtr<MbSolid> Fukina13 = LIS_ME22_3_002_01_005(param_length);
     Fukina13->SetColor(0, 236, 236);
-    SPtr<MbSolid> Fukina14 = LIS_ME22_3_002_01_005();
+    SPtr<MbSolid> Fukina14 = LIS_ME22_3_002_01_005(param_length);
     Fukina14->SetColor(0, 236, 236);
     SPtr<MbSolid> Aleksanyan1 = LIS_ME22_3_002_01_006();
     Aleksanyan1->SetColor(255, 173, 91);
@@ -113,7 +135,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbSolid> Prihodko2 = LIS_ME22_3_002_00_003();
     Prihodko2->SetColor(255, 255, 0);
     SPtr<MbSolid> Seleznev1 = LIS_ME22_3_002_00_004();
-    Seleznev1->SetColor(191, 255, 110);
+    Seleznev1->SetColor(ParametricModelCreator::colorScheme ? RGB(191, 255, 110) : RGB(255, 255, 0));
+    Seleznev1->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0), MbVector3D(0, 0, 1), MbVector3D(1, 0, 0)));
+    //Seleznev1->SetColor(191, 255, 110);
     SPtr<MbSolid> Veronika1 = LIS_ME22_3_002_00_005();
     Veronika1->SetColor(191, 255, 110);
     SPtr<MbSolid> Fukina31 = LIS_ME22_3_002_00_006();

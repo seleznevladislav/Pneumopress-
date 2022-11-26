@@ -15,13 +15,12 @@ ParamsWidget::ParamsWidget(QWidget* parent)
 	ui.comboBox_lighttype->addItem("spot", QVariant(2));
 	ui.comboBox_section->addItem("false", QVariant(0));
 	ui.comboBox_section->addItem("true", QVariant(1));
-	ui.comboBox_colorScheme->addItem("Green", QVariant(0));
-	ui.comboBox_colorScheme->addItem("Red", QVariant(1));
-	ui.pushButton->setText("frfrf");
+	ui.comboBox_colorScheme->addItem("Жёлтый", QVariant(0));
+	ui.comboBox_colorScheme->addItem("Зелёный", QVariant(1));
 
 	setupForm_model();
 	setupForm_scene();
-	ui.doubleSpinBox_diam->setDisabled(!PARAMETRIZE_DIAM);// � ����� � ���������������� ��������������
+	ui.doubleSpinBox_diam->setDisabled(!PARAMETRIZE_DIAM);
 	connect(ui.pushButton_build, &QPushButton::clicked, this, &ParamsWidget::applyAndBuild);
 	connect(ui.pushButton_reset, &QPushButton::clicked, this, &ParamsWidget::reset);
 	connect(ui.pushButton_sceneset, &QPushButton::clicked, this, &ParamsWidget::sceneset);

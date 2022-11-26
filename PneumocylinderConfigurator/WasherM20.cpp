@@ -5,7 +5,7 @@ using namespace BuildMathModel;
 SPtr<MbSolid> ParametricModelCreator::GWasherM20() {
 	ItemSPtr model10;
 
-	path_string  filePath10 = L"C:/Users/Admin/Desktop/деталиИмпорт/Гайка М20-6H ГОСТ 5916-70.step";
+	path_string  filePath10 = L"..\\GOST\\Гайка М20-6H ГОСТ 5916-70.step";
 	::ImportFromFile(model10, filePath10, nullptr, nullptr);
 	MbSolid* WasherM20 = static_cast<MbSolid*>((MbItem*)model10);
 
