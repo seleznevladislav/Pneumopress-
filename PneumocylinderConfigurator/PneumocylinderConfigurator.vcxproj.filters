@@ -127,7 +127,7 @@
     <ClCompile Include="LIS.ME22.3.002.00.015 (Болт крепежный).cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LIS_ME22_3_002_04_001.cpp">
+    <ClCompile Include="LIS.ME22.3.002.04.001 %28Ось длинная%29.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LIS.ME22.3.002.02.001 (Шток Поршневой).cpp">
@@ -142,7 +142,7 @@
     <ClCompile Include="LIS.ME22.3.002.02.004 (Кольцо уплотнителя).cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WasherM20.cpp">
+    <ClCompile Include="LIS.ME22.3.002.03.001 (Ось).cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

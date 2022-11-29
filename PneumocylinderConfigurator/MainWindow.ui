@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Конфигуратор пневмоцилиндра</string>
+   <string>Конфигуратор пневмопресса</string>
   </property>
   <property name="windowIcon">
    <iconset resource="MainWindow.qrc">

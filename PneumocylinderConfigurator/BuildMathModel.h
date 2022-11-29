@@ -214,7 +214,8 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_012();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_015();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016();
-
+		//Оси
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_03_001();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_04_001();
 		//переменные для Шатуна
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001();
