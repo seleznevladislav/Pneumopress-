@@ -82,21 +82,6 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     double param_length = params.length;
 
     double diamMain = params.diam;
-    const double diamMain_STD = 50;
-    //calculate offsets
-    //Разница стандартного и заданного диаметров
-    double diamMainOffset = diamMain - diamMain_STD;
-    //Соотношение стандартного и заданного диаметров
-    double diamDifRatio = diamMain / diamMain_STD;
-
-    double radMainOffset = diamMainOffset / 2;
-
-    // �������� ������
-    double len_dif = param_length - 132.95;
-
-    //pAsm->AddItem(*pSolid);
-
-    double DD = 23.6 + radMainOffset;//ClampingBar and bolts offset from 0 coord
    
 #pragma endregion
 #pragma region Porshen
@@ -107,7 +92,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Morozova1->SetColor(255, 255, 255);
     SPtr<MbSolid> Zarubin1 = LIS_ME22_3_002_01_003();
     Zarubin1->SetColor(255, 255, 0);
-    SPtr<MbSolid> Shepovalova1 = LIS_ME22_3_002_01_004();
+    SPtr<MbSolid> Shepovalova1 = LIS_ME22_3_002_01_004(param_length);
     Shepovalova1->SetColor(255, 255, 255);
     //Shepovalova1->SetVisual(0, 0, 0, 0, 0.8, 0, 0);
     Shepovalova1->SetItemName(SimpleName(CASE_ITEMNAME));
@@ -172,7 +157,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma endregion
 #pragma region Shatun
     // Шатун
-    SPtr<MbSolid> Bychkov1 = LIS_ME22_3_002_02_001();
+    SPtr<MbSolid> Bychkov1 = LIS_ME22_3_002_02_001(param_length);
     Bychkov1->SetColor(224, 224, 224);
     SPtr<MbSolid> Morozova2 = LIS_ME22_3_002_02_002();
     Morozova2->SetColor(230, 230, 230);

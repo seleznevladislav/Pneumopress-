@@ -2,7 +2,7 @@
 
 using namespace BuildMathModel;
 
-SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_004()
+SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_004(double length = 265)
 {
 
     //параметры фасок
@@ -11,7 +11,8 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_004()
     //высот ступеньки
     double height_Cyl_tor = 3;
     //общая высота цилинда
-    double height_Cyl_global = 165;
+    double diff_length = length - 165;
+    double height_Cyl_global = diff_length + 65;
     //наибольший радиус
     double radius_Cyl_b = 87 / 2;
     //внутренний радиус

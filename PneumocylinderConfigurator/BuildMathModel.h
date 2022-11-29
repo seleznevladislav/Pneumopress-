@@ -195,7 +195,7 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_002();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_003();
-		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_004();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_004(double length);
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_005(double length);
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_006();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_007();
@@ -218,7 +218,7 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_03_001();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_04_001();
 		//переменные для Шатуна
-		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001(double length);
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_002();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_003();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_004();

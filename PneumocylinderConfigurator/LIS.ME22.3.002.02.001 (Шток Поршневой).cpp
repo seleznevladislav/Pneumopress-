@@ -32,8 +32,9 @@ void CreateSquareSketchKD(RPArray<MbContour>& _arrContours, MbPolyline* polyline
     _arrContours.push_back(contour);
 }
 
-SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001()
+SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001(double length = 265)
 {
+    double diff_length = length - 65;
     // параметры левого крайнего цилиндра
     int leftFirstCylinderLength = 14;
     int leftFirstCylinderDiametr = 14;
@@ -47,7 +48,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001()
     int leftThirdCylinderDiameter = 18;
 
     // параметры длинного цилиндра
-    int longCylinderLength = leftThirdCylinderLength - 200;
+    int longCylinderLength = leftThirdCylinderLength - diff_length;
     int longCylinderDiameter = 25;
 
     // параметры второго справа элемента (блок)
