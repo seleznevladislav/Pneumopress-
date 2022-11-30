@@ -184,6 +184,23 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbSolid> Bolt4m107 = GBolt4m10();
     SPtr<MbSolid> Bolt4m108 = GBolt4m10();
 
+    SPtr<MbSolid> WasherA141 = GWasherA14();
+    SPtr<MbSolid> WasherA142 = GWasherA14();
+    SPtr<MbSolid> WasherA143 = GWasherA14();
+
+    SPtr<MbSolid> ScrewM141 = GScrewM14();
+    SPtr<MbSolid> ScrewM142 = GScrewM14();
+    SPtr<MbSolid> ScrewM143 = GScrewM14();
+
+    SPtr<MbSolid> ScrewM101 = GScrewM10();
+    SPtr<MbSolid> ScrewM102 = GScrewM10();
+
+    SPtr<MbSolid> ScrewM81 = GScrewM8();
+    SPtr<MbSolid> ScrewM82 = GScrewM8();
+    SPtr<MbSolid> ScrewM83 = GScrewM8();
+    SPtr<MbSolid> ScrewM84 = GScrewM8();
+    SPtr<MbSolid> ScrewM85 = GScrewM8();
+    SPtr<MbSolid> ScrewM86 = GScrewM8();
 #pragma endregion
 
 #pragma region Porshen InstanceSPtr
@@ -292,6 +309,23 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Bolt4m10Comp7(new MbInstance(*Bolt4m107, lcs));
     SPtr<MbInstance> Bolt4m10Comp8(new MbInstance(*Bolt4m108, lcs));
 
+    SPtr<MbInstance> WasherA14Comp1(new MbInstance(*WasherA141, lcs));
+    SPtr<MbInstance> WasherA14Comp2(new MbInstance(*WasherA142, lcs));
+    SPtr<MbInstance> WasherA14Comp3(new MbInstance(*WasherA143, lcs));
+
+    SPtr<MbInstance> ScrewM14Comp1(new MbInstance(*ScrewM141, lcs));
+    SPtr<MbInstance> ScrewM14Comp2(new MbInstance(*ScrewM142, lcs));
+    SPtr<MbInstance> ScrewM14Comp3(new MbInstance(*ScrewM143, lcs));
+
+    SPtr<MbInstance> ScrewM10Comp1(new MbInstance(*ScrewM101, lcs));
+    SPtr<MbInstance> ScrewM10Comp2(new MbInstance(*ScrewM102, lcs));
+
+    SPtr<MbInstance> ScrewM8Comp1(new MbInstance(*ScrewM81, lcs));
+    SPtr<MbInstance> ScrewM8Comp2(new MbInstance(*ScrewM82, lcs));
+    SPtr<MbInstance> ScrewM8Comp3(new MbInstance(*ScrewM83, lcs));
+    SPtr<MbInstance> ScrewM8Comp4(new MbInstance(*ScrewM84, lcs));
+    SPtr<MbInstance> ScrewM8Comp5(new MbInstance(*ScrewM85, lcs));
+    SPtr<MbInstance> ScrewM8Comp6(new MbInstance(*ScrewM86, lcs));
 #pragma endregion
 #pragma region PUSH_BACK
     //Переменные для подсборки Поршень
@@ -350,6 +384,24 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Bolt4m10Comp6);
     pair.push_back(Bolt4m10Comp7);
     pair.push_back(Bolt4m10Comp8);
+
+    pair.push_back(WasherA14Comp1);
+    pair.push_back(WasherA14Comp2);
+    pair.push_back(WasherA14Comp3);
+
+    pair.push_back(ScrewM14Comp1);
+    pair.push_back(ScrewM14Comp2);
+    pair.push_back(ScrewM14Comp3);
+
+    pair.push_back(ScrewM10Comp1);
+    pair.push_back(ScrewM10Comp2);
+
+    pair.push_back(ScrewM8Comp1);
+    pair.push_back(ScrewM8Comp2);
+    pair.push_back(ScrewM8Comp3);
+    pair.push_back(ScrewM8Comp4);
+    pair.push_back(ScrewM8Comp5);
+    pair.push_back(ScrewM8Comp6);
 
 
     MbAssembly* assm = new MbAssembly(pair);
@@ -953,19 +1005,45 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->AddConstraint(GCM_CONCENTRIC, PHE1, PHE2);
 
 #pragma endregion
-#pragma region Moves
-
-#pragma endregion
     MbAxis3D AxX(MbVector3D(1, 0, 0));
     MbAxis3D AxY(MbVector3D(0, 1, 0));
     MbAxis3D AxZ(MbVector3D(0, 0, 1));
+#pragma region Moves
+    Bolt4m105->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
+    Bolt4m106->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
+    Bolt4m107->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
+    Bolt4m108->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
+    Bolt4m105->Move(MbVector3D(-15, 141, 58.5));
+    Bolt4m106->Move(MbVector3D(-15+36-4, 141, 58.5+30+4));
+    Bolt4m107->Move(MbVector3D(-15+36-0.5, 141, 58.5 + 4.5));
+    Bolt4m108->Move(MbVector3D(-15-3.5, 141, 58.5+30));
+
+    WasherA14Comp1-> Rotate(AxY, (-1)* (180 - 84)* M_PI / 180);
+    WasherA14Comp2-> Rotate(AxY, (-1)* (180 - 84)* M_PI / 180);
+    WasherA14Comp3-> Rotate(AxY, (-1)* (180 - 84)* M_PI / 180);
+    WasherA14Comp1-> Move(MbVector3D(-143, 72, 285-58));
+    WasherA14Comp2-> Move(MbVector3D(-150, 72, 286));
+    WasherA14Comp3-> Move(MbVector3D(-157, 72, 286+60));
+
+    ScrewM14Comp1->Rotate(AxY, -(90 - 84)* M_PI / 180);
+    ScrewM14Comp2->Rotate(AxY, -(90 - 84)* M_PI / 180);
+    ScrewM14Comp3->Rotate(AxY, -(90 - 84)* M_PI / 180);
+    ScrewM14Comp1->Move(MbVector3D(-143, 72, 285 - 58));
+    ScrewM14Comp2->Move(MbVector3D(-150, 72, 286));
+    ScrewM14Comp3->Move(MbVector3D(-157, 72, 286 + 60));
+
+    ScrewM10Comp1->Rotate(AxY, -(180 - 84) * M_PI / 180);
+    ScrewM10Comp2->Rotate(AxY, -(180 - 84) * M_PI / 180);
+    ScrewM10Comp1->Move(MbVector3D(-140,  72-16, 86+9));
+    ScrewM10Comp2->Move(MbVector3D(-140,  72+16, 86+9));
+#pragma endregion
 
     assm->EvaluateConstraints();
 
-    assm->Rotate(AxX, M_PI / 2 );
+    assm->Rotate(AxX, M_PI / 2);
     assm->Rotate(AxY, - M_PI / 2);
     //assm->Rotate(AxZ, -M_PI / 4);
-    assm->Move(MbVector3D(70, 600, 0));
+    assm->Move(MbVector3D(72, 600, 0));
 	return assm;
 }
 ///Фукина для 3
