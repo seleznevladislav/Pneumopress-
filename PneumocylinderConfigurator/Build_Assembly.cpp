@@ -125,6 +125,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     Fukina31->SetColor(74, 148, 0);
     SPtr<MbSolid> Fukina32 = LIS_ME22_3_002_00_006();
     Fukina32->SetColor(74, 148, 0);
+    SPtr<MbSolid> Fukina33 = LIS_ME22_3_002_00_006();
+    Fukina33->SetColor(74, 148, 0);
     SPtr<MbSolid> Solov1 = LIS_ME22_3_002_00_007();
     Solov1->SetColor(244, 184, 105);
     SPtr<MbSolid> Yaganov21 = LIS_ME22_3_002_00_008();
@@ -173,6 +175,14 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma endregion
 #pragma region GOST
     SPtr<MbSolid> WasherM20 = GWasherM20();
+    SPtr<MbSolid> Bolt4m101 = GBolt4m10();
+    SPtr<MbSolid> Bolt4m102 = GBolt4m10();
+    SPtr<MbSolid> Bolt4m103 = GBolt4m10();
+    SPtr<MbSolid> Bolt4m104 = GBolt4m10();
+    SPtr<MbSolid> Bolt4m105 = GBolt4m10();
+    SPtr<MbSolid> Bolt4m106 = GBolt4m10();
+    SPtr<MbSolid> Bolt4m107 = GBolt4m10();
+    SPtr<MbSolid> Bolt4m108 = GBolt4m10();
 
 #pragma endregion
 
@@ -197,6 +207,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     InstanceSPtr Sborka5(new MbInstance(*Veronika1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka61(new MbInstance(*Fukina31, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka62(new MbInstance(*Fukina32, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
+    InstanceSPtr Sborka63(new MbInstance(*Fukina33, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka7(new MbInstance(*Solov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka81(new MbInstance(*Yaganov21, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Sborka82(new MbInstance(*Yaganov22, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -236,7 +247,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Porshen7Comp(new MbInstance(*Porshen7, lcs));
     SPtr<MbInstance> Porshen8Comp(new MbInstance(*Porshen8, lcs));
 #pragma endregion
-
+#pragma region Sborka SPtr<MbInstance>
     SPtr<MbInstance> Sborka1Comp(new MbInstance(*Sborka1, lcs));
     SPtr<MbInstance> Sborka2Comp(new MbInstance(*Sborka2, lcs));
     SPtr<MbInstance> Sborka3Comp(new MbInstance(*Sborka3, lcs));
@@ -244,6 +255,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Sborka5Comp(new MbInstance(*Sborka5, lcs));
     SPtr<MbInstance> Sborka61Comp(new MbInstance(*Sborka61, lcs));
     SPtr<MbInstance> Sborka62Comp(new MbInstance(*Sborka62, lcs));
+    SPtr<MbInstance> Sborka63Comp(new MbInstance(*Sborka63, lcs));
     SPtr<MbInstance> Sborka7Comp(new MbInstance(*Sborka7, lcs));
     SPtr<MbInstance> Sborka81Comp(new MbInstance(*Sborka81, lcs));
     SPtr<MbInstance> Sborka82Comp(new MbInstance(*Sborka82, lcs));
@@ -260,6 +272,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> Sborka16Comp(new MbInstance(*Sborka16, lcs));
     SPtr<MbInstance> Oc1Comp(new MbInstance(*Oc1, lcs));
     SPtr<MbInstance> Oc2Comp(new MbInstance(*Oc2, lcs));
+#pragma endregion
 #pragma region Shatun SPtr<MbInstance>
     SPtr<MbInstance> Shatun1Comp(new MbInstance(*Shatun1, lcs));
     SPtr<MbInstance> Shatun2Comp(new MbInstance(*Shatun2, lcs));
@@ -270,8 +283,17 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma region GOST SPtr<MbInstance>
     SPtr<MbInstance> WasherM20Comp1(new MbInstance(*WasherM20, lcs));
 
-#pragma endregion
+    SPtr<MbInstance> Bolt4m10Comp1(new MbInstance(*Bolt4m101, lcs));
+    SPtr<MbInstance> Bolt4m10Comp2(new MbInstance(*Bolt4m102, lcs));
+    SPtr<MbInstance> Bolt4m10Comp3(new MbInstance(*Bolt4m103, lcs));
+    SPtr<MbInstance> Bolt4m10Comp4(new MbInstance(*Bolt4m104, lcs));
+    SPtr<MbInstance> Bolt4m10Comp5(new MbInstance(*Bolt4m105, lcs));
+    SPtr<MbInstance> Bolt4m10Comp6(new MbInstance(*Bolt4m106, lcs));
+    SPtr<MbInstance> Bolt4m10Comp7(new MbInstance(*Bolt4m107, lcs));
+    SPtr<MbInstance> Bolt4m10Comp8(new MbInstance(*Bolt4m108, lcs));
 
+#pragma endregion
+#pragma region PUSH_BACK
     //Переменные для подсборки Поршень
     vector<SPtr<MbInstance>> pair;
     pair.push_back(Porshen1Comp);
@@ -295,6 +317,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Sborka5Comp);
     pair.push_back(Sborka61Comp);
     pair.push_back(Sborka62Comp);
+    pair.push_back(Sborka63Comp);
     pair.push_back(Sborka7Comp);
     pair.push_back(Sborka81Comp);
     pair.push_back(Sborka82Comp);
@@ -317,9 +340,19 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Shatun3Comp);
     pair.push_back(Shatun41Comp);
     pair.push_back(Shatun42Comp);
-
+#pragma endregion
 
     pair.push_back(WasherM20Comp1);
+
+    pair.push_back(Bolt4m10Comp1);
+    pair.push_back(Bolt4m10Comp2);
+    pair.push_back(Bolt4m10Comp3);
+    pair.push_back(Bolt4m10Comp4);
+    pair.push_back(Bolt4m10Comp5);
+    pair.push_back(Bolt4m10Comp6);
+    pair.push_back(Bolt4m10Comp7);
+    pair.push_back(Bolt4m10Comp8);
+
 
     MbAssembly* assm = new MbAssembly(pair);
 
@@ -792,20 +825,21 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma endregion
 #pragma region Sborka - Prokladka polzuna
     //HARDCODE
-    double Val52 = 0;
+    double Val52 = -29;
     MtParVariant Arg52(Val52);
 
-    MtGeomArgument RPFM1(Zarubin4->GetFace(3), Sborka14Comp);
-    MtGeomArgument RPFM2(Solov1->GetFace(7), Sborka7Comp);
-    //assm->AddConstraint(GCM_DISTANCE, RPFM1, RPFM2, Arg52);
+    MtGeomArgument RPFM1(Zarubin4->GetFace(5), Sborka14Comp);
+    MtGeomArgument RPFM2(Solov1->GetFace(5), Sborka7Comp);
+    assm->AddConstraint(GCM_DISTANCE, RPFM1, RPFM2, Arg52);
 
 
-    MtGeomArgument RPHM1(Zarubin3->GetFace(1), Sborka13Comp);
-    MtGeomArgument RPHM2(Seleznev1->GetFace(45), Sborka4Comp);
+    MtGeomArgument RPHM1(Zarubin4->GetFace(2), Sborka14Comp);
+    MtGeomArgument RPHM2(Solov1->GetFace(1), Sborka7Comp);
+    assm->AddConstraint(GCM_DISTANCE, RPHM1, RPHM2, 40.0);
 
-    MtGeomArgument RPHM3(Zarubin3->GetFace(1), Sborka13Comp);
-    MtGeomArgument RPHM4(Seleznev1->GetFace(45), Sborka4Comp);
-    //assm->AddConstraint(GCM_DISTANCE, RPHM1, RPHM2, Arg52);
+    MtGeomArgument RPHM3(Zarubin4->GetFace(0), Sborka14Comp);
+    MtGeomArgument RPHM4(Solov1->GetFace(4), Sborka7Comp);
+    assm->AddConstraint(GCM_DISTANCE, RPHM3, RPHM4, -6.0);
 
 #pragma endregion
 #pragma region Sborka - End constraints
@@ -823,30 +857,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MtGeomArgument PHM6(Prihodko2->GetFace(15), Sborka3Comp);
     assm->AddConstraint(GCM_CONCENTRIC, PHM5, PHM6, 0);
 #pragma endregion
-    // Это просто так добавил как у нас была раньше реализована анимация
-    //const clock_t duration = CLOCKS_PER_SEC * 4; // 2 seconds
-    //const double delta = CLOCKS_PER_SEC / 24;
-    //const clock_t startClock = std::clock();
-    //while (std::clock() < (startClock + duration))
-    //{
-    //    const clock_t t = std::clock();
-    //    assm->ChangeDimension(angDim, (t - startClock) * 200 / duration);
-    //    assm->ChangeDimension(angDim2, (t - startClock) * 200 / duration);
-    //    assm->ChangeDimension(angDim3, (t - startClock) * 200 / duration);
-    //    assm->ChangeDimension(angDim4, (t - startClock) * 200 / duration);
-    //    assm->ChangeDimension(angDim5, (t - startClock) * 200 / duration);
-
-    //    while (std::clock() - t < delta); // delay
-    //    /* MbAxis3D axVert(MbVector3D(0, 1, 0));
-    //     assm->Rotate(axVert, M_PI / 2);
-    //     MbAxis3D axVert2(MbVector3D(1, 0, 0));
-    //     assm->Rotate(axVert2, -M_PI / 2);
-    //     MbAxis3D axVert3(MbVector3D(0, 0, 1));
-    //     assm->Rotate(axVert3, M_PI);*/
-    //    viewManager->RefreshModel();
-    //    viewManager->ShowModel();
-    //}
-        // Решение ограничений
+#pragma region Sborka - Angle Constrains
     //Angle for Block
     MtGeomArgument face5(Yaganov1->GetFace(8), Porshen1Comp);
     MtGeomArgument face6(Seleznev1->GetFace(47), Sborka4Comp);
@@ -856,15 +867,100 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MtGeomArgument Opa1(Solov2->GetFace(16), Sborka1Comp);
     MtGeomArgument Opa2(Seleznev1->GetFace(47), Sborka4Comp);
     assm->AddConstraint(GCM_ANGLE, Opa1, Opa2, (180 - 10)* M_PI / 180);//Градус 10
+
+#pragma endregion
+#pragma region GOST cinstrains
+    //test
+    double boltVal = 14;
+    double washerVal = 0;
+    double screwVal = -20;
+    MtParVariant argBolt(boltVal);
+    MtParVariant argWasher(washerVal);
+    MtParVariant argScrew(screwVal);
+
+    MtGeomArgument PlaneCapfa1(Solov1->GetFace(15), Sborka7Comp);//15
+    MtGeomArgument PlaneCapfa2(Solov1->GetFace(22), Sborka7Comp);//22
+
+    MtGeomArgument PlaneBolt1(Bolt4m101->GetFace(10), Bolt4m10Comp1);
+    MtGeomArgument PlaneBolt2(Bolt4m102->GetFace(10), Bolt4m10Comp2);
+    MtGeomArgument PlaneBolt3(Bolt4m103->GetFace(10), Bolt4m10Comp3);
+    MtGeomArgument PlaneBolt4(Bolt4m104->GetFace(10), Bolt4m10Comp4);
+
+    assm->AddConstraint(GCM_DISTANCE, PlaneCapfa1, PlaneBolt1, argBolt);
+    assm->AddConstraint(GCM_DISTANCE, PlaneCapfa1, PlaneBolt2, argBolt);
+    assm->AddConstraint(GCM_DISTANCE, PlaneCapfa1, PlaneBolt3, argBolt);
+    assm->AddConstraint(GCM_DISTANCE, PlaneCapfa1, PlaneBolt4, argBolt);
+    //HARDCODE
+    MtGeomArgument MKM1(Fukina33->GetFace(12), Sborka63Comp);
+    MtGeomArgument MKM2(Seleznev1->GetFace(104), Sborka4Comp);
+    assm->AddConstraint(GCM_DISTANCE, MKM1, MKM2, 506.0);
+
+    MtGeomArgument MKM3(Fukina33->GetFace(6), Sborka63Comp);
+    MtGeomArgument MKM4(Seleznev1->GetFace(2), Sborka4Comp);
+    assm->AddConstraint(GCM_DISTANCE, MKM3, MKM4, 142.0);
     
+    MtGeomArgument MKM5(Fukina33->GetFace(0), Sborka63Comp);
+    //MtGeomArgument MKM6(Seleznev1->GetFace(3), Sborka4Comp);
+    assm->AddConstraint(GCM_DISTANCE, MKM5, PlaneBolt2, 0.0);
+
+    MtGeomArgument PlaneCapfaC1(Fukina33->GetFace(2), Sborka63Comp);//14
+    MtGeomArgument PlaneCapfaC2(Fukina33->GetFace(3), Sborka63Comp);
+    MtGeomArgument PlaneCapfaC3(Fukina33->GetFace(4), Sborka63Comp);
+    MtGeomArgument PlaneCapfaC4(Fukina33->GetFace(5), Sborka63Comp);
+
+    MtGeomArgument PlaneBoltC1(Bolt4m101->GetFace(12), Bolt4m10Comp1);
+    MtGeomArgument PlaneBoltC2(Bolt4m102->GetFace(12), Bolt4m10Comp2);
+    MtGeomArgument PlaneBoltC3(Bolt4m103->GetFace(12), Bolt4m10Comp3);
+    MtGeomArgument PlaneBoltC4(Bolt4m104->GetFace(12), Bolt4m10Comp4);
+
+    assm->AddConstraint(GCM_CONCENTRIC, PlaneCapfaC1, PlaneBoltC1);
+    assm->AddConstraint(GCM_CONCENTRIC, PlaneCapfaC2, PlaneBoltC2);
+    assm->AddConstraint(GCM_CONCENTRIC, PlaneCapfaC3, PlaneBoltC3);
+    assm->AddConstraint(GCM_CONCENTRIC, PlaneCapfaC4, PlaneBoltC4);
+#pragma endregion
+#pragma region Moves
+
+#pragma endregion
+    MbAxis3D AxX(MbVector3D(1, 0, 0));
+    MbAxis3D AxY(MbVector3D(0, 1, 0));
+    MbAxis3D AxZ(MbVector3D(0, 0, 1));
+
     assm->EvaluateConstraints();
-    ///Фукина для 3
-    //MbAxis3D axVert(MbVector3D(0, 1, 0));
-    //assm->Rotate(axVert, M_PI / 2);
-    //assm->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0), MbVector3D(0, 1, 1), MbVector3D(1, 1, 0)));
-    //Seleznev1->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 500.0)));
-    //assm->Move(MbVector3D(500, 1000, 300));
 
-
+    assm->Rotate(AxX, M_PI / 2 );
+    assm->Rotate(AxY, - M_PI / 2);
+    //assm->Rotate(AxZ, -M_PI / 4);
+    assm->Move(MbVector3D(0, 600, 0));
 	return assm;
 }
+///Фукина для 3
+//MbAxis3D axVert(MbVector3D(0, 1, 0));
+//assm->Rotate(axVert, M_PI / 2);
+//assm->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0), MbVector3D(0, 1, 1), MbVector3D(1, 1, 0)));
+//Seleznev1->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 500.0)));
+//assm->Move(MbVector3D(500, 1000, 300));
+
+
+// Это просто так добавил как у нас была раньше реализована анимация
+//const clock_t duration = CLOCKS_PER_SEC * 4; // 2 seconds
+//const double delta = CLOCKS_PER_SEC / 24;
+//const clock_t startClock = std::clock();
+//while (std::clock() < (startClock + duration))
+//{
+//    const clock_t t = std::clock();
+//    assm->ChangeDimension(angDim, (t - startClock) * 200 / duration);
+//    assm->ChangeDimension(angDim2, (t - startClock) * 200 / duration);
+//    assm->ChangeDimension(angDim3, (t - startClock) * 200 / duration);
+//    assm->ChangeDimension(angDim4, (t - startClock) * 200 / duration);
+//    assm->ChangeDimension(angDim5, (t - startClock) * 200 / duration);
+
+//    while (std::clock() - t < delta); // delay
+//    /* MbAxis3D axVert(MbVector3D(0, 1, 0));
+//     assm->Rotate(axVert, M_PI / 2);
+//     MbAxis3D axVert2(MbVector3D(1, 0, 0));
+//     assm->Rotate(axVert2, -M_PI / 2);
+//     MbAxis3D axVert3(MbVector3D(0, 0, 1));
+//     assm->Rotate(axVert3, M_PI);*/
+//    viewManager->RefreshModel();
+//    viewManager->ShowModel();
+//}
