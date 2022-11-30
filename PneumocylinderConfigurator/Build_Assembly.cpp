@@ -304,11 +304,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Porshen52Comp);
     pair.push_back(Porshen53Comp);
     pair.push_back(Porshen54Comp);
-    /*
     pair.push_back(Porshen6Comp);
     pair.push_back(Porshen7Comp);
     pair.push_back(Porshen8Comp);
-    */
     //Переменные для Сборки
     pair.push_back(Sborka1Comp);
     pair.push_back(Sborka2Comp);
@@ -918,6 +916,43 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->AddConstraint(GCM_CONCENTRIC, PlaneCapfaC3, PlaneBoltC3);
     assm->AddConstraint(GCM_CONCENTRIC, PlaneCapfaC4, PlaneBoltC4);
 #pragma endregion
+#pragma region Porshen - Vtulka1
+    double Val53 = 0;
+    MtParVariant Arg53(Val53);
+
+    MtGeomArgument PFQ1(Zarubin1->GetFace(16), Porshen3Comp);
+    MtGeomArgument PFQ2(Aleksanyan1->GetFace(3), Porshen6Comp);
+    assm->AddConstraint(GCM_DISTANCE, PFQ1, PFQ2, Arg53);
+
+    MtGeomArgument PHQ1(Zarubin1->GetFace(26), Porshen3Comp);
+    MtGeomArgument PHQ2(Aleksanyan1->GetFace(0), Porshen6Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHQ1, PHQ2);
+#pragma endregion
+#pragma region Porshen - Vtulka2
+    double Val54 = 0;
+    MtParVariant Arg54(Val54);
+
+    MtGeomArgument PFW1(Yaganov1->GetFace(27), Porshen1Comp);
+    MtGeomArgument PFW2(Aleksanyan2->GetFace(17), Porshen7Comp);
+    assm->AddConstraint(GCM_DISTANCE, PFW1, PFW2, Arg54);
+
+    MtGeomArgument PHW1(Yaganov1->GetFace(30), Porshen1Comp);
+    MtGeomArgument PHW2(Aleksanyan2->GetFace(10), Porshen7Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHW1, PHW2);
+#pragma endregion
+#pragma region Porshen - Vtulka 3
+    double Val6 = 0;
+    MtParVariant Arg6(Val6);
+
+    MtGeomArgument PFE1(Yaganov1->GetFace(36), Porshen1Comp);
+    MtGeomArgument PFE2(Aleksanyan3->GetFace(1), Porshen8Comp);
+    assm->AddConstraint(GCM_DISTANCE, PFE1, PFE2, Arg6);
+
+    MtGeomArgument PHE1(Yaganov1->GetFace(28), Porshen1Comp);
+    MtGeomArgument PHE2(Aleksanyan3->GetFace(0), Porshen8Comp);
+    assm->AddConstraint(GCM_CONCENTRIC, PHE1, PHE2);
+
+#pragma endregion
 #pragma region Moves
 
 #pragma endregion
@@ -930,7 +965,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->Rotate(AxX, M_PI / 2 );
     assm->Rotate(AxY, - M_PI / 2);
     //assm->Rotate(AxZ, -M_PI / 4);
-    assm->Move(MbVector3D(0, 600, 0));
+    assm->Move(MbVector3D(70, 600, 0));
 	return assm;
 }
 ///Фукина для 3

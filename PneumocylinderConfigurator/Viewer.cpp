@@ -200,8 +200,8 @@ void Viewer::prepareSectionPlane()
 {
 	if (auto tool = graphicsScene()->GetCuttingTool()) {
 		m_sectionPlaneIdArr[0] = tool->AddSectionPlane(MbPlacement3D(
-			MbCartPoint3D(1, 0, 0),
 			MbCartPoint3D(0, 0, 1),
+			MbCartPoint3D(0, 1, 0),
 			MbCartPoint3D(0, 0, 0)
 		));
 		tool->SetEnable(m_sectionPlaneIdArr[0], false);
