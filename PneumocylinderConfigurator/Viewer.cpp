@@ -18,40 +18,7 @@ Viewer::Viewer(QWidget* parent) : QtVision::QtOpenGLSceneWidget(parent)
 Viewer::~Viewer()
 {
 }
-/*
-NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment)
-{
 
-	if (!sceneSegment) sceneSegment = rootSceneSegment;
-
-	NodeKeyVector keys;
-
-	if (item->Type() == MbeSpaceType::st_Assembly) {
-		//разделение сборки на составные элементы, тк MbAssembly отображается бесцветной
-		RPArray<MbItem> subitems;
-		SArray<MbMatrix3D> matrs;
-		MbMatrix3D matrFrom;
-		item->GetMatrixFrom(matrFrom);
-		item->GetItems(MbeSpaceType::st_Item, matrFrom, subitems, matrs);
-
-		for (auto subitem : subitems) {
-			NodeKeyVector subkeys = addMathGeoms(subitem, sceneSegment);
-			keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
-		}
-	}
-	else {
-		//item ->Transform(matrFrom, )
-		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(new MbSpaceInstance(*pSurface), CommandType::Synchronous), rootSegment);
-		SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
-		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
-		segSinSurface->SetObjectName(VSN::String(item->GetItemName()));
-		checkHideElement(segSinSurface);
-		keys.push_back(segSinSurface->GetUniqueKey());
-	}
-
-	return keys;
-}
-*/
 NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegment)
 {
 	if (!sceneSegment) sceneSegment = rootSceneSegment;
@@ -113,14 +80,6 @@ NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment
 // Вопрос для C3D
 void Viewer::animation()
 {
-	//auto renderObjects = sceneContent()->GetObjects();
-	//std::list<VSN::RenderObject *>::iterator it = renderObjects.begin();
-	//std::advance(it, 2);
-	//auto renderObject = *it;
-	//MbCube cube = renderObject->GetBoundingBox();
-	////MbItem* mainItem = segment;
-	//MbCartPoint3D rotationCenter;
-	//cube.GetCenter(rotationCenter);
 	MbCartPoint3D rotationCenter;
 	double sign = viewport()->GetCamera()->GetDefaultUpVector() * viewport()->GetCamera()->GetUpVector();
 	sign = sign <= 0.0 ? 1.0 : sign / fabs(sign);

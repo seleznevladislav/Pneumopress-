@@ -185,6 +185,7 @@ using namespace std;
 namespace BuildMathModel {
 	class ParametricModelCreator {
 		static int colorScheme; // статическое поле инициализируется вне класса, в .cpp
+		static int variantsConf;
 	public:
 		static MbModel* CreatePneymocylinderModel(BuildParams params);
 	private:
@@ -217,6 +218,8 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_014();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_015();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016();
+
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_XXX();
 		//Оси
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_03_001();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_04_001();

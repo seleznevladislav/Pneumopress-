@@ -17,6 +17,8 @@ ParamsWidget::ParamsWidget(QWidget* parent)
 	ui.comboBox_section->addItem("true", QVariant(1));
 	ui.comboBox_colorScheme->addItem("Жёлтый", QVariant(0));
 	ui.comboBox_colorScheme->addItem("Зелёный", QVariant(1));
+	ui.comboBox_config->addItem("1 вариант ", QVariant(0));
+	ui.comboBox_config->addItem("2 вариант", QVariant(1));
 
 	setupForm_model();
 	setupForm_scene();
@@ -47,6 +49,7 @@ void ParamsWidget::updateParams_model()
 	modelParams.diam = ui.doubleSpinBox_diam->value();
 	modelParams.length = ui.doubleSpinBox_length->value();
 	modelParams.colorScheme = ui.comboBox_colorScheme->currentIndex();
+	modelParams.variantsConf = ui.comboBox_config->currentIndex();
 }
 
 void ParamsWidget::setupForm_model()
@@ -54,6 +57,7 @@ void ParamsWidget::setupForm_model()
 	ui.doubleSpinBox_diam->setValue(modelParams.diam);
 	ui.doubleSpinBox_length->setValue(modelParams.length);
 	ui.comboBox_colorScheme->setCurrentIndex(modelParams.colorScheme ? 1 : 0);
+	ui.comboBox_config->setCurrentIndex(modelParams.variantsConf ? 0 : 1);
 }
 
 void ParamsWidget::updateParams_scene()

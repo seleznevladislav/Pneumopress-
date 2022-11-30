@@ -7,5 +7,6 @@ namespace BuildMathModel {
 		double diam = 50.0;
 		double length = 265;
 		int colorScheme = 1;
+		int variantsConf = 1;
 	};
 }

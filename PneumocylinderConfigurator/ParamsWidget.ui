@@ -144,6 +144,16 @@
         </layout>
        </item>
        <item>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Конфигурация</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_config"/>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
