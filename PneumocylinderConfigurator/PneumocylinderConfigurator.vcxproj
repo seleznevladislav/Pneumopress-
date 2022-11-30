@@ -119,9 +119,12 @@ xcopy /y "$(SolutionDir)C3D\Kernel\$(Configuration)\c3d.dll" "$(SolutionDir)$(Pl
     <ClCompile Include="LIS.ME22.3.002.00.002 (Ползун).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.006 (Кронштейн цапфы).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.007 (Направляющая ползуна).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.009 (Прокладка).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.010 (Шатун Скользящий).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.011 (Кронштейн регулировочный).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.012 (Штифт 16).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.013 (Прокладка направляющей ползуна).cpp" />
+    <ClCompile Include="LIS.ME22.3.002.00.014 (Прокладка ползуна).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.015 (Болт крепежный).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.016 (Стол).cpp" />
     <ClCompile Include="LIS.ME22.3.002.00.008 %28Втулка самосмазывающая%29.cpp" />

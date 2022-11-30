@@ -2,7 +2,7 @@
 
 using namespace BuildMathModel;
 
-SPtr<MbSolid> ParametricModelCreator::GHOST() {
+SPtr<MbSolid> ParametricModelCreator::GBolt4m10() {
 	ItemSPtr model;
 
 	path_string  filePath1 = L"..\\GOST\\Болт 4М10-6gx35 ГОСТ 7798-70.step";

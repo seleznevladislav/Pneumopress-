@@ -87,7 +87,7 @@ SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_04_001()
 
 
     MbSNameMaker namesElSolid(ct_ElementarySolid, MbSNameMaker::i_SideNone, 0);
-    double CENTRA = 60;
+    double CENTRA = 55;
     MbSolid* pCylSolid = NULL;
     MbSolid* pCylSolid1 = NULL;
     SArray<MbCartPoint3D> cylPnts(3);

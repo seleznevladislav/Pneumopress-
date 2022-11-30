@@ -209,9 +209,12 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_006();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_007();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_008();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_009();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_010();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_011();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_012();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_013();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_014();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_015();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016();
 		//Îñè
@@ -223,7 +226,7 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_003();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_004();
 
-		static SPtr<MbSolid> ParametricModelCreator::GHOST();
+		static SPtr<MbSolid> ParametricModelCreator::GBolt4m10();
 		static SPtr<MbSolid> ParametricModelCreator::GWasherM20();
 	};
 }
