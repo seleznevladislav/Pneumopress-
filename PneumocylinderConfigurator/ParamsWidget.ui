@@ -16,8 +16,17 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string notr="true">&amp;#fb8631b&amp;#fb9144i&amp;#fb9c56r&amp;#fca669d&amp;#fcb17bf&amp;#fcbc8el&amp;#fcc7a0o&amp;#fcd2b3p&amp;#fcddc5.&amp;#fde7d8c&amp;#fdf2eao&amp;#fdfdfdm</string>
+     </property>
+     <property name="tabPosition">
+      <enum>QTabWidget::North</enum>
+     </property>
      <property name="currentIndex">
       <number>0</number>
+     </property>
+     <property name="usesScrollButtons">
+      <bool>true</bool>
      </property>
      <widget class="QWidget" name="tab_model">
       <attribute name="title">
@@ -173,6 +182,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QPushButton" name="pushButton_build">
+           <property name="styleSheet">
+            <string notr="true">    font: bold 12px;</string>
+           </property>
            <property name="text">
             <string>Построить</string>
            </property>
@@ -180,6 +192,9 @@
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_reset">
+           <property name="styleSheet">
+            <string notr="true">    font: bold 12px;</string>
+           </property>
            <property name="text">
             <string>Сбросить</string>
            </property>
@@ -188,11 +203,6 @@
         </layout>
        </item>
       </layout>
-     </widget>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>Параметризация</string>
-      </attribute>
      </widget>
      <widget class="QWidget" name="tab_scene">
       <attribute name="title">
@@ -325,6 +335,9 @@
          </property>
          <item>
           <widget class="QPushButton" name="pushButton_sceneset">
+           <property name="styleSheet">
+            <string notr="true">    font: bold 12px;</string>
+           </property>
            <property name="text">
             <string>Обновить</string>
            </property>
