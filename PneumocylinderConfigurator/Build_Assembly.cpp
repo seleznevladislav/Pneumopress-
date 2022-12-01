@@ -4,8 +4,6 @@ using namespace c3d;
 using namespace std;
 using namespace BuildMathModel;
 
-
-
 class ConstraintSolver
 {
     GCM_system m_gcSystem;
@@ -213,7 +211,11 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbSolid> WasherM16 = GWasherM16();
     
     SPtr<MbSolid> RingA20 = GRingA20();
+
 #pragma endregion
+    SPtr<MbSolid> Konfiguration1 = LIS_Konfiguration1();
+    SPtr<MbSolid> Konfiguration2 = LIS_Konfiguration2();
+    SPtr<MbSolid> Konfiguration3 = LIS_Konfiguration3();
 
 #pragma region Porshen InstanceSPtr
     InstanceSPtr Porshen1(new MbInstance(*Yaganov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -350,8 +352,16 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> WasherM16Comp1(new MbInstance(*WasherM16, lcs));
 
     SPtr<MbInstance> RingA20Comp1(new MbInstance(*RingA20, lcs));
+
+
+
 #pragma endregion
-#pragma region PUSH_BACK
+
+    SPtr<MbInstance> Konfiguration1Comp(new MbInstance(*Konfiguration1, lcs));
+    SPtr<MbInstance> Konfiguration2Comp(new MbInstance(*Konfiguration2, lcs));
+    SPtr<MbInstance> Konfiguration3Comp(new MbInstance(*Konfiguration3, lcs));
+
+#pragma region PUSH_BACK MAIN
     //Переменные для подсборки Поршень
     vector<SPtr<MbInstance>> pair;
     pair.push_back(Porshen1Comp);
@@ -397,7 +407,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(Shatun41Comp);
     pair.push_back(Shatun42Comp);
 #pragma endregion
-
+#pragma region PUSH_BACK GHOSTS
     pair.push_back(WasherM20Comp1);
 
     pair.push_back(Bolt4m10Comp1);
@@ -436,6 +446,11 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(WasherM16Comp1);
 
     pair.push_back(RingA20Comp1);
+#pragma endregion
+
+    pair.push_back(Konfiguration1Comp);
+    pair.push_back(Konfiguration2Comp);
+    pair.push_back(Konfiguration3Comp);
 
     MbAssembly* assm = new MbAssembly(pair);
 
@@ -1063,7 +1078,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MbAxis3D AxX(MbVector3D(1, 0, 0));
     MbAxis3D AxY(MbVector3D(0, 1, 0));
     MbAxis3D AxZ(MbVector3D(0, 0, 1));
-#pragma region Moves
+#pragma region Moves for ghosts
     Bolt4m105->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
     Bolt4m106->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
     Bolt4m107->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
@@ -1123,12 +1138,18 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     RingA20Comp1->Move(MbVector3D(-36.7, 18.2, 179.5));
 #pragma endregion
-
+#pragma region Moves for konfiguration
+    Konfiguration1Comp->Rotate(AxY, (180 - 7) * M_PI / 180);
+    Konfiguration1Comp->Move(MbVector3D(-60.5, 72.5, 380));
+    
+#pragma endregion
     assm->EvaluateConstraints();
 
+#pragma region Position of assemble
     assm->Rotate(AxX, (M_PI / 2 ) );
     assm->Rotate(AxY,  - M_PI / 2);
     assm->Rotate(AxX, -(7 * M_PI / 180));
     assm->Move(MbVector3D(72, 600, 0));
+#pragma endregion
 	return assm;
 }

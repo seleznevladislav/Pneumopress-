@@ -192,7 +192,7 @@ namespace BuildMathModel {
 		static MbAssembly* CreatePneumocylinderAssembly(BuildParams params);
 	private:
 		static void CreateBase(MbAssembly* pAsm, double ratio);
-		//Переменные для поршня
+		//Values for PORSHEN
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_001();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_002();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_003();
@@ -201,7 +201,7 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_006();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_007();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_008();
-
+		//Values for SBORKA
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_001();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_002();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_003();
@@ -218,17 +218,17 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_014();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_015();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_016();
-
+		//Konfiguration of table
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_00_XXX();
-		//Оси
+		//Axes
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_03_001();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_04_001();
-		//переменные для Шатуна
+		//Values for SHATUN
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_001(double length);
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_002();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_003();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_02_004();
-
+		//Ghosts
 		static SPtr<MbSolid> ParametricModelCreator::GBolt4m10();
 		static SPtr<MbSolid> ParametricModelCreator::GWasherA14();
 		static SPtr<MbSolid> ParametricModelCreator::GWasherM20();
@@ -239,5 +239,9 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::GWassherM8();
 		static SPtr<MbSolid> ParametricModelCreator::GWasherM16();
 		static SPtr<MbSolid> ParametricModelCreator::GRingA20();
+		//konfiguration
+		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration1();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration2();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration3();
 	};
 }
