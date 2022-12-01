@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Конфигуратор пневмоцилиндра</string>
+   <string>Конфигуратор пневмопресса</string>
   </property>
   <property name="windowIcon">
    <iconset resource="MainWindow.qrc">
@@ -49,7 +49,7 @@
      <x>0</x>
      <y>0</y>
      <width>599</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -83,6 +83,7 @@
     <addaction name="action_section"/>
     <addaction name="action_changeSectionPlane"/>
     <addaction name="action_params"/>
+    <addaction name="action_animation"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -206,6 +207,14 @@
    </property>
    <property name="shortcut">
     <string>F4</string>
+   </property>
+  </action>
+  <action name="action_animation">
+   <property name="text">
+    <string>Анимация</string>
+   </property>
+   <property name="shortcut">
+    <string>A</string>
    </property>
   </action>
  </widget>

@@ -5,46 +5,18 @@ Viewer::Viewer(QWidget* parent) : QtVision::QtOpenGLSceneWidget(parent)
 	rootSceneSegment = this->sceneContent()->GetRootSegment();
 	Q_ASSERT(rootSceneSegment != nullptr);
 
+	timer = new QTimer();
+
 	QtVision::createProcessesCameraControls(this);
 
 	prepareSceneBackground();
 	prepareSectionPlane();
+
+	connect(timer, SIGNAL(timeout()), this, SLOT(animationSlot()));
 }
 
 Viewer::~Viewer()
 {
-}
-
-NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment)
-{
-	
-	if (!sceneSegment) sceneSegment = rootSceneSegment;
-
-	NodeKeyVector keys;
-
-	if (item->Type() == MbeSpaceType::st_Assembly) {
-		//разделение сборки на составные элементы, тк MbAssembly отображается бесцветной
-		RPArray<MbItem> subitems;
-		SArray<MbMatrix3D> matrs;
-		MbMatrix3D matrFrom;
-		item->GetMatrixFrom(matrFrom);
-		item->GetItems(MbeSpaceType::st_Item, matrFrom, subitems, matrs);
-
-		for (auto subitem : subitems) {
-			NodeKeyVector subkeys = addMathGeoms(subitem, sceneSegment);
-			keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
-		}
-	}
-	else {
-		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(new MbSpaceInstance(*pSurface), CommandType::Synchronous), rootSegment);
-		SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
-		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
-		segSinSurface->SetObjectName(VSN::String(item->GetItemName()));
-		checkHideElement(segSinSurface);
-		keys.push_back(segSinSurface->GetUniqueKey());
-	}
-
-	return keys;
 }
 
 NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegment)
@@ -56,9 +28,10 @@ NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegme
 	SArray<MbMatrix3D> matrs;
 	model->GetItems(MbeSpaceType::st_SpaceItem, subitems, matrs);
 
+
 #if 1 //two ways to add model to view
-	for (auto subitem : subitems) {
-		NodeKeyVector subkeys = addMathGeoms(subitem, sceneSegment);
+	for (int i = 0; i < subitems.size(); i++) {
+		NodeKeyVector subkeys = addMathGeoms(subitems[i], sceneSegment, matrs[i]);
 		keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
 	}
 #else
@@ -71,6 +44,47 @@ NodeKeyVector Viewer::addMathGeoms(MbModel* model, VSN::SceneSegment* sceneSegme
 #endif
 	updHideElements();
 	return keys;
+}
+
+NodeKeyVector Viewer::addMathGeoms(MbItem* item, VSN::SceneSegment* sceneSegment, MbMatrix3D matrix)
+{
+
+	if (!sceneSegment) sceneSegment = rootSceneSegment;
+
+	NodeKeyVector keys;
+
+	if (item->Type() == MbeSpaceType::st_Assembly) {
+		//разделение сборки на составные элементы, тк MbAssembly отображается бесцветной
+		RPArray<MbItem> subitems;
+		SArray<MbMatrix3D> matrs;
+		MbMatrix3D matrFrom;
+		item->GetMatrixFrom(matrFrom);
+		item->GetItems(MbeSpaceType::st_Item, matrFrom, subitems, matrs);
+
+		for (int i = 0; i < subitems.size(); i++) {
+			NodeKeyVector subkeys = addMathGeoms(subitems[i], sceneSegment, matrs[i].Transform(matrix));
+			keys.insert(keys.cend(), subkeys.cbegin(), subkeys.cend());
+		}
+	}
+	else {
+		item->Transform(matrix);
+		SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
+		//SceneSegment* segSinSurface = new SceneSegment(GeometryFactory::Instance()->CreateMathRep(item, CommandType::Synchronous), sceneSegment);
+		segSinSurface->SetObjectName(VSN::String(item->GetItemName()));
+		checkHideElement(segSinSurface);
+		keys.push_back(segSinSurface->GetUniqueKey());
+	}
+
+	return keys;
+}
+// Вопрос для C3D
+void Viewer::animation()
+{
+	MbCartPoint3D rotationCenter;
+	double sign = viewport()->GetCamera()->GetDefaultUpVector() * viewport()->GetCamera()->GetUpVector();
+	sign = sign <= 0.0 ? 1.0 : sign / fabs(sign);
+	viewport()->GetCamera()->RotateAbout(viewport()->GetCamera()->GetDefaultUpVector(), sign * 0.06, rotationCenter);
+	update();
 }
 
 void Viewer::clearScene()
@@ -115,6 +129,24 @@ void Viewer::changeSectionPlaneSlot()
 	}
 }
 
+void Viewer::animationSlot()
+{
+	animation();
+}
+
+void Viewer::animationSwitchSlot()
+{
+	if (timer->isActive())
+	{
+		timer->stop();
+	}
+	else
+	{
+		timer->start(100);
+	}
+}
+
+
 void Viewer::prepareSceneBackground()
 {
 	this->graphicsView()->SetRenderMode(sceneParams.edges ? RenderMode::rm_ShadedWithEdges : RenderMode::rm_Shaded);
@@ -127,8 +159,8 @@ void Viewer::prepareSectionPlane()
 {
 	if (auto tool = graphicsScene()->GetCuttingTool()) {
 		m_sectionPlaneIdArr[0] = tool->AddSectionPlane(MbPlacement3D(
-			MbCartPoint3D(1, 0, 0),
 			MbCartPoint3D(0, 0, 1),
+			MbCartPoint3D(0, 1, 0),
 			MbCartPoint3D(0, 0, 0)
 		));
 		tool->SetEnable(m_sectionPlaneIdArr[0], false);

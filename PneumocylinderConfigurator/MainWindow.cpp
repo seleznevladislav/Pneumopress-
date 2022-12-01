@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget* parent)
 
 	connect(ui.action_save, &QAction::triggered, this, &MainWindow::saveFileSlot);
 	connect(ui.action_open, &QAction::triggered, this, &MainWindow::openFileSlot);
+
+	connect(ui.action_animation, &QAction::triggered, viewer, &Viewer::animationSwitchSlot);
 }
 
 MainWindow::~MainWindow()

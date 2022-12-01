@@ -1,0 +1,61 @@
+#include "BuildMathModel.h"
+
+using namespace BuildMathModel;
+
+SPtr<MbSolid> ParametricModelCreator::LIS_ME22_3_002_01_008()
+{
+    // Множитель для преобразования угловых значений из градусов в радианы
+    const double DEG_TO_RAD = M_PI / 180.0;
+
+    //Создание двумерные точки на осях X и Y
+    MbCartPoint p1(15, 5);
+    MbCartPoint p2(21, 5);
+    MbCartPoint p3(21, 0);
+    MbCartPoint p4(15, 0);
+
+    //Динамическое создание объектов отрезков
+    MbLineSegment* Seg1 = new MbLineSegment(p1, p2);
+    MbLineSegment* Seg2 = new MbLineSegment(p2, p3);
+    MbLineSegment* Seg3 = new MbLineSegment(p3, p4);
+    MbLineSegment* Seg4 = new MbLineSegment(p4, p1);
+
+    //Динамическое создание контура
+    MbContour* ptrContour = new MbContour();
+    //Добавление в контур сегментов
+    ptrContour->AddSegment(Seg1);
+    ptrContour->AddSegment(Seg2);
+    ptrContour->AddSegment(Seg3);
+    ptrContour->AddSegment(Seg4);
+
+    // Создание плоскости - она совпадает с плоскостью XY локальной СК
+    MbPlacement3D* place = new MbPlacement3D();
+    MbPlane* ptrSurface = new MbPlane(*place);
+
+    //Создание образующей для тела вращения
+    RPArray<MbContour>* ptrContours = new RPArray<MbContour>();
+    ptrContours->Add(ptrContour);
+
+    //объект, в котором хранятся сведения об образующей
+    MbSweptData* pCurves;
+    pCurves = new MbSweptData(*ptrSurface, *ptrContours);
+
+    // Объект параметров для построения тел вращения.
+    RevolutionValues revParms(360 * DEG_TO_RAD, 0, 0);
+
+    //Именователи для операции построения тела вращения и для контуров образующей
+    MbSNameMaker operNames(1, MbSNameMaker::i_SideNone, 0);
+    PArray<MbSNameMaker> cNames(0, 1, false);
+
+    //Ось вращения для построения тела
+    MbAxis3D axis(place->GetAxisY());
+
+    // Вызов функции-утилиты для построения твердого тела вращения
+    MbSolid* m_pResSolid = nullptr;
+    MbResultType m_bResult = RevolutionSolid(*pCurves, axis, revParms, operNames, cNames, m_pResSolid);
+
+    SolidSPtr MainSolid(m_pResSolid);
+
+    ::DeleteItem(m_pResSolid);
+
+    return MainSolid;
+}

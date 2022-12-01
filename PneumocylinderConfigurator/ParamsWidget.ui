@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_model">
       <attribute name="title">
@@ -72,16 +72,16 @@
             <number>1</number>
            </property>
            <property name="minimum">
-            <double>155.000000000000000</double>
+            <double>250.000000000000000</double>
            </property>
            <property name="maximum">
-            <double>900.000000000000000</double>
+            <double>320.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>10.000000000000000</double>
+            <double>5.000000000000000</double>
            </property>
            <property name="value">
-            <double>449.000000000000000</double>
+            <double>265.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -144,6 +144,16 @@
         </layout>
        </item>
        <item>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Конфигурация</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_config"/>
+       </item>
+       <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -183,19 +193,6 @@
       <attribute name="title">
        <string>Параметризация</string>
       </attribute>
-      <widget class="QPushButton" name="pushButton">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>93</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
      </widget>
      <widget class="QWidget" name="tab_scene">
       <attribute name="title">
@@ -289,7 +286,7 @@
          <item row="6" column="0">
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Корпус</string>
+            <string>Прозрачность </string>
            </property>
           </widget>
          </item>

@@ -1,10 +1,8 @@
-# PneumocylinderConfigurator
+# PneumoPress Configurator
 
-Конфигуратор параметрической модели пневмоцилиндра на базе [C3D Toolkit](https://c3dlabs.com/ru/products/c3d-toolkit/)
+Конфигуратор параметрической модели пневмопресса на базе [C3D Toolkit](https://c3dlabs.com/ru/products/c3d-toolkit/)
 
-Приложение позволяет построить параметрическую модель по длине хода и диаметру поршня, варианту цветовой схемы, а также настроить стиль отображения в сцене, сечение модели и прозрачность корпуса
-
-![Screenshot](https://i.postimg.cc/8CkVQCN5/screenshot-cylnder1.png)
+Работа была выполнена в качестве конкурсного задания по [хакатону](https://ncmu-utmn.ru/events/forum2022/hackathon)
 
 В решении используется проект статической библиотеки [QtVision](https://github.com/maxchistt/QtVision-Static-Class-Library)
 
@@ -16,7 +14,7 @@
 
 1. Открываем проект одним из двух способов
 
-   - Основной : Открываем файл проекта "PneumocylinderConfigurator.sln"
+   - Основной : Открываем файл проекта "pneumopress.sln"
    - Альтернативный : Открываем, кликнув по папке решения 'ПКМ -> Открыть с помощью Visual Studio', затем жмем 'Переключиться между решениями и доступными представлениями -> Просмотр целевых объектов CMake'
 
 ---

@@ -1,0 +1,32 @@
+;;
+;; Journal of C3D solver: SampleAnimationOfBending.jrn
+<<<<<<< HEAD
+;; Generated: 11/20/22 15:06:32
+=======
+;; Generated: 11/20/22 14:53:09
+>>>>>>> ImportDetails__added_folder_to_the_project
+;; C3D version (hex): 15001001
+;;
+
+(C3D_Version 352325633)
+(GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0) (0.0 1.0 0.0)) #1)
+(GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0) (0.0 1.0 0.0)) #2)
+(GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0) (0.0 1.0 0.0)) #3)
+<<<<<<< HEAD
+(GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0) (0.0 1.0 0.0)) #4)
+=======
+(GCM_AddGeom (GCM_LCS (0.0 0.0 0.0) (0.0 -1.0 0.0) (1.0 0.0 0.0) (-0.0 0.0 1.0)) #4)
+(GCM_FixGeom #2 )
+>>>>>>> ImportDetails__added_folder_to_the_project
+(GCM_FixGeom #4 )
+(GCM_AddConstraint (GCM_COINCIDENT #4 #1 GCM_CLOSEST) #5)
+(GCM_AddConstraint (GCM_COINCIDENT #4 #2 GCM_CLOSEST) #6)
+(GCM_AddConstraint (GCM_COINCIDENT #4 #3 GCM_CLOSEST) #7)
+(GCM_Evaluate GCM_RESULT_Ok)
+<<<<<<< HEAD
+(GCM_DiagnosticPars ((consCount 3) (inConsCount 28) (reductCoef -1.0) (dof 0)))
+=======
+(GCM_Placement #1 ((0.0 0.0 0.0) (0.0 0.0 1.0) (1.0 0.0 0.0)))
+(GCM_Placement #3 ((0.0 0.0 -0.0) (-0.0 -1.0 0.0) (1.0 -0.0 -0.0)))
+(GCM_DiagnosticPars ((consCount 2) (inConsCount 19) (reductCoef 47.368421052631575) (dof 0)))
+>>>>>>> ImportDetails__added_folder_to_the_project
