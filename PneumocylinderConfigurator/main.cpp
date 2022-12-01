@@ -17,8 +17,8 @@ int main(int argc, char* argv[])
 
 	QApplication app(argc, argv);
 	app.setStyle(QStyleFactory::create("Fusion"));
-	app.setApplicationName(u8"Конфигуратор пневмоцилидра");
-	app.setOrganizationName(u8"Центр САПР-разработки московского политеха");
+	app.setApplicationName(u8"Конфигуратор пневмопресса");
+	app.setOrganizationName(u8"Команда СИА");
 	app.setOrganizationDomain("https://vk.com/mpu_cloud");
 	app.setApplicationVersion("1.2");
 
