@@ -1126,40 +1126,9 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     assm->EvaluateConstraints();
 
-    assm->Rotate(AxX, M_PI / 2);
-    assm->Rotate(AxY, - M_PI / 2);
-    //assm->Rotate(AxZ, -M_PI / 4);
+    assm->Rotate(AxX, (M_PI / 2 ) );
+    assm->Rotate(AxY,  - M_PI / 2);
+    assm->Rotate(AxX, -(7 * M_PI / 180));
     assm->Move(MbVector3D(72, 600, 0));
 	return assm;
 }
-///Фукина для 3
-//MbAxis3D axVert(MbVector3D(0, 1, 0));
-//assm->Rotate(axVert, M_PI / 2);
-//assm->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0), MbVector3D(0, 1, 1), MbVector3D(1, 1, 0)));
-//Seleznev1->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 500.0)));
-//assm->Move(MbVector3D(500, 1000, 300));
-
-
-// Это просто так добавил как у нас была раньше реализована анимация
-//const clock_t duration = CLOCKS_PER_SEC * 4; // 2 seconds
-//const double delta = CLOCKS_PER_SEC / 24;
-//const clock_t startClock = std::clock();
-//while (std::clock() < (startClock + duration))
-//{
-//    const clock_t t = std::clock();
-//    assm->ChangeDimension(angDim, (t - startClock) * 200 / duration);
-//    assm->ChangeDimension(angDim2, (t - startClock) * 200 / duration);
-//    assm->ChangeDimension(angDim3, (t - startClock) * 200 / duration);
-//    assm->ChangeDimension(angDim4, (t - startClock) * 200 / duration);
-//    assm->ChangeDimension(angDim5, (t - startClock) * 200 / duration);
-
-//    while (std::clock() - t < delta); // delay
-//    /* MbAxis3D axVert(MbVector3D(0, 1, 0));
-//     assm->Rotate(axVert, M_PI / 2);
-//     MbAxis3D axVert2(MbVector3D(1, 0, 0));
-//     assm->Rotate(axVert2, -M_PI / 2);
-//     MbAxis3D axVert3(MbVector3D(0, 0, 1));
-//     assm->Rotate(axVert3, M_PI);*/
-//    viewManager->RefreshModel();
-//    viewManager->ShowModel();
-//}
