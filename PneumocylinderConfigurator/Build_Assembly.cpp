@@ -78,6 +78,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma region PARAMS
     
     double param_length = params.length;
+    double move_param = param_length - 265;
 
     double diamMain = params.diam;
    
@@ -211,6 +212,18 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbSolid> WasherM16 = GWasherM16();
     
     SPtr<MbSolid> RingA20 = GRingA20();
+
+    SPtr<MbSolid> WasherM10_81 = GWasherM10_8();
+    SPtr<MbSolid> WasherM10_82 = GWasherM10_8();
+    SPtr<MbSolid> WasherM10_83 = GWasherM10_8();
+    SPtr<MbSolid> WasherM10_84 = GWasherM10_8();
+    SPtr<MbSolid> WasherM10_85 = GWasherM10_8();
+    SPtr<MbSolid> WasherM10_86 = GWasherM10_8();
+    SPtr<MbSolid> WasherM10_87 = GWasherM10_8();
+    SPtr<MbSolid> WasherM10_88 = GWasherM10_8();
+
+    SPtr<MbSolid> ScrewAM8_21 = GScrewAM8_2();
+    SPtr<MbSolid> ScrewAM8_22 = GScrewAM8_2();
 
 #pragma endregion
 
@@ -363,8 +376,17 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     SPtr<MbInstance> RingA20Comp1(new MbInstance(*RingA20, lcs));
 
+    SPtr<MbInstance> WasherM10_81Comp1(new MbInstance(*WasherM10_81, lcs));
+    SPtr<MbInstance> WasherM10_82Comp1(new MbInstance(*WasherM10_82, lcs));
+    SPtr<MbInstance> WasherM10_83Comp1(new MbInstance(*WasherM10_83, lcs));
+    SPtr<MbInstance> WasherM10_84Comp1(new MbInstance(*WasherM10_84, lcs));
+    SPtr<MbInstance> WasherM10_85Comp1(new MbInstance(*WasherM10_85, lcs));
+    SPtr<MbInstance> WasherM10_86Comp1(new MbInstance(*WasherM10_86, lcs));
+    SPtr<MbInstance> WasherM10_87Comp1(new MbInstance(*WasherM10_87, lcs));
+    SPtr<MbInstance> WasherM10_88Comp1(new MbInstance(*WasherM10_88, lcs));
 
-
+    SPtr<MbInstance> ScrewAM8_21Comp1(new MbInstance(*ScrewAM8_21, lcs));
+    SPtr<MbInstance> ScrewAM8_22Comp1(new MbInstance(*ScrewAM8_22, lcs));
 #pragma endregion
 
     SPtr<MbInstance> Konfiguration1Comp(new MbInstance(*Konfiguration1, lcs));
@@ -454,11 +476,19 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(WasherM16Comp1);
 
     pair.push_back(RingA20Comp1);
+
+    pair.push_back(WasherM10_81Comp1);
+    pair.push_back(WasherM10_82Comp1);
+    pair.push_back(WasherM10_83Comp1);
+    pair.push_back(WasherM10_84Comp1);
+    pair.push_back(WasherM10_85Comp1);
+    pair.push_back(WasherM10_86Comp1);
+    pair.push_back(WasherM10_87Comp1);
+    pair.push_back(WasherM10_88Comp1);
+
 #pragma endregion
     
     pair.push_back(Konfiguration1Comp);
-    //pair.push_back(Konfiguration2Comp);
-    //pair.push_back(Konfiguration3Comp);
 
     MbAssembly* assm = new MbAssembly(pair);
 
@@ -1084,6 +1114,20 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MbAxis3D AxY(MbVector3D(0, 1, 0));
     MbAxis3D AxZ(MbVector3D(0, 0, 1));
 #pragma region Moves for ghosts
+    double move_paramXX = move_param;
+    double move_paramX = move_param;
+    if (move_param < 0)
+    {
+        move_paramX = move_param * -0.22;
+    }
+    if (move_param > 0)
+    {
+        move_paramXX = move_param * 0.4;
+    }
+    if (move_param == 0) {
+        move_paramX = 0;
+        move_param = 0;
+    }
     Bolt4m105->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
     Bolt4m106->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
     Bolt4m107->Rotate(AxX, (- 1)* (180 - 90)* M_PI / 180);
@@ -1109,8 +1153,8 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     ScrewM10Comp1->Rotate(AxY, -(180 - 84) * M_PI / 180);
     ScrewM10Comp2->Rotate(AxY, -(180 - 84) * M_PI / 180);
-    ScrewM10Comp1->Move(MbVector3D(-140,  72-16, 86+9));
-    ScrewM10Comp2->Move(MbVector3D(-140,  72+16, 86+9));
+    ScrewM10Comp1->Move(MbVector3D(-140 - move_paramXX * 0.25,  72-16, 86+9));
+    ScrewM10Comp2->Move(MbVector3D(-140 - move_paramXX * 0.25,  72+16, 86+9));
 
     ScrewM8Comp1->Rotate(AxY, (180-6) * M_PI / 180);
     ScrewM8Comp2->Rotate(AxY, (180-6) * M_PI / 180);
@@ -1119,12 +1163,12 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     ScrewM8Comp5->Rotate(AxY, (180-6) * M_PI / 180);
     ScrewM8Comp6->Rotate(AxY, (180-6) * M_PI / 180);
 
-    ScrewM8Comp1->Move(MbVector3D(-31, 72-42, 346));
-    ScrewM8Comp2->Move(MbVector3D(-31+4, 72-42, 346-35));
-    ScrewM8Comp3->Move(MbVector3D(-31-4, 72-42, 346+35));
-    ScrewM8Comp4->Move(MbVector3D(-31-4, 72+43, 346+35));
-    ScrewM8Comp5->Move(MbVector3D(-31+4, 72+43, 346-35));
-    ScrewM8Comp6->Move(MbVector3D(-31, 72+43, 346));
+    ScrewM8Comp1->Move(MbVector3D(-31 - move_paramXX, 72-42, 346));
+    ScrewM8Comp2->Move(MbVector3D(-31+4 - move_paramXX, 72-42, 346-35));
+    ScrewM8Comp3->Move(MbVector3D(-31-4 - move_paramXX, 72-42, 346+35));
+    ScrewM8Comp4->Move(MbVector3D(-31-4 - move_paramXX, 72+43, 346+35));
+    ScrewM8Comp5->Move(MbVector3D(-31+4 - move_paramXX, 72+43, 346-35));
+    ScrewM8Comp6->Move(MbVector3D(-31 - move_paramXX, 72+43, 346));
 
     ScrewAM8Comp1->Rotate(AxZ, -90 * M_PI / 180);
     ScrewAM8Comp2->Rotate(AxZ, -90 * M_PI / 180);
@@ -1139,15 +1183,36 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     WasherM8Comp2->Move(MbVector3D(-59, 127, 362.5));
 
     WasherM16Comp1->Rotate(AxY, -6 * M_PI / 180);
-    WasherM16Comp1->Move(MbVector3D(-103, 72, 182));
+    WasherM16Comp1->Move(MbVector3D(-103 - move_paramXX * 0.5, 72, 182));
 
-    RingA20Comp1->Move(MbVector3D(-36.7, 18.2, 179.5));
+    RingA20Comp1->Move(MbVector3D(-36.7 - move_paramXX * 0.5, 18.2, 179.5));
+
+    WasherM10_81Comp1->Rotate(AxY, 5 * M_PI / 180);
+    WasherM10_82Comp1->Rotate(AxY, 5 * M_PI / 180);
+    WasherM10_83Comp1->Rotate(AxY, 5 * M_PI / 180);
+    WasherM10_84Comp1->Rotate(AxY, 5 * M_PI / 180);
+    WasherM10_81Comp1->Move(MbVector3D(36, 72-35+0.8, 21));
+    WasherM10_82Comp1->Move(MbVector3D(36, 72+35+0.8, 21));
+    WasherM10_83Comp1->Move(MbVector3D(-36+2, 72+35+0.8, 21+3));
+    WasherM10_84Comp1->Move(MbVector3D(-36+2, 72-35+0.8, 21+3));
+    WasherM10_85Comp1->Rotate(AxY, -(180-5) * M_PI / 180);
+    WasherM10_86Comp1->Rotate(AxY, -(180-5) * M_PI / 180);
+    WasherM10_87Comp1->Rotate(AxY, -(180-5) * M_PI / 180);
+    WasherM10_88Comp1->Rotate(AxY, -(180-5) * M_PI / 180);
+
+
+    WasherM10_85Comp1->Move(MbVector3D(36-13+ (move_paramX * 0.22), 72 - 35 + 0.8, -215 - (move_param * 1.05)));
+    WasherM10_86Comp1->Move(MbVector3D(36-13 + (move_paramX * 0.22), 72 + 35 + 0.8, -215 - (move_param * 1.05)));
+    WasherM10_87Comp1->Move(MbVector3D(-36 + 2 -13 + (move_paramX * 0.22), 72 + 35 + 0.8, -215 + 4 - (move_param * 1.05)));
+    WasherM10_88Comp1->Move(MbVector3D(-36 + 2 -13 + (move_paramX * 0.22), 72 - 35 + 0.8, -215 + 4 - (move_param * 1.05)));
+
+
 #pragma endregion
 #pragma region Moves for konfiguration
     Konfiguration1Comp->Rotate(AxY, (180 - 7) * M_PI / 180);
     Konfiguration1Comp->Move(MbVector3D(-60.5, 72.5, 380));
-    
 #pragma endregion
+
     assm->EvaluateConstraints();
 
 #pragma region Position of assemble
