@@ -85,7 +85,7 @@ SPtr<MbSolid> ParametricModelCreator::GWasherM16() {
 SPtr<MbSolid> ParametricModelCreator::GRingA20() {
     ItemSPtr model9;
 
-    path_string  filePath9 = L"C:/Users/Admin/Desktop/деталиИмпорт/Кольцо A20.50 ХГА ГОСТ 13942-86.step";
+    path_string  filePath9 = L"..\\GOST\\Кольцо A20.50 ХГА ГОСТ 13942-86.step";
     ::ImportFromFile(model9, filePath9, nullptr, nullptr);
     MbSolid* RingA20 = static_cast<MbSolid*>((MbItem*)model9);
 
@@ -100,5 +100,45 @@ SPtr<MbSolid> ParametricModelCreator::GWasherM20() {
     MbSolid* WasherM20 = static_cast<MbSolid*>((MbItem*)model10);
 
     SPtr<MbSolid> pSolidRes(WasherM20);
+    return pSolidRes;
+}
+SPtr<MbSolid> ParametricModelCreator::GWasherM10_8() {
+    ItemSPtr model11;
+
+    path_string  filePath11 = L"..\\GOST\\Гайка М10-6H ГОСТ Р 50592-93.step";
+    ::ImportFromFile(model11, filePath11, nullptr, nullptr);
+    MbSolid* WasherM10 = static_cast<MbSolid*>((MbItem*)model11);
+
+    SPtr<MbSolid> pSolidRes(WasherM10);
+    return pSolidRes;
+}
+SPtr<MbSolid> ParametricModelCreator::GScrewAM8_2() {
+    ItemSPtr model12;
+
+    path_string  filePath12 = L"..\\GOST\\Винт А.М8-6gx16 ГОСТ 11074-93.step";
+    ::ImportFromFile(model12, filePath12, nullptr, nullptr);
+    MbSolid* ScrewAM8 = static_cast<MbSolid*>((MbItem*)model12);
+
+    SPtr<MbSolid> pSolidRes(ScrewAM8);
+    return pSolidRes;
+}
+SPtr<MbSolid> ParametricModelCreator::GWasherM8_1() {
+    ItemSPtr model13;
+
+    path_string  filePath13 = L"..\\GOST\\Гайка М8-6H ГОСТ 5916-70.step";
+    ::ImportFromFile(model13, filePath13, nullptr, nullptr);
+    MbSolid* WasherM8 = static_cast<MbSolid*>((MbItem*)model13);
+
+    SPtr<MbSolid> pSolidRes(WasherM8);
+    return pSolidRes;
+}
+SPtr<MbSolid> ParametricModelCreator::GScrewA2_2() {
+    ItemSPtr model14;
+
+    path_string  filePath14 = L"..\\GOST\\Винт А2.М6-6gx10 ГОСТ 17473-80.step";
+    ::ImportFromFile(model14, filePath14, nullptr, nullptr);
+    MbSolid* ScrewM6 = static_cast<MbSolid*>((MbItem*)model14);
+
+    SPtr<MbSolid> pSolidRes(ScrewM6);
     return pSolidRes;
 }

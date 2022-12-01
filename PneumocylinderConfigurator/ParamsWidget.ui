@@ -94,53 +94,21 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Диаметр</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="1">
-          <widget class="QDoubleSpinBox" name="doubleSpinBox_diam">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="buttonSymbols">
-            <enum>QAbstractSpinBox::PlusMinus</enum>
-           </property>
-           <property name="decimals">
-            <number>1</number>
-           </property>
-           <property name="minimum">
-            <double>40.000000000000000</double>
-           </property>
-           <property name="maximum">
-            <double>70.000000000000000</double>
-           </property>
-           <property name="value">
-            <double>50.000000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
           <widget class="Line" name="line">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="2" column="0">
           <widget class="QLabel" name="label_7">
            <property name="text">
             <string>Цвет</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1">
+         <item row="2" column="1">
           <widget class="QComboBox" name="comboBox_colorScheme">
            <property name="currentIndex">
             <number>-1</number>
@@ -161,6 +129,9 @@
        </item>
        <item>
         <widget class="QComboBox" name="comboBox_config"/>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_confB"/>
        </item>
        <item>
         <spacer name="verticalSpacer">

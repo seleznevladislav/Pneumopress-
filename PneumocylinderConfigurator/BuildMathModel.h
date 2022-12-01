@@ -186,6 +186,7 @@ namespace BuildMathModel {
 	class ParametricModelCreator {
 		static int colorScheme; // статическое поле инициализируется вне класса, в .cpp
 		static int variantsConf;
+		static int variantsConfB;
 	public:
 		static MbModel* CreatePneymocylinderModel(BuildParams params);
 	private:
@@ -239,6 +240,10 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::GWassherM8();
 		static SPtr<MbSolid> ParametricModelCreator::GWasherM16();
 		static SPtr<MbSolid> ParametricModelCreator::GRingA20();
+		static SPtr<MbSolid> ParametricModelCreator::GWasherM10_8();
+		static SPtr<MbSolid> ParametricModelCreator::GScrewAM8_2();
+		static SPtr<MbSolid> ParametricModelCreator::GWasherM8_1();
+		static SPtr<MbSolid> ParametricModelCreator::GScrewA2_2();
 		//konfiguration
 		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration1();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration2();

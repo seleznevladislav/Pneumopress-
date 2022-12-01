@@ -213,9 +213,19 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbSolid> RingA20 = GRingA20();
 
 #pragma endregion
-    SPtr<MbSolid> Konfiguration1 = LIS_Konfiguration1();
-    SPtr<MbSolid> Konfiguration2 = LIS_Konfiguration2();
-    SPtr<MbSolid> Konfiguration3 = LIS_Konfiguration3();
+
+    SPtr<MbSolid> Konfiguration1;
+    if (ParametricModelCreator::variantsConfB == 0) {
+        Konfiguration1 = LIS_Konfiguration1();
+    }
+    else if (ParametricModelCreator::variantsConfB == 1)
+    {
+        Konfiguration1 = LIS_Konfiguration2();
+    }
+    else if (ParametricModelCreator::variantsConfB == 2)
+    {
+        Konfiguration1 = LIS_Konfiguration3();
+    }
 
 #pragma region Porshen InstanceSPtr
     InstanceSPtr Porshen1(new MbInstance(*Yaganov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -358,8 +368,6 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma endregion
 
     SPtr<MbInstance> Konfiguration1Comp(new MbInstance(*Konfiguration1, lcs));
-    SPtr<MbInstance> Konfiguration2Comp(new MbInstance(*Konfiguration2, lcs));
-    SPtr<MbInstance> Konfiguration3Comp(new MbInstance(*Konfiguration3, lcs));
 
 #pragma region PUSH_BACK MAIN
     //Переменные для подсборки Поршень
@@ -447,10 +455,10 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     pair.push_back(RingA20Comp1);
 #pragma endregion
-
+    
     pair.push_back(Konfiguration1Comp);
-    pair.push_back(Konfiguration2Comp);
-    pair.push_back(Konfiguration3Comp);
+    //pair.push_back(Konfiguration2Comp);
+    //pair.push_back(Konfiguration3Comp);
 
     MbAssembly* assm = new MbAssembly(pair);
 
@@ -961,8 +969,6 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     MtGeomArgument PHM1(Vasinkina2->GetFace(23), Sborka2Comp);
     MtGeomArgument PHM2(Vasinkina1->GetFace(0), Sborka16Comp);
     MtGeomArgument PHM2XXX(VasinkinaXXX->GetFace(0), SborkaXXXComp);
-    //assm->AddConstraint(GCM_DISTANCE, PHM1, PHM2, 143.0); много
-    //assm->AddConstraint(GCM_DISTANCE, PHM1, PHM2, 80.0);
 
     ParametricModelCreator::variantsConf ?
         assm->AddConstraint(GCM_ANGLE, PHM1, PHM2XXX, 180 * M_PI / 180)
@@ -971,7 +977,6 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 
     MtGeomArgument PHM3(Morozova2->GetFace(0), Shatun2Comp);
     MtGeomArgument PHM4(Zarubin1->GetFace(17), Porshen3Comp);
-    //assm->AddConstraint(GCM_DISTANCE, PHM3, PHM4, 30.0);
 
     MtGeomArgument PHM5(Fukina5->GetFace(0), Oc2Comp);
     MtGeomArgument PHM6(Prihodko2->GetFace(15), Sborka3Comp);
@@ -1151,5 +1156,6 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->Rotate(AxX, -(7 * M_PI / 180));
     assm->Move(MbVector3D(72, 600, 0));
 #pragma endregion
+
 	return assm;
 }
