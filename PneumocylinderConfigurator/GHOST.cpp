@@ -12,16 +12,6 @@ SPtr<MbSolid> ParametricModelCreator::GBolt4m10() {
 	SPtr<MbSolid> pSolidRes(Bolt4m10);
 	return pSolidRes;
 }
-SPtr<MbSolid> ParametricModelCreator::GWasherM20() {
-	ItemSPtr model10;
-
-	path_string  filePath10 = L"..\\GOST\\Гайка М20-6H ГОСТ 5916-70.step";
-	::ImportFromFile(model10, filePath10, nullptr, nullptr);
-	MbSolid* WasherM20 = static_cast<MbSolid*>((MbItem*)model10);
-
-	SPtr<MbSolid> pSolidRes(WasherM20);
-	return pSolidRes;
-}
 SPtr<MbSolid> ParametricModelCreator::GWasherA14() {
     ItemSPtr model2;
 
@@ -62,23 +52,53 @@ SPtr<MbSolid> ParametricModelCreator::GScrewM8() {
     SPtr<MbSolid> pSolidRes(ScrewM8);
     return pSolidRes;
 }
+SPtr<MbSolid> ParametricModelCreator::GScrewAM8() {
+    ItemSPtr model6;
 
-/*
-
-
-    path_string  filePath6 = L"C:/Users/Admin/Desktop/деталиИмпорт/Винт А.М8-6gx35 ГОСТ 11074-93.step";
+    path_string  filePath6 = L"..\\GOST\\Винт А.М8-6gx35 ГОСТ 11074-93.step";
     ::ImportFromFile(model6, filePath6, nullptr, nullptr);
     MbSolid* ScrewAM8 = static_cast<MbSolid*>((MbItem*)model6);
 
-    path_string  filePath7 = L"C:/Users/Admin/Desktop/деталиИмпорт/Гайка М8-6H ГОСТ 5915-70.step";
+    SPtr<MbSolid> pSolidRes(ScrewAM8);
+    return pSolidRes;
+}
+SPtr<MbSolid> ParametricModelCreator::GWassherM8() {
+    ItemSPtr model7;
+
+    path_string  filePath7 = L"..\\GOST\\Гайка М8-6H ГОСТ 5915-70.step";
     ::ImportFromFile(model7, filePath7, nullptr, nullptr);
     MbSolid* WassherM8 = static_cast<MbSolid*>((MbItem*)model7);
 
-    path_string  filePath8 = L"C:/Users/Admin/Desktop/деталиИмпорт/Гайка М16-6H ГОСТ 5915-70.step";
+    SPtr<MbSolid> pSolidRes(WassherM8);
+    return pSolidRes;
+}
+SPtr<MbSolid> ParametricModelCreator::GWasherM16() {
+    ItemSPtr model8;
+
+    path_string  filePath8 = L"..\\GOST\\Гайка М16-6H ГОСТ 5915-70.step";
     ::ImportFromFile(model8, filePath8, nullptr, nullptr);
     MbSolid* WasherM16 = static_cast<MbSolid*>((MbItem*)model8);
+
+    SPtr<MbSolid> pSolidRes(WasherM16);
+    return pSolidRes;
+}
+SPtr<MbSolid> ParametricModelCreator::GRingA20() {
+    ItemSPtr model9;
 
     path_string  filePath9 = L"C:/Users/Admin/Desktop/деталиИмпорт/Кольцо A20.50 ХГА ГОСТ 13942-86.step";
     ::ImportFromFile(model9, filePath9, nullptr, nullptr);
     MbSolid* RingA20 = static_cast<MbSolid*>((MbItem*)model9);
-*/
+
+    SPtr<MbSolid> pSolidRes(RingA20);
+    return pSolidRes;
+}
+SPtr<MbSolid> ParametricModelCreator::GWasherM20() {
+    ItemSPtr model10;
+
+    path_string  filePath10 = L"..\\GOST\\Гайка М20-6H ГОСТ 5916-70.step";
+    ::ImportFromFile(model10, filePath10, nullptr, nullptr);
+    MbSolid* WasherM20 = static_cast<MbSolid*>((MbItem*)model10);
+
+    SPtr<MbSolid> pSolidRes(WasherM20);
+    return pSolidRes;
+}

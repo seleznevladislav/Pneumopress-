@@ -235,5 +235,9 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::GScrewM14();
 		static SPtr<MbSolid> ParametricModelCreator::GScrewM10();
 		static SPtr<MbSolid> ParametricModelCreator::GScrewM8();
+		static SPtr<MbSolid> ParametricModelCreator::GScrewAM8();
+		static SPtr<MbSolid> ParametricModelCreator::GWassherM8();
+		static SPtr<MbSolid> ParametricModelCreator::GWasherM16();
+		static SPtr<MbSolid> ParametricModelCreator::GRingA20();
 	};
 }

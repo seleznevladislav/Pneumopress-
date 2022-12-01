@@ -203,6 +203,16 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbSolid> ScrewM84 = GScrewM8();
     SPtr<MbSolid> ScrewM85 = GScrewM8();
     SPtr<MbSolid> ScrewM86 = GScrewM8();
+    
+    SPtr<MbSolid> ScrewAM81 = GScrewAM8();
+    SPtr<MbSolid> ScrewAM82 = GScrewAM8();
+
+    SPtr<MbSolid> WassherM81 = GWassherM8();
+    SPtr<MbSolid> WassherM82 = GWassherM8();
+
+    SPtr<MbSolid> WasherM16 = GWasherM16();
+    
+    SPtr<MbSolid> RingA20 = GRingA20();
 #pragma endregion
 
 #pragma region Porshen InstanceSPtr
@@ -330,6 +340,16 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     SPtr<MbInstance> ScrewM8Comp4(new MbInstance(*ScrewM84, lcs));
     SPtr<MbInstance> ScrewM8Comp5(new MbInstance(*ScrewM85, lcs));
     SPtr<MbInstance> ScrewM8Comp6(new MbInstance(*ScrewM86, lcs));
+
+    SPtr<MbInstance> ScrewAM8Comp1(new MbInstance(*ScrewAM81, lcs));
+    SPtr<MbInstance> ScrewAM8Comp2(new MbInstance(*ScrewAM82, lcs));
+
+    SPtr<MbInstance> WasherM8Comp1(new MbInstance(*WassherM81, lcs));
+    SPtr<MbInstance> WasherM8Comp2(new MbInstance(*WassherM82, lcs));
+
+    SPtr<MbInstance> WasherM16Comp1(new MbInstance(*WasherM16, lcs));
+
+    SPtr<MbInstance> RingA20Comp1(new MbInstance(*RingA20, lcs));
 #pragma endregion
 #pragma region PUSH_BACK
     //Переменные для подсборки Поршень
@@ -407,6 +427,15 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     pair.push_back(ScrewM8Comp5);
     pair.push_back(ScrewM8Comp6);
 
+    pair.push_back(ScrewAM8Comp1);
+    pair.push_back(ScrewAM8Comp2);
+
+    pair.push_back(WasherM8Comp1);
+    pair.push_back(WasherM8Comp2);
+
+    pair.push_back(WasherM16Comp1);
+
+    pair.push_back(RingA20Comp1);
 
     MbAssembly* assm = new MbAssembly(pair);
 
@@ -496,7 +525,12 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     //Боковое отверстие для выравнивания
     MtGeomArgument PHR3(Seleznev1->GetFace(55), Sborka4Comp);
     MtGeomArgument PHR4(Vasinkina1->GetFace(14), Sborka16Comp);
-    assm->AddConstraint(GCM_CONCENTRIC, PHR3, PHR4);
+    MtGeomArgument PHR4XXX(VasinkinaXXX->GetFace(21), SborkaXXXComp);
+    
+    ParametricModelCreator::variantsConf ?
+        assm->AddConstraint(GCM_CONCENTRIC, PHR3, PHR4XXX)
+        :
+        assm->AddConstraint(GCM_CONCENTRIC, PHR3, PHR4);
 #pragma endregion
 #pragma region Porshen - Krishki and Cylinder
 //Параметр расстояния от крышек до цилиндра
@@ -637,8 +671,12 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     assm->AddConstraint(GCM_CONCENTRIC, HoleL1, HoleL, 1);
     
     MtGeomArgument HoleL2(Vasinkina1->GetFace(0), Sborka16Comp);
+    MtGeomArgument HoleL2XXX(VasinkinaXXX->GetFace(0), SborkaXXXComp);
     MtGeomArgument HoleL12(Solov1->GetFace(7), Sborka7Comp);
-    assm->AddConstraint(GCM_ANGLE, HoleL12, HoleL2, 0 * M_PI / 180);
+    ParametricModelCreator::variantsConf ?
+        assm->AddConstraint(GCM_ANGLE, HoleL12, HoleL2XXX, 0 * M_PI / 180)
+        :
+        assm->AddConstraint(GCM_ANGLE, HoleL12, HoleL2, 0 * M_PI / 180);
 #pragma endregion
 #pragma region Sborka - Polzun and Napravlyachaya
     double Val14 = 0;
@@ -907,9 +945,14 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
 #pragma region Sborka - End constraints
     MtGeomArgument PHM1(Vasinkina2->GetFace(23), Sborka2Comp);
     MtGeomArgument PHM2(Vasinkina1->GetFace(0), Sborka16Comp);
+    MtGeomArgument PHM2XXX(VasinkinaXXX->GetFace(0), SborkaXXXComp);
     //assm->AddConstraint(GCM_DISTANCE, PHM1, PHM2, 143.0); много
     //assm->AddConstraint(GCM_DISTANCE, PHM1, PHM2, 80.0);
-    assm->AddConstraint(GCM_ANGLE, PHM1, PHM2, 180 * M_PI / 180);
+
+    ParametricModelCreator::variantsConf ?
+        assm->AddConstraint(GCM_ANGLE, PHM1, PHM2XXX, 180 * M_PI / 180)
+        :
+        assm->AddConstraint(GCM_ANGLE, PHM1, PHM2, 180 * M_PI / 180);
 
     MtGeomArgument PHM3(Morozova2->GetFace(0), Shatun2Comp);
     MtGeomArgument PHM4(Zarubin1->GetFace(17), Porshen3Comp);
@@ -1048,44 +1091,44 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     ScrewM10Comp2->Rotate(AxY, -(180 - 84) * M_PI / 180);
     ScrewM10Comp1->Move(MbVector3D(-140,  72-16, 86+9));
     ScrewM10Comp2->Move(MbVector3D(-140,  72+16, 86+9));
+
+    ScrewM8Comp1->Rotate(AxY, (180-6) * M_PI / 180);
+    ScrewM8Comp2->Rotate(AxY, (180-6) * M_PI / 180);
+    ScrewM8Comp3->Rotate(AxY, (180-6) * M_PI / 180);
+    ScrewM8Comp4->Rotate(AxY, (180-6) * M_PI / 180);
+    ScrewM8Comp5->Rotate(AxY, (180-6) * M_PI / 180);
+    ScrewM8Comp6->Rotate(AxY, (180-6) * M_PI / 180);
+
+    ScrewM8Comp1->Move(MbVector3D(-31, 72-42, 346));
+    ScrewM8Comp2->Move(MbVector3D(-31+4, 72-42, 346-35));
+    ScrewM8Comp3->Move(MbVector3D(-31-4, 72-42, 346+35));
+    ScrewM8Comp4->Move(MbVector3D(-31-4, 72+43, 346+35));
+    ScrewM8Comp5->Move(MbVector3D(-31+4, 72+43, 346-35));
+    ScrewM8Comp6->Move(MbVector3D(-31, 72+43, 346));
+
+    ScrewAM8Comp1->Rotate(AxZ, -90 * M_PI / 180);
+    ScrewAM8Comp2->Rotate(AxZ, -90 * M_PI / 180);
+    ScrewAM8Comp1->Move(MbVector3D(-59, 140, 362.5));
+    ScrewAM8Comp2->Move(MbVector3D(-54, 140, 322.5));
+
+    WasherM8Comp1->Rotate(AxY, 90 * M_PI / 180);
+    WasherM8Comp1->Rotate(AxZ, 90 * M_PI / 180);
+    WasherM8Comp1->Move(MbVector3D(-54, 127, 322.5));
+    WasherM8Comp2->Rotate(AxY, 90 * M_PI / 180);
+    WasherM8Comp2->Rotate(AxZ, 90 * M_PI / 180);
+    WasherM8Comp2->Move(MbVector3D(-59, 127, 362.5));
+
+    WasherM16Comp1->Rotate(AxY, -6 * M_PI / 180);
+    WasherM16Comp1->Move(MbVector3D(-103, 72, 182));
+
+    RingA20Comp1->Move(MbVector3D(-36.7, 18.2, 179.5));
 #pragma endregion
 
     assm->EvaluateConstraints();
 
-    assm->Rotate(AxX, M_PI / 2);
-    assm->Rotate(AxY, - M_PI / 2);
-    //assm->Rotate(AxZ, -M_PI / 4);
+    assm->Rotate(AxX, (M_PI / 2 ) );
+    assm->Rotate(AxY,  - M_PI / 2);
+    assm->Rotate(AxX, -(7 * M_PI / 180));
     assm->Move(MbVector3D(72, 600, 0));
 	return assm;
 }
-///Фукина для 3
-//MbAxis3D axVert(MbVector3D(0, 1, 0));
-//assm->Rotate(axVert, M_PI / 2);
-//assm->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0), MbVector3D(0, 1, 1), MbVector3D(1, 1, 0)));
-//Seleznev1->SetPlacement(MbPlacement3D(MbCartPoint3D(0.0, 0.0, 500.0)));
-//assm->Move(MbVector3D(500, 1000, 300));
-
-
-// Это просто так добавил как у нас была раньше реализована анимация
-//const clock_t duration = CLOCKS_PER_SEC * 4; // 2 seconds
-//const double delta = CLOCKS_PER_SEC / 24;
-//const clock_t startClock = std::clock();
-//while (std::clock() < (startClock + duration))
-//{
-//    const clock_t t = std::clock();
-//    assm->ChangeDimension(angDim, (t - startClock) * 200 / duration);
-//    assm->ChangeDimension(angDim2, (t - startClock) * 200 / duration);
-//    assm->ChangeDimension(angDim3, (t - startClock) * 200 / duration);
-//    assm->ChangeDimension(angDim4, (t - startClock) * 200 / duration);
-//    assm->ChangeDimension(angDim5, (t - startClock) * 200 / duration);
-
-//    while (std::clock() - t < delta); // delay
-//    /* MbAxis3D axVert(MbVector3D(0, 1, 0));
-//     assm->Rotate(axVert, M_PI / 2);
-//     MbAxis3D axVert2(MbVector3D(1, 0, 0));
-//     assm->Rotate(axVert2, -M_PI / 2);
-//     MbAxis3D axVert3(MbVector3D(0, 0, 1));
-//     assm->Rotate(axVert3, M_PI);*/
-//    viewManager->RefreshModel();
-//    viewManager->ShowModel();
-//}
