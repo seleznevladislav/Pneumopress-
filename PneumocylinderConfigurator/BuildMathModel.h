@@ -248,5 +248,6 @@ namespace BuildMathModel {
 		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration1();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration2();
 		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration3();
+		static SPtr<MbSolid> ParametricModelCreator::LIS_Konfiguration4();
 	};
 }

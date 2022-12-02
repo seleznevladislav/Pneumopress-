@@ -240,6 +240,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
         Konfiguration1 = LIS_Konfiguration3();
     }
 
+
 #pragma region Porshen InstanceSPtr
     InstanceSPtr Porshen1(new MbInstance(*Yaganov1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
     InstanceSPtr Porshen2(new MbInstance(*Morozova1, MbPlacement3D(MbCartPoint3D(0.0, 0.0, 0.0))));
@@ -1119,6 +1120,7 @@ MbAssembly* ParametricModelCreator::CreatePneumocylinderAssembly(BuildParams par
     if (move_param < 0)
     {
         move_paramX = move_param * -0.22;
+        move_paramXX = move_param * 0.4;
     }
     if (move_param > 0)
     {
